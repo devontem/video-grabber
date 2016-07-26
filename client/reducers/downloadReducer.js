@@ -3,13 +3,15 @@
 const downloadReducer = function(state = {}, action){
 	switch (action.type) {
 		case "CONVERT_URL":
-			return Object.assign({}, state, { baseUrl: action.baseUrl, downloadUrl: '!!--'+action.baseUrl+'--!!' })
+			return state
 		case "CONVERT_URL_PENDING":
-			return 'pending!'
+			return state
 		case "CONVERT_URL_FULFILLED":
-			return 'fulfilled!'
+			let { data } = action.payload
+
+			return Object.assign({}, state, { baseUrl: data.baseUrl, downloadUrl: data.downloadUrl, status: 'success' })
 		case "CONVERT_URL_REJECTED":
-			return 'rejected!'
+			return {...state, baseUrl: action.baseUrl, status: 'error'}
 		default:
 			return state
 	}
