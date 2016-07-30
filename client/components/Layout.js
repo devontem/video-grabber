@@ -1,5 +1,6 @@
 
 import React, { Component } from 'react'
+import Header from './Header'
 
 export default class Layout extends Component {
 
@@ -7,9 +8,11 @@ export default class Layout extends Component {
 
 		return (
 			<div>
-				<h1>Header!</h1>
+				<Header />
+				<div className="">
 					{this.props.children}
-				<h1>Footer</h1>
+				</div>
+
 			</div>
 		)
 	}

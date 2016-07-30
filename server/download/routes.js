@@ -2,7 +2,8 @@ var downloadController = require('./downloadController');
 
 module.exports = function(app){
 	
-	app.post('/', downloadController.convertLink);
+	// app.post('/', downloadController.convertLink);
+	app.post('/', downloadController.queryDownload);	
 	app.get('/id/:id', downloadController.getDownload);
-	app.post('/id', downloadController.queryDownload);	
+	app.get('/check/id/:id', downloadController.checkDownload);
 }

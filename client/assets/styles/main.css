@@ -1,0 +1,78 @@
+body {
+	background: rgba(34,36,38,.1);
+}
+
+.search-bar {
+	width: 100% !important;
+}
+
+.main-card {
+	margin: 10px 0px;
+    width: 100%!important;
+}
+
+.main-wrapper {
+/*	max-width: 460px;
+	margin: 0px auto;*/
+	padding: 10px;
+	max-width: 600px;
+    margin: 30px auto;
+}
+
+.item {
+    background: rgba(181, 204, 24, 0.47) !important;
+    position: relative !important;
+    border-radius: 5px !important;
+    padding: 10px !important;
+}
+
+.item .extra {
+    bottom: 0px;
+    padding: 10px !important;
+
+}
+
+.center {
+    text-align: center;
+}
+
+.ui.segment.nav-bar {
+	background: #b5cc18;
+}
+
+.ui.segment.content {
+    padding: 40px 20px;
+}
+.ui.segment.content .header {
+    margin-bottom: 50px;
+} 
+.convert-btn {
+	margin-top: 15px;
+	text-align: right;
+}
+.try-again a,
+.try-again a:hover,
+.try-again a:visited {
+    color:white;
+}
+
+.bg::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: url("http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/swirl_pattern.png");
+    background-size: contain;
+    background-image: url('http://cdn1.bestpsdfreebies.com/wp-content/uploads/2014/05/shards_pattern.jpg');
+    background-repeat: repeat;
+    width: 100%;
+    height: 100%;
+    opacity: 0.2;
+    z-index: -1;
+}
+
+
+
+
+

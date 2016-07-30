@@ -14,7 +14,8 @@
     "react-redux": "^4.4.5",
     "react-router": "^2.6.0",
     "redux": "^3.5.2",
-    "request": "^2.74.0"
+    "request": "^2.74.0",
+    "youtube-dl": "^1.11.1"
   },
   "devDependencies": {
     "babel-core": "^6.11.4",

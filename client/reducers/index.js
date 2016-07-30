@@ -2,9 +2,11 @@
 
 import { combineReducers } from 'redux'
 import downloadReducer from './downloadReducer'
+import downloadStatusReducer from './downloadStatusReducer'
 
 const reducers = combineReducers({
-	download: downloadReducer
+	download: downloadReducer,
+	status: downloadStatusReducer
 });
 
 export default reducers

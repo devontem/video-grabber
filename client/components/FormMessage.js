@@ -4,25 +4,21 @@ import React, { Component } from 'react'
 export default class FormMessage extends Component {
 
 
-	createData(status, downloadUrl){
+	createData(error, message){
 		let data = {};
 
-		if (status === 'error'){
-			data.heading = 'Ooops...'
-			data.messaging = "There was an error please try again"
-		} else if (status === 'success'){
-			data.heading = "Congrats..."
-			data.messaging = "Your file has been converted! -> "+ downloadUrl;
-		}
+		data.messaging = message;
+		data.heading = error ? 'Ooops...' : "Congrats!";
 		
 		return data;
 	}
 
 	render(){
 
-		const { downloadUrl, status } = this.props
+		const { message, error } = this.props
 
-		const data = this.createData(status, downloadUrl);
+		const data = this.createData(error, message);
+		let status = error ? 'error' : 'success';
 		const classes = "ui "+status+" message"
 
 		return (

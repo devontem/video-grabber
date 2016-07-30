@@ -3,6 +3,7 @@ import { connect } from "react-redux"
 import React, { Component } from 'react'
 import axios from 'axios'
 import FormMessage from './FormMessage'
+import VideoInfo from './VideoInfo'
 
 
 // connecting redux store with react component
@@ -23,8 +24,12 @@ class App extends Component {
 				baseUrl: val,
 				payload: axios.post('http://localhost:3000/api/download/', {
 					baseUrl: val })
+			}).catch(function(e){
+				console.log('E ==== '+ e)
 			})
 			this.refs.link.value = '';
+		} else {
+			this.props.dispatch({type: 'FORM_VALIDATION', message: "Please enter a valid link"})
 		}
 	}
 
@@ -32,28 +37,42 @@ class App extends Component {
 		let result;
 		const { store } = this.props
 
-		if (store.baseUrl && store.downloadUrl){
-			result = <FormMessage status={store.status} downloadUrl={store.downloadUrl} />
+		// form message
+		if (store.message){
+			result = <FormMessage error={store.error } message={store.message ? store.message : undefined} />
 		}
-		console.log(this.props)
+
+		// loader
+		let loader = store.pending ? "ui active inverted dimmer" : "ui inverted dimmer";
+
+		// video info
+		let show_video_info = ''
+		if (store.success) show_video_info = <VideoInfo hash={ store.hash } info={store.videoInfo} />
+
+		console.log('hi!!', this.props)
 
 		return (
-			<div>
-				<div className="ui card">
+			<div className="main-wrapper">
+				<div className="main-card ui card">
 				  <div className="content">
-				    <h4 className="ui sub header">Activity</h4>
-				    <div className="ui big icon input">
+				    <div className="ui big icon input search-bar">
 					  <input type="text" ref='link' placeholder="Please enter the base URL" />
 					  <i className="search icon"></i>
 					</div>
 
 				  </div>
-				  <div className="extra content">
+				  <div className="extra content convert-btn">
 				    <button className="ui button" onClick={this.convertLink.bind(this)} >Convert Link</button>
 				  </div>
 				</div>
 
+				<div className={ loader }>
+				   <div className="ui large text loader">Converting File</div>
+				 </div>
+
 				{ result }
+
+				{ show_video_info }
 
 			</div>
 		)
