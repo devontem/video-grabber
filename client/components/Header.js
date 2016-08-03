@@ -7,17 +7,7 @@ export default class Header extends Component {
     
     return (
       <div className="ui  segment nav-bar">
-        <div className="ui  secondary menu">
-          <a className="active item">
-            Home
-          </a>
-          <a className="item">
-            Messages
-          </a>
-          <a className="item">
-            Friends
-          </a>
-        </div>
+        <h1 className="header-text">Video Grabber</h1>
       </div>
     )
   } 

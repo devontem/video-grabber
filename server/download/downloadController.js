@@ -1,20 +1,16 @@
-var convertLink = require('./../helpers/convertLink');
 var request = require('request');
 var fs = require('fs');
 var youtubedl = require('youtube-dl');
-
-module.exports.convertLink = function(req, res){
-	var baseUrl = req.body.baseUrl;
-	var downloadUrl = 'http://vid-grab.'+baseUrl+'/28392.downlad';
-
-	res.send({ baseUrl: baseUrl, downloadUrl: downloadUrl });
-}
+var isUrlValid = require('./../helpers/downloadHelpers').isUrlValid;
+var generateHash = require('./../helpers/downloadHelpers').generateHash;
+var deleteExpired = require('./../helpers/downloadHelpers').deleteExpired;
 
 module.exports.getDownload = function(req, res){
 	var id = req.params.id;
 	var path = 'server/temp/'+ id +'.mp4';
 	console.log('path is ', path);
 
+	// deletes expired videos in the server
 	deleteExpired();
 
 	if (fs.existsSync(path)) {
@@ -24,22 +20,15 @@ module.exports.getDownload = function(req, res){
 				fs.unlink(path);
 			}
 		});
-
 	}
 }
 
 module.exports.queryDownload = function(req, res){
 
 	var videoLink = req.body.baseUrl
-
-	console.log('are equal? ', videoLink === 'http://www.youtube.com/watch?v=90AiXO1pAiA')
-
-	// console.log(req.body.baseUrl+'-------'+videoLink)
-
-	// if (!isUrlValid(videoLink)) res.send({error: true, message: 'Your link entered was invalid! Make sure you entered it in correctly.'});
-
 	var videoInfo;
 	var hash = generateHash();
+	
 	var video = youtubedl(videoLink,
 	  // Optional arguments passed to youtube-dl.
 	  ['--format=18'],
@@ -59,6 +48,7 @@ module.exports.queryDownload = function(req, res){
     res.status(400).send({error: true, message: 'There was a problem converting this particular video. Please try another video or try again later.'})
   });
 
+	// saves downloaded video to server under hash name
 	video.pipe(fs.createWriteStream('server/temp/'+ hash +'.mp4'))
 
 	video.on('complete', function complete(info) {
@@ -67,10 +57,14 @@ module.exports.queryDownload = function(req, res){
 	});
 
 	video.on('end', function(err){
-		console.log('Video Download Ended')
+		console.log('Video Download Ended. Hash ID is: '+ hash);
+
 		if (err) res.status(400).send({error: true, message: 'There was a problem converting this particular video. Please try another video or try again later.'})
-		console.log('The video hash is...'+ hash)
-		res.send({error:false, message: 'Your download is complete.. please wait to be redirected or navigate to /download/id/'+hash, hash: hash, videoInfo: videoInfo})
+
+		res.send({  error:false, 
+					message: 'Your download is complete.. please wait to be redirected or navigate to /download/id/'+hash, 
+					hash: hash, 
+					videoInfo: videoInfo });
 	})
 	
 }
@@ -79,7 +73,7 @@ module.exports.checkDownload = function(req, res){
 
 	var id = req.params.id;
 	var path = 'server/temp/'+ id +'.mp4';
-	console.log('path is ', path);
+	console.log('Checking if the following file exists: '+ path +'.mp4');
 
 	if (fs.existsSync(path)) {
 
@@ -87,53 +81,8 @@ module.exports.checkDownload = function(req, res){
 
 	} else {
 
-		res.send({status: false, message: 'This video has already been downloaded or has expired! Please try to convert again.'})
+		res.send({status: false, message: 'This video has already been downloaded or has expired! Please try to convert again.'});
+
 	}
 }
-
-function deleteExpired(){
-	var now = Date.now();
-
-	// Loop through all the files in the temp directory
-	fs.readdir( 'server/temp', function( err, files ) {
-	        if( err ) {
-	            console.error( "Could not list the directory.", err );
-	            process.exit( 1 );
-	        } 
-
-	        files.forEach( function( file, index ) {
-	                // Make one pass and make the file complete
-	                var fromPath = 'server/temp/' + file;
-
-	                fs.stat( fromPath, function( error, stat ) {
-	                    if( error ) {
-	                        console.error( "Error stating file.", error );
-	                        return;
-	                    }
-
-	                    var fileModified = stat.mtime;
-
-	                    if (now - fileModified >= 20*60*1000) {
-						    fs.unlink(fromPath)
-						}
-	                } );
-	        });
-	});
-
-	console.log('Expired Files Deleted: DONE')
-
-}
-
-function generateHash(){
-	return Math.random().toString(36).substring(7);
-}
-
-function isUrlValid(userInput) {
-    var res = userInput.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
-    if(res == null)
-        return false;
-    else
-        return true;
-}
-
 

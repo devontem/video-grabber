@@ -29976,23 +29976,9 @@
 	        "div",
 	        { className: "ui  segment nav-bar" },
 	        _react2.default.createElement(
-	          "div",
-	          { className: "ui  secondary menu" },
-	          _react2.default.createElement(
-	            "a",
-	            { className: "active item" },
-	            "Home"
-	          ),
-	          _react2.default.createElement(
-	            "a",
-	            { className: "item" },
-	            "Messages"
-	          ),
-	          _react2.default.createElement(
-	            "a",
-	            { className: "item" },
-	            "Friends"
-	          )
+	          "h1",
+	          { className: "header-text" },
+	          "Video Grabber"
 	        )
 	      );
 	    }

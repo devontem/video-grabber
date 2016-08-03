@@ -32,6 +32,12 @@ body {
 
 }
 
+.header-text {
+    font-family: 'Carter One', cursive;
+    font-size: 30px;
+    color: #0470c1;
+}
+
 .center {
     text-align: center;
 }
