@@ -46,8 +46,6 @@
 
 	"use strict";
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
@@ -78,35 +76,6 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var test = function (_React$Component) {
-		_inherits(test, _React$Component);
-
-		function test() {
-			_classCallCheck(this, test);
-
-			return _possibleConstructorReturn(this, Object.getPrototypeOf(test).apply(this, arguments));
-		}
-
-		_createClass(test, [{
-			key: "render",
-			value: function render() {
-				return _react2.default.createElement(
-					"h1",
-					null,
-					"Test"
-				);
-			}
-		}]);
-
-		return test;
-	}(_react2.default.Component);
-
 	var app = document.getElementById('root');
 
 	_reactDom2.default.render(_react2.default.createElement(
@@ -119,10 +88,8 @@
 				_reactRouter.Route,
 				{ path: "/", component: _Layout2.default },
 				_react2.default.createElement(_reactRouter.IndexRoute, { component: _App2.default }),
-				_react2.default.createElement(_reactRouter.Route, { path: "test", component: test }),
 				_react2.default.createElement(_reactRouter.Route, { path: "download/id/:id", component: _DownloadPage2.default })
-			),
-			_react2.default.createElement(_App2.default, null)
+			)
 		)
 	), app);
 
@@ -22802,8 +22769,6 @@
 				var show_video_info = '';
 				if (store.success) show_video_info = _react2.default.createElement(_VideoInfo2.default, { hash: store.hash, info: store.videoInfo });
 
-				console.log('hi!!', this.props);
-
 				return _react2.default.createElement(
 					'div',
 					{ className: 'main-wrapper' },
@@ -30681,11 +30646,6 @@
 				}).catch(function (e) {
 					console.log('Error: ', e);
 				});
-			}
-		}, {
-			key: 'download',
-			value: function download(id) {
-				window.open('/api/download/id/' + id);
 			}
 		}, {
 			key: 'clearDownloadState',

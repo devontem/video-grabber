@@ -13,11 +13,10 @@ const app = document.getElementById('root')
 ReactDOM.render(
 <Provider store={store}>
 	<Router history={hashHistory}>
-		<Route path='/' component={ Layout }> 
-			<IndexRoute component={ App } />
+		<Route path='/' component={Layout}> 
+			<IndexRoute component={App} />
 
 			<Route path='download/id/:id' component={DownloadPage}/>
 		</Route>
-	  	<App />
 	  </Router>
 </Provider>, app);

@@ -27,10 +27,6 @@ export default class DownloadPage extends Component {
 			})
 	}
 
-	download(id){
-		window.open('/api/download/id/'+id)
-	}
-
 	clearDownloadState(){
 		this.props.dispatch({type: 'CLEAR_DOWNLOAD_STATE'})
 	}

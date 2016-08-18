@@ -25,7 +25,7 @@ class App extends Component {
 				payload: axios.post('http://localhost:3000/api/download/', {
 					baseUrl: val })
 			}).catch(function(e){
-				console.log('E ==== '+ e)
+				console.log('Error: '+ e)
 			})
 			this.refs.link.value = '';
 		} else {
@@ -48,8 +48,6 @@ class App extends Component {
 		// video info
 		let show_video_info = ''
 		if (store.success) show_video_info = <VideoInfo hash={ store.hash } info={store.videoInfo} />
-
-		console.log('hi!!', this.props)
 
 		return (
 			<div className="main-wrapper">
