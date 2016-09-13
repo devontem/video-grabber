@@ -1,7 +1,13 @@
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
+var config = require('./config');
+var promise = require('bluebird');
+var mongoose = require('mongoose');
 
 module.exports = function(app, express){
+
+	// setting application variables
+	app.set('secret', config.secret);
 
 	// serving static files
 	app.use(express.static(__dirname + '/../../client'));
@@ -15,13 +21,19 @@ module.exports = function(app, express){
 	// parses json data on request
 	app.use(bodyParser.json());
 
+	// setting up the db
+	// mongoose.Promise = promise;
+	// mongoose.connect('mongodb://localhost/test');
+
 	// routers
 	var downloadRouter = express.Router();
 	var userRouter = express.Router();
+	var authRouter = express.Router();
 
 	// routes
 	app.use('/api/download', downloadRouter);
 	app.use('/api/users', userRouter);
+	app.use('/api/authenticate', authRouter);
 
 	// initializing routers
 	var downloadRoutes = require('../download/routes');
@@ -29,4 +41,7 @@ module.exports = function(app, express){
 
 	var userRoutes = require('../users/routes');
 	userRoutes(userRouter);
+
+	var authRoutes = require('../auth/routes');
+	authRoutes(authRouter)
 }

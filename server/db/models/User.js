@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+var mongoose = require('./../../config/db');
 var bcrypt = require('bcrypt');
 var saltRounds = 10;
 
@@ -7,7 +7,7 @@ var userSchema = mongoose.Schema({
 	email: String,
 	password: String,
 	points: Number,
-	archives: [{ link: String, hash: String, expired: Boolean}],
+	archives: [{ data: Object, link: String, hash: String, expired: Boolean}],
 	friends: [{ name: String, id: Number }]
 });
 
