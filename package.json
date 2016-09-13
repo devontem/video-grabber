@@ -36,6 +36,7 @@
   },
   "scripts": {
     "start": "nodemon server/server.js",
+    "db": "mongod",
     "dev": "webpack-dev-server --content-base ./client --inline --hot",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
