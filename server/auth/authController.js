@@ -29,7 +29,8 @@ module.exports.login = function(req, res){
 			var token = jwt.sign(user, 'v-grab');
 			res.send({
 				message: 'User logged in.',
-				token: token
+				token: token,
+				user: user
 			});
 		}
 	});

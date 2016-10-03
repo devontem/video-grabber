@@ -5,6 +5,8 @@ var checkAuth = function(req, res, next){
 	// finds the token from the request, query, or header
 	var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
+	console.log('token ', token, req.body);
+
 	if (token){
 
 		jwt.verify(token, 'v-grab', function(err, decoded){

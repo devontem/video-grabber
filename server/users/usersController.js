@@ -19,17 +19,28 @@ module.exports.createUser = function(req, res){
 		// sending information on response
 		res.send({
 			message: 'User created.',
-			token: token
+			token: token,
+			user: user
 		});
 	});
 }
 
 module.exports.updateUser = function(req, res){
-	res.send('getUser');
+	res.send('update user');
 }
 
 module.exports.getUser = function(req, res){
-	res.send('getUser');
+	var id = req.params.id;
+
+	User.findOne({
+		_id: id
+	}, function(err, user){
+
+		if (err) throw err;
+
+		// sending user information
+		res.send(user);
+	});
 }
 
 module.exports.createTest = function(req, res){

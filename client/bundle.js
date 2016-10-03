@@ -68,21 +68,25 @@
 
 	var _store2 = _interopRequireDefault(_store);
 
-	var _DownloadPage = __webpack_require__(292);
+	var _DownloadPage = __webpack_require__(293);
 
 	var _DownloadPage2 = _interopRequireDefault(_DownloadPage);
 
-	var _ProfilePage = __webpack_require__(293);
+	var _ProfilePage = __webpack_require__(294);
 
 	var _ProfilePage2 = _interopRequireDefault(_ProfilePage);
 
-	var _LoginPage = __webpack_require__(294);
+	var _LoginPage = __webpack_require__(295);
 
 	var _LoginPage2 = _interopRequireDefault(_LoginPage);
 
-	var _SignupPage = __webpack_require__(295);
+	var _SignupPage = __webpack_require__(296);
 
 	var _SignupPage2 = _interopRequireDefault(_SignupPage);
+
+	var _requireAuthentication = __webpack_require__(297);
+
+	var _requireAuthentication2 = _interopRequireDefault(_requireAuthentication);
 
 	var _reactRouter = __webpack_require__(219);
 
@@ -101,7 +105,7 @@
 				{ path: "/", component: _Layout2.default },
 				_react2.default.createElement(_reactRouter.IndexRoute, { component: _App2.default }),
 				_react2.default.createElement(_reactRouter.Route, { path: "download/id/:id", component: _DownloadPage2.default }),
-				_react2.default.createElement(_reactRouter.Route, { path: "user/:id", component: _ProfilePage2.default }),
+				_react2.default.createElement(_reactRouter.Route, { path: "profile", component: (0, _requireAuthentication2.default)(_ProfilePage2.default) }),
 				_react2.default.createElement(_reactRouter.Route, { path: "login", component: _LoginPage2.default }),
 				_react2.default.createElement(_reactRouter.Route, { path: "signup", component: _SignupPage2.default })
 			)
@@ -22735,7 +22739,8 @@
 	// connecting redux store with react component
 	var App = (_dec = (0, _reactRedux.connect)(function (store) {
 		return {
-			store: store.download
+			store: store.download,
+			auth: store.auth
 		};
 	}), _dec(_class = function (_Component) {
 		_inherits(App, _Component);
@@ -22747,6 +22752,9 @@
 		}
 
 		_createClass(App, [{
+			key: 'componentWillMount',
+			value: function componentWillMount() {}
+		}, {
 			key: 'convertLink',
 			value: function convertLink() {
 				var val = this.refs.link.value;
@@ -29876,6 +29884,8 @@
 
 	var _Header2 = _interopRequireDefault(_Header);
 
+	var _reactRedux = __webpack_require__(172);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -29894,13 +29904,20 @@
 		}
 
 		_createClass(Layout, [{
+			key: 'loggedIn',
+			value: function loggedIn() {
+				return localStorage.getItem('v-grb') && localStorage.getItem('v-grab-uid');
+			}
+		}, {
 			key: 'render',
 			value: function render() {
+
+				var isLoggedIn = this.loggedIn();
 
 				return _react2.default.createElement(
 					'div',
 					null,
-					_react2.default.createElement(_Header2.default, null),
+					_react2.default.createElement(_Header2.default, { loggedIn: isLoggedIn }),
 					_react2.default.createElement(
 						'div',
 						{ className: '' },
@@ -29919,7 +29936,7 @@
 /* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -29928,9 +29945,15 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+	var _dec, _class;
+
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(219);
+
+	var _reactRedux = __webpack_require__(172);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -29940,7 +29963,11 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Header = function (_Component) {
+	var Header = (_dec = (0, _reactRedux.connect)(function (store) {
+	  return {
+	    auth: store.auth
+	  };
+	}), _dec(_class = function (_Component) {
 	  _inherits(Header, _Component);
 
 	  function Header() {
@@ -29950,24 +29977,69 @@
 	  }
 
 	  _createClass(Header, [{
-	    key: "render",
+	    key: 'logOut',
+	    value: function logOut() {
+	      localStorage.removeItem('v-grb');
+	      localStorage.removeItem('v-grab-uid');
+
+	      // clearing the stores of user information
+	      this.props.dispatch({
+	        type: 'LOGOUT'
+	      });
+	    }
+	  }, {
+	    key: 'render',
 	    value: function render() {
+	      var result = void 0;
+
+	      if (this.props.loggedIn) {
+	        result = _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(
+	            'button',
+	            { className: 'ui blue button try-again' },
+	            _react2.default.createElement(
+	              _reactRouter.Link,
+	              { to: '/profile' },
+	              'Profile'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { className: 'ui blue button try-again', onClick: this.logOut.bind(this) },
+	            _react2.default.createElement(
+	              _reactRouter.Link,
+	              { to: '/' },
+	              'Log Out'
+	            )
+	          )
+	        );
+	      } else {
+	        result = _react2.default.createElement(
+	          'button',
+	          { className: 'ui blue button try-again' },
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: '/login' },
+	            'Log In'
+	          )
+	        );
+	      }
+
+	      // add this back for title
+	      //<h1 className="header-text">Video Grabber</h1>
 
 	      return _react2.default.createElement(
-	        "div",
-	        { className: "ui  segment nav-bar" },
-	        _react2.default.createElement(
-	          "h1",
-	          { className: "header-text" },
-	          "Video Grabber"
-	        )
+	        'div',
+	        { className: 'ui  segment nav-bar' },
+	        result
 	      );
 	    }
 	  }]);
 
 	  return Header;
-	}(_react.Component);
-
+	}(_react.Component)) || _class);
 	exports.default = Header;
 
 /***/ },
@@ -30510,14 +30582,21 @@
 
 	var _signupReducer2 = _interopRequireDefault(_signupReducer);
 
+	var _authReducer = __webpack_require__(292);
+
+	var _authReducer2 = _interopRequireDefault(_authReducer);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	// combining the reducers
 
 	var reducers = (0, _redux.combineReducers)({
 		download: _downloadReducer2.default,
 		status: _downloadStatusReducer2.default,
 		login: _loginReducer2.default,
-		signup: _signupReducer2.default
-	}); // combining the reducers
+		signup: _signupReducer2.default,
+		auth: _authReducer2.default
+	});
 
 	exports.default = reducers;
 
@@ -30620,7 +30699,9 @@
 			case "LOGIN_FULFILLED":
 				return _extends({}, state, { success: true, pending: false }, action.payload.data);
 			case "LOGIN_REJECTED":
-				return _extends({}, state, { error: true, pending: false, message: "There was an unexpected error on your file conversion. Please try again later." });
+				return _extends({}, state, { error: true, pending: false, message: "There was an error creating your account. Please make sure you entered the information correctly." }, action.payload.data);
+			case "LOGOUT":
+				return {};
 			default:
 				return state;
 		}
@@ -30656,6 +30737,8 @@
 				return _extends({}, state, { success: true, pending: false }, action.payload.data);
 			case "SIGNUP_REJECTED":
 				return _extends({}, state, { error: true, pending: false, message: "There was an unexpected error on your file conversion. Please try again later." });
+			case "LOGOUT":
+				return {};
 			default:
 				return state;
 		}
@@ -30665,6 +30748,48 @@
 
 /***/ },
 /* 292 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	// creating the auth reducer
+
+	var authReducer = function authReducer() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+		var action = arguments[1];
+
+
+		switch (action.type) {
+			case 'GET_USER':
+				return state;
+			case 'GET_USER_PENDING':
+				return _extends({}, state, { pending: true, loggedIn: false });
+			case 'GET_USER_FULFILLED':
+				return _extends({}, state, { pending: false, loggedIn: true, user: action.payload.data });
+			case 'GET_USER_REJECTED':
+				return _extends({}, state, { pending: false, loggedIn: false }, action.payload.data);
+			// set's the user's ID after successful login
+			case "SIGNUP_FULFILLED":
+				return _extends({}, state, { loggedIn: true }, action.payload.data);
+			case "LOGIN_FULFILLED":
+				return _extends({}, state, { loggedIn: true }, action.payload.data);
+			case "LOGOUT":
+				return {};
+			default:
+				return state;
+		}
+	};
+
+	exports.default = authReducer;
+
+/***/ },
+/* 293 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30822,7 +30947,7 @@
 	exports.default = DownloadPage;
 
 /***/ },
-/* 293 */
+/* 294 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30858,7 +30983,8 @@
 
 	var ProfilePage = (_dec = (0, _reactRedux.connect)(function (store) {
 		return {
-			store: store.status
+			store: store.status,
+			auth: store.auth
 		};
 	}), _dec(_class = function (_Component) {
 		_inherits(ProfilePage, _Component);
@@ -30870,31 +30996,57 @@
 		}
 
 		_createClass(ProfilePage, [{
-			key: 'componentWillMount',
-			value: function componentWillMount() {}
-		}, {
 			key: 'render',
+
+
+			// updates auth store with user credentials if logged in
+			// componentWillMount(){
+			// 	if (!this.props.auth.user){
+
+			// 		var userId = localStorage.getItem('v-grab-uid');
+			// 		var token = localStorage.getItem('v-grb');
+
+			// 		// if there is a userId, get user information
+			// 		if (userId){
+			// 			this.props.dispatch({
+			// 				type: 'GET_USER',
+			// 				payload: axios.get('http://localhost:3000/api/users/'+userId, {
+			// 					headers: {
+			// 						'x-access-token': token
+			// 					}
+			// 				})
+			// 			});
+			// 		}
+			// 	}
+			// }
+
 			value: function render() {
 				var _props = this.props;
 				var store = _props.store;
+				var auth = _props.auth;
 				var params = _props.params;
 
 				var result = '';
+				var la = 'No User Is Logged In';
 
 				// loader
 				var loader = store.pending ? "ui active inverted dimmer" : "ui inverted dimmer";
 
-				return _react2.default.createElement(
-					'div',
-					{ className: 'main-wrapper center' },
-					_react2.default.createElement(
+				if (auth.user) {
+					la = _react2.default.createElement(
 						'div',
 						{ className: 'ui segment content' },
 						_react2.default.createElement(
 							'div',
 							{ className: 'ui huge header' },
-							'User ID: ',
-							params.id
+							'User: ',
+							auth.user._id
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'ui huge header' },
+							'User Email: ',
+							auth.user.email
 						),
 						_react2.default.createElement(
 							'div',
@@ -30902,7 +31054,13 @@
 							_react2.default.createElement('div', { className: 'ui large text loader' })
 						),
 						result
-					)
+					);
+				}
+
+				return _react2.default.createElement(
+					'div',
+					{ className: 'main-wrapper center' },
+					la
 				);
 			}
 		}]);
@@ -30912,7 +31070,7 @@
 	exports.default = ProfilePage;
 
 /***/ },
-/* 294 */
+/* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30938,6 +31096,10 @@
 
 	var _reactRouter = __webpack_require__(219);
 
+	var _FormMessage = __webpack_require__(217);
+
+	var _FormMessage2 = _interopRequireDefault(_FormMessage);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -30948,7 +31110,8 @@
 
 	var LoginPage = (_dec = (0, _reactRedux.connect)(function (store) {
 		return {
-			store: store.login
+			store: store.login,
+			auth: store.auth
 		};
 	}), _dec(_class = function (_Component) {
 		_inherits(LoginPage, _Component);
@@ -30961,13 +31124,75 @@
 
 		_createClass(LoginPage, [{
 			key: 'componentWillMount',
-			value: function componentWillMount() {}
+			value: function componentWillMount() {
+				// checking if logged in first
+				if (this.loggedIn()) {
+					this.props.history.push('/profile');
+				}
+			}
+
+			// runs on every re-render
+
+		}, {
+			key: 'componentDidUpdate',
+			value: function componentDidUpdate() {
+				if (this.props.store.success) {
+
+					// Setting the token
+					localStorage.setItem('v-grb', this.props.store.token);
+					localStorage.setItem('v-grab-uid', this.props.auth.user._id);
+					// redirecting to the user's home page
+					this.props.history.push('/profile');
+				}
+			}
+		}, {
+			key: 'loggedIn',
+			value: function loggedIn() {
+				return localStorage.getItem('v-grb') && localStorage.getItem('v-grab-uid');
+			}
+		}, {
+			key: 'validateFields',
+			value: function validateFields(email, password) {
+				return email.trim() && password.trim();
+			}
+		}, {
+			key: 'clearFields',
+			value: function clearFields() {
+				this.refs.email.value = '';
+				this.refs.password.value = '';
+			}
+		}, {
+			key: 'redirectTo',
+			value: function redirectTo(link) {
+				browserHistory.push(link);
+			}
 		}, {
 			key: 'submitForm',
 			value: function submitForm() {
-				var name = this.refs.name.value;
 				var email = this.refs.email.value;
 				var password = this.refs.password.value;
+
+				// if both fields have content
+				if (this.validateFields(email, password)) {
+					this.props.dispatch({
+						type: 'LOGIN',
+						payload: _axios2.default.post('http://localhost:3000/api/authenticate/login', {
+							email: email,
+							password: password
+						})
+					});
+
+					// clearing the fields
+					this.clearFields();
+
+					// if form validation fails
+				} else {
+					this.props.dispatch({
+						type: 'FORM_VALIDATION',
+						error: true,
+						message: 'There was an error, please enter the email and password in correct format.'
+					});
+				}
 			}
 		}, {
 			key: 'render',
@@ -30976,14 +31201,20 @@
 				var store = _props.store;
 				var params = _props.params;
 
-				var result = '';
+				var error = '';
 
 				// loader
 				var loader = store.pending ? "ui active inverted dimmer" : "ui inverted dimmer";
 
+				// error messaging
+				if (store.error) {
+					error = _react2.default.createElement(_FormMessage2.default, { error: true, message: store.message ? store.message : undefined });
+				}
+
 				return _react2.default.createElement(
 					'div',
 					{ className: 'main-wrapper center' },
+					error,
 					_react2.default.createElement(
 						'div',
 						{ className: 'ui segment content' },
@@ -30995,9 +31226,8 @@
 						_react2.default.createElement(
 							'form',
 							null,
-							_react2.default.createElement('input', { type: 'text', ref: 'name', name: 'name' }),
-							_react2.default.createElement('input', { type: 'text', ref: 'email', name: 'email' }),
-							_react2.default.createElement('input', { type: 'password', ref: 'password', name: 'password' }),
+							_react2.default.createElement('input', { type: 'text', ref: 'email', placeholder: 'email', name: 'email' }),
+							_react2.default.createElement('input', { type: 'password', ref: 'password', placeholder: 'password', name: 'password' }),
 							_react2.default.createElement(
 								'button',
 								{ type: 'submit', onClick: this.submitForm.bind(this) },
@@ -31008,8 +31238,7 @@
 							'div',
 							{ className: loader },
 							_react2.default.createElement('div', { className: 'ui large text loader' })
-						),
-						result
+						)
 					)
 				);
 			}
@@ -31020,7 +31249,7 @@
 	exports.default = LoginPage;
 
 /***/ },
-/* 295 */
+/* 296 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31056,7 +31285,8 @@
 
 	var SignupPage = (_dec = (0, _reactRedux.connect)(function (store) {
 		return {
-			store: store.signup
+			store: store.signup,
+			auth: store.auth
 		};
 	}), _dec(_class = function (_Component) {
 		_inherits(SignupPage, _Component);
@@ -31068,14 +31298,33 @@
 		}
 
 		_createClass(SignupPage, [{
+			key: 'componentWillMount',
+			value: function componentWillMount() {
+				// checking if logged in first
+				if (this.loggedIn()) {
+					this.props.history.push('/profile');
+				}
+			}
+
+			// runs on every re-render
+
+		}, {
 			key: 'componentDidUpdate',
 			value: function componentDidUpdate() {
-				console.log('hi!', this.props);
+				// after successful signup
 				if (this.props.store.success) {
-					alert('SUCESS!!');
+
+					// Setting the token
 					localStorage.setItem('v-grb', this.props.store.token);
-					this.props.history.push('/user/happy');
+					localStorage.setItem('v-grab-uid', this.props.auth.user._id);
+					// redirecting to the user's home page
+					this.props.history.push('/profile');
 				}
+			}
+		}, {
+			key: 'loggedIn',
+			value: function loggedIn() {
+				return localStorage.getItem('v-grb') && localStorage.getItem('v-grab-uid');
 			}
 		}, {
 			key: 'validateFields',
@@ -31085,19 +31334,21 @@
 		}, {
 			key: 'clearFields',
 			value: function clearFields() {
+				this.refs.name.value = '';
 				this.refs.email.value = '';
 				this.refs.password.value = '';
 			}
 		}, {
 			key: 'redirectTo',
 			value: function redirectTo(link) {
-				_reactRedux.browserHistory.push(link);
+				browserHistory.push(link);
 			}
 		}, {
 			key: 'submitForm',
 			value: function submitForm() {
 				var email = this.refs.email.value;
 				var password = this.refs.password.value;
+				var name = this.refs.name.value;
 
 				// if both fields have content
 				if (this.validateFields(email, password)) {
@@ -31105,7 +31356,8 @@
 						type: 'SIGNUP',
 						payload: _axios2.default.post('http://localhost:3000/api/users/', {
 							email: email,
-							password: password
+							password: password,
+							name: name
 						})
 					});
 
@@ -31148,8 +31400,9 @@
 						_react2.default.createElement(
 							'form',
 							null,
-							_react2.default.createElement('input', { type: 'text', ref: 'email', name: 'email' }),
-							_react2.default.createElement('input', { type: 'password', ref: 'password', name: 'password' }),
+							_react2.default.createElement('input', { type: 'text', ref: 'name', placeholder: 'name', name: 'name' }),
+							_react2.default.createElement('input', { type: 'text', ref: 'email', placeholder: 'email', name: 'email' }),
+							_react2.default.createElement('input', { type: 'password', ref: 'password', placeholder: 'password', name: 'password' }),
 							_react2.default.createElement(
 								'button',
 								{ type: 'submit', onClick: this.submitForm.bind(this) },
@@ -31170,6 +31423,108 @@
 		return SignupPage;
 	}(_react.Component)) || _class);
 	exports.default = SignupPage;
+
+/***/ },
+/* 297 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	exports.default = requireAuthentication;
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(172);
+
+	var _axios = __webpack_require__(195);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	// @connect((store)=>{
+	// 	return {
+	// 		auth: store.auth
+	// 	}
+	// })
+
+	function requireAuthentication(Component) {
+		var AuthenticatedComponent = function (_React$Component) {
+			_inherits(AuthenticatedComponent, _React$Component);
+
+			function AuthenticatedComponent() {
+				_classCallCheck(this, AuthenticatedComponent);
+
+				return _possibleConstructorReturn(this, Object.getPrototypeOf(AuthenticatedComponent).apply(this, arguments));
+			}
+
+			_createClass(AuthenticatedComponent, [{
+				key: 'componentWillMount',
+				value: function componentWillMount() {
+					this.checkAuth();
+				}
+			}, {
+				key: 'checkAuth',
+				value: function checkAuth() {
+					// if there is a user in the store, exit function
+					if (this.props.auth.user) return true;
+
+					var userId = localStorage.getItem('v-grab-uid');
+					var token = localStorage.getItem('v-grb');
+
+					// if there is uid & token in local storage, retrieve user info
+					if (userId && token) {
+						this.props.dispatch({
+							type: 'GET_USER',
+							payload: _axios2.default.get('http://localhost:3000/api/users/' + userId, {
+								headers: {
+									'x-access-token': token
+								}
+							})
+						});
+
+						// if there is no uid/token, redirect to login
+					} else {
+						this.props.history.push('/login');
+					}
+				}
+			}, {
+				key: 'render',
+				value: function render() {
+
+					return _react2.default.createElement(
+						'div',
+						null,
+						this.props.auth.user ? _react2.default.createElement(Component, this.props) : null
+					);
+				}
+			}]);
+
+			return AuthenticatedComponent;
+		}(_react2.default.Component);
+
+		var mapStateToProps = function mapStateToProps(state) {
+			return {
+				auth: state.auth
+			};
+		};
+
+		return (0, _reactRedux.connect)(mapStateToProps)(AuthenticatedComponent);
+	}
 
 /***/ }
 /******/ ]);

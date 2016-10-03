@@ -9,11 +9,15 @@ import VideoInfo from './VideoInfo'
 // connecting redux store with react component
 @connect((store)=>{
 	return {
-		store: store.download
+		store: store.download,
+		auth: store.auth
 	}
 })
 
 class App extends Component {
+
+	componentWillMount(){
+	}
 
 	convertLink(){
 		var val = this.refs.link.value;

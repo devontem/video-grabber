@@ -1,23 +1,39 @@
 import React, { Component } from 'react'
-import { connect, browserHistory } from "react-redux"
+import { connect } from "react-redux"
 import axios from 'axios'
 import { Link } from 'react-router'
 
 @connect((store)=>{
 	return {
-		store: store.signup
+		store: store.signup,
+		auth: store.auth
 	}
 })
 
 export default class SignupPage extends Component {
 
-	componentDidUpdate(){
-		console.log('hi!', this.props)
-		if (this.props.store.success){
-			alert('SUCESS!!')
-			localStorage.setItem('v-grb', this.props.store.token);
-			this.props.history.push('/user/happy')
+	componentWillMount(){
+		// checking if logged in first
+		if (this.loggedIn()){
+			this.props.history.push('/profile');
 		}
+	}
+
+	// runs on every re-render
+	componentDidUpdate(){
+		// after successful signup
+		if (this.props.store.success){
+
+			// Setting the token
+			localStorage.setItem('v-grb', this.props.store.token);
+			localStorage.setItem('v-grab-uid', this.props.auth.user._id);
+			// redirecting to the user's home page
+			this.props.history.push('/profile');
+		}
+	}
+
+	loggedIn(){
+		return localStorage.getItem('v-grb') && localStorage.getItem('v-grab-uid');
 	}
 
 	validateFields(email, password){
@@ -25,6 +41,7 @@ export default class SignupPage extends Component {
 	}
 
 	clearFields(){
+		this.refs.name.value = '';
 		this.refs.email.value = '';
 		this.refs.password.value = '';
 	}
@@ -36,6 +53,7 @@ export default class SignupPage extends Component {
 	submitForm(){
 		let email = this.refs.email.value;
 		let password = this.refs.password.value;
+		let name = this.refs.name.value;
 
 		// if both fields have content
 		if ( this.validateFields(email, password) ){
@@ -43,7 +61,8 @@ export default class SignupPage extends Component {
 				type: 'SIGNUP',
 				payload: axios.post('http://localhost:3000/api/users/', {
 					email: email,
-					password: password
+					password: password,
+					name: name
 				})
 			});
 
@@ -74,8 +93,9 @@ export default class SignupPage extends Component {
 					<div className="ui huge header">Sign Up</div>
 
 					<form>
-						<input type="text" ref="email" name="email" />
-						<input type="password" ref="password" name="password" />
+						<input type="text" ref="name" placeholder="name" name="name" />
+						<input type="text" ref="email" placeholder="email" name="email" />
+						<input type="password" ref="password" placeholder="password" name="password" />
 						<button type="submit" onClick={this.submitForm.bind(this)} >Submit</button>
 					</form>
 					

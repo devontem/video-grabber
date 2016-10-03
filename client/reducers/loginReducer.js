@@ -10,7 +10,9 @@ const loginReducer = function(state = {}, action){
 		case "LOGIN_FULFILLED":
 			return {...state, success: true, pending: false, ...action.payload.data}
 		case "LOGIN_REJECTED":
-			return {...state, error: true, pending: false, message: "There was an unexpected error on your file conversion. Please try again later."}
+			return {...state, error: true, pending: false, message: "There was an error creating your account. Please make sure you entered the information correctly.", ...action.payload.data}
+		case "LOGOUT":
+			return {}
 		default:
 			return state
 	}
