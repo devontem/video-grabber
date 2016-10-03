@@ -18,6 +18,7 @@ class App extends Component {
 	convertLink(){
 		var val = this.refs.link.value;
 
+		// if value has content
 		if (val.trim()){
 			this.props.dispatch({
 				type: 'CONVERT_URL', 
@@ -39,7 +40,7 @@ class App extends Component {
 
 		// form message
 		if (store.message){
-			result = <FormMessage error={store.error } message={store.message ? store.message : undefined} />
+			result = <FormMessage error={store.error} message={store.message ? store.message : undefined} />
 		}
 
 		// loader

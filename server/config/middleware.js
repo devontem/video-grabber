@@ -21,10 +21,6 @@ module.exports = function(app, express){
 	// parses json data on request
 	app.use(bodyParser.json());
 
-	// setting up the db
-	// mongoose.Promise = promise;
-	// mongoose.connect('mongodb://localhost/test');
-
 	// routers
 	var downloadRouter = express.Router();
 	var userRouter = express.Router();

@@ -68,9 +68,21 @@
 
 	var _store2 = _interopRequireDefault(_store);
 
-	var _DownloadPage = __webpack_require__(290);
+	var _DownloadPage = __webpack_require__(292);
 
 	var _DownloadPage2 = _interopRequireDefault(_DownloadPage);
+
+	var _ProfilePage = __webpack_require__(293);
+
+	var _ProfilePage2 = _interopRequireDefault(_ProfilePage);
+
+	var _LoginPage = __webpack_require__(294);
+
+	var _LoginPage2 = _interopRequireDefault(_LoginPage);
+
+	var _SignupPage = __webpack_require__(295);
+
+	var _SignupPage2 = _interopRequireDefault(_SignupPage);
 
 	var _reactRouter = __webpack_require__(219);
 
@@ -88,7 +100,10 @@
 				_reactRouter.Route,
 				{ path: "/", component: _Layout2.default },
 				_react2.default.createElement(_reactRouter.IndexRoute, { component: _App2.default }),
-				_react2.default.createElement(_reactRouter.Route, { path: "download/id/:id", component: _DownloadPage2.default })
+				_react2.default.createElement(_reactRouter.Route, { path: "download/id/:id", component: _DownloadPage2.default }),
+				_react2.default.createElement(_reactRouter.Route, { path: "user/:id", component: _ProfilePage2.default }),
+				_react2.default.createElement(_reactRouter.Route, { path: "login", component: _LoginPage2.default }),
+				_react2.default.createElement(_reactRouter.Route, { path: "signup", component: _SignupPage2.default })
 			)
 		)
 	), app);
@@ -22736,6 +22751,7 @@
 			value: function convertLink() {
 				var val = this.refs.link.value;
 
+				// if value has content
 				if (val.trim()) {
 					this.props.dispatch({
 						type: 'CONVERT_URL',
@@ -22743,7 +22759,7 @@
 						payload: _axios2.default.post('http://localhost:3000/api/download/', {
 							baseUrl: val })
 					}).catch(function (e) {
-						console.log('E ==== ' + e);
+						console.log('Error: ' + e);
 					});
 					this.refs.link.value = '';
 				} else {
@@ -29990,21 +30006,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	// import App from './components/App';
-	// import downloadReducer from './reducers';
-
-	// let store = createStore(downloadReducer);
-
-	// ReactDOM(
-	// 	<Provider store={ store } >
-	// 		<App />
-	// 	</Provider>,
-	// 	document.getElementById('root')
-	// )
-
 	var middleware = (0, _redux.applyMiddleware)((0, _reduxPromiseMiddleware2.default)(), _reduxThunk2.default, (0, _reduxLogger2.default)());
-	// import { Provider } from 'react-redux';
-
 
 	var store = (0, _redux.createStore)(_index2.default, middleware);
 
@@ -30500,11 +30502,21 @@
 
 	var _downloadStatusReducer2 = _interopRequireDefault(_downloadStatusReducer);
 
+	var _loginReducer = __webpack_require__(290);
+
+	var _loginReducer2 = _interopRequireDefault(_loginReducer);
+
+	var _signupReducer = __webpack_require__(291);
+
+	var _signupReducer2 = _interopRequireDefault(_signupReducer);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var reducers = (0, _redux.combineReducers)({
 		download: _downloadReducer2.default,
-		status: _downloadStatusReducer2.default
+		status: _downloadStatusReducer2.default,
+		login: _loginReducer2.default,
+		signup: _signupReducer2.default
 	}); // combining the reducers
 
 	exports.default = reducers;
@@ -30534,7 +30546,6 @@
 			case "CONVERT_URL_PENDING":
 				return _extends({}, state, { pending: true });
 			case "CONVERT_URL_FULFILLED":
-
 				return _extends({}, state, { success: true, pending: false }, action.payload.data);
 			case "CONVERT_URL_REJECTED":
 				return _extends({}, state, { error: true, pending: false, message: "There was an unexpected error on your file conversion. Please try again later." });
@@ -30584,6 +30595,76 @@
 
 /***/ },
 /* 290 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	// creating the login reducer
+
+	var loginReducer = function loginReducer() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+		var action = arguments[1];
+
+
+		switch (action.type) {
+			case "LOGIN":
+				return state;
+			case "LOGIN_PENDING":
+				return _extends({}, state, { pending: true });
+			case "LOGIN_FULFILLED":
+				return _extends({}, state, { success: true, pending: false }, action.payload.data);
+			case "LOGIN_REJECTED":
+				return _extends({}, state, { error: true, pending: false, message: "There was an unexpected error on your file conversion. Please try again later." });
+			default:
+				return state;
+		}
+	};
+
+	exports.default = loginReducer;
+
+/***/ },
+/* 291 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	// creating the signup reducer
+
+	var signupReducer = function signupReducer() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+		var action = arguments[1];
+
+
+		switch (action.type) {
+			case "SIGNUP":
+				return state;
+			case "SIGNUP_PENDING":
+				return _extends({}, state, { pending: true });
+			case "SIGNUP_FULFILLED":
+				return _extends({}, state, { success: true, pending: false }, action.payload.data);
+			case "SIGNUP_REJECTED":
+				return _extends({}, state, { error: true, pending: false, message: "There was an unexpected error on your file conversion. Please try again later." });
+			default:
+				return state;
+		}
+	};
+
+	exports.default = signupReducer;
+
+/***/ },
+/* 292 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30739,6 +30820,356 @@
 		return DownloadPage;
 	}(_react.Component)) || _class);
 	exports.default = DownloadPage;
+
+/***/ },
+/* 293 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _dec, _class;
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(172);
+
+	var _axios = __webpack_require__(195);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	var _reactRouter = __webpack_require__(219);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ProfilePage = (_dec = (0, _reactRedux.connect)(function (store) {
+		return {
+			store: store.status
+		};
+	}), _dec(_class = function (_Component) {
+		_inherits(ProfilePage, _Component);
+
+		function ProfilePage() {
+			_classCallCheck(this, ProfilePage);
+
+			return _possibleConstructorReturn(this, Object.getPrototypeOf(ProfilePage).apply(this, arguments));
+		}
+
+		_createClass(ProfilePage, [{
+			key: 'componentWillMount',
+			value: function componentWillMount() {}
+		}, {
+			key: 'render',
+			value: function render() {
+				var _props = this.props;
+				var store = _props.store;
+				var params = _props.params;
+
+				var result = '';
+
+				// loader
+				var loader = store.pending ? "ui active inverted dimmer" : "ui inverted dimmer";
+
+				return _react2.default.createElement(
+					'div',
+					{ className: 'main-wrapper center' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'ui segment content' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'ui huge header' },
+							'User ID: ',
+							params.id
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: loader },
+							_react2.default.createElement('div', { className: 'ui large text loader' })
+						),
+						result
+					)
+				);
+			}
+		}]);
+
+		return ProfilePage;
+	}(_react.Component)) || _class);
+	exports.default = ProfilePage;
+
+/***/ },
+/* 294 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _dec, _class;
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(172);
+
+	var _axios = __webpack_require__(195);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	var _reactRouter = __webpack_require__(219);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var LoginPage = (_dec = (0, _reactRedux.connect)(function (store) {
+		return {
+			store: store.login
+		};
+	}), _dec(_class = function (_Component) {
+		_inherits(LoginPage, _Component);
+
+		function LoginPage() {
+			_classCallCheck(this, LoginPage);
+
+			return _possibleConstructorReturn(this, Object.getPrototypeOf(LoginPage).apply(this, arguments));
+		}
+
+		_createClass(LoginPage, [{
+			key: 'componentWillMount',
+			value: function componentWillMount() {}
+		}, {
+			key: 'submitForm',
+			value: function submitForm() {
+				var name = this.refs.name.value;
+				var email = this.refs.email.value;
+				var password = this.refs.password.value;
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				var _props = this.props;
+				var store = _props.store;
+				var params = _props.params;
+
+				var result = '';
+
+				// loader
+				var loader = store.pending ? "ui active inverted dimmer" : "ui inverted dimmer";
+
+				return _react2.default.createElement(
+					'div',
+					{ className: 'main-wrapper center' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'ui segment content' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'ui huge header' },
+							'Login'
+						),
+						_react2.default.createElement(
+							'form',
+							null,
+							_react2.default.createElement('input', { type: 'text', ref: 'name', name: 'name' }),
+							_react2.default.createElement('input', { type: 'text', ref: 'email', name: 'email' }),
+							_react2.default.createElement('input', { type: 'password', ref: 'password', name: 'password' }),
+							_react2.default.createElement(
+								'button',
+								{ type: 'submit', onClick: this.submitForm.bind(this) },
+								'Submit'
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: loader },
+							_react2.default.createElement('div', { className: 'ui large text loader' })
+						),
+						result
+					)
+				);
+			}
+		}]);
+
+		return LoginPage;
+	}(_react.Component)) || _class);
+	exports.default = LoginPage;
+
+/***/ },
+/* 295 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _dec, _class;
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(172);
+
+	var _axios = __webpack_require__(195);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	var _reactRouter = __webpack_require__(219);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var SignupPage = (_dec = (0, _reactRedux.connect)(function (store) {
+		return {
+			store: store.signup
+		};
+	}), _dec(_class = function (_Component) {
+		_inherits(SignupPage, _Component);
+
+		function SignupPage() {
+			_classCallCheck(this, SignupPage);
+
+			return _possibleConstructorReturn(this, Object.getPrototypeOf(SignupPage).apply(this, arguments));
+		}
+
+		_createClass(SignupPage, [{
+			key: 'componentDidUpdate',
+			value: function componentDidUpdate() {
+				console.log('hi!', this.props);
+				if (this.props.store.success) {
+					alert('SUCESS!!');
+					localStorage.setItem('v-grb', this.props.store.token);
+					this.props.history.push('/user/happy');
+				}
+			}
+		}, {
+			key: 'validateFields',
+			value: function validateFields(email, password) {
+				return email.trim() && password.trim();
+			}
+		}, {
+			key: 'clearFields',
+			value: function clearFields() {
+				this.refs.email.value = '';
+				this.refs.password.value = '';
+			}
+		}, {
+			key: 'redirectTo',
+			value: function redirectTo(link) {
+				_reactRedux.browserHistory.push(link);
+			}
+		}, {
+			key: 'submitForm',
+			value: function submitForm() {
+				var email = this.refs.email.value;
+				var password = this.refs.password.value;
+
+				// if both fields have content
+				if (this.validateFields(email, password)) {
+					this.props.dispatch({
+						type: 'SIGNUP',
+						payload: _axios2.default.post('http://localhost:3000/api/users/', {
+							email: email,
+							password: password
+						})
+					});
+
+					// clearing the fields
+					this.clearFields();
+
+					// if form validation fails
+				} else {
+					this.props.dispatch({
+						type: 'FORM_VALIDATION',
+						message: 'There was an error, please enter the email and password in correct format.'
+					});
+				}
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				var _props = this.props;
+				var store = _props.store;
+				var params = _props.params;
+
+				var result = '';
+
+				// loader
+				var loader = store.pending ? "ui active inverted dimmer" : "ui inverted dimmer";
+
+				// redirect upon successfull signup
+				// if (store.success) this.redirectTo('/users/2');
+				return _react2.default.createElement(
+					'div',
+					{ className: 'main-wrapper center' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'ui segment content' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'ui huge header' },
+							'Sign Up'
+						),
+						_react2.default.createElement(
+							'form',
+							null,
+							_react2.default.createElement('input', { type: 'text', ref: 'email', name: 'email' }),
+							_react2.default.createElement('input', { type: 'password', ref: 'password', name: 'password' }),
+							_react2.default.createElement(
+								'button',
+								{ type: 'submit', onClick: this.submitForm.bind(this) },
+								'Submit'
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: loader },
+							_react2.default.createElement('div', { className: 'ui large text loader' })
+						),
+						result
+					)
+				);
+			}
+		}]);
+
+		return SignupPage;
+	}(_react.Component)) || _class);
+	exports.default = SignupPage;
 
 /***/ }
 /******/ ]);
