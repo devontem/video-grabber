@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from "react-redux"
 import axios from 'axios'
 import { Link } from 'react-router'
+import VideoInfo from './VideoInfo'
 
 @connect((store)=>{
 	return {
@@ -45,39 +46,53 @@ export default class DownloadPage extends Component {
 
 	render(){
 		const { store, params } = this.props;
-		let result = ''
+		let result = '', show_video_info = '';
 
 		// messaging 
 		if (store.status === true){
 			result = 
-				<div>
-					<div className="ui large header">{store.message}</div>
-					<button className="ui massive green button" onClick={this.openDl.bind(this, params.id)} id="target">Click to Download!</button>
+				<div className="">
+					<h1 className="text-center">{store.message}</h1>
+					<div className="btn-group btn-group-justified">
+	          			<a className="btn btn-success btn-lg btn-block" onClick={this.openDl.bind(this, params.id)} id="target">Click to download!</a>
+	          			<a className="btn btn-danger btn-lg btn-block" target="_blank" href={store.videoInfo.webpage_url} id="target">Youtube Link</a>
+	          		</div>
 				</div>
-			
+
+			// video info
+			show_video_info = <VideoInfo hash={ store.videoInfo.hash } hideButton={true} info={store.videoInfo} />
+
 		} else {
-			result = <div>
-				<div className="ui large header">{store.message}</div>
-				<button className="ui massive blue button try-again"><Link to={'/'}>Try Again?</Link></button>
+			<div className="">
+				<h1 className="text-center">{store.message}</h1>
+					<div className="btn-group btn-group-justified">
+        			<a className="btn btn-default btn-lg btn-block"><Link to={'/'}>Try Again?</Link></a>
+        			<a className="btn btn-success btn-lg btn-block" href={store.webpage_url} id="target">Youtube Link</a>
+        			</div>
 				</div>
 			
 		}
 
 		// loader
-		let loader = store.pending ? "ui active inverted dimmer" : "ui inverted dimmer";
+		let loader = store.pending ? "ui active inverted dimmer" : "";
 
 		return(
-			<div className="main-wrapper center">
-				<div className="ui segment content">
-					<div className="ui huge header">Video ID: {params.id}</div>
-					
-					<div className={ loader }>
-				   		<div className="ui large text loader"></div>
-				 	</div>
+	      <div className="col-sm-12 col-md-8 col-md-offset-2">
+	  			<div className="panel panel-primary">
+	  			  <div className="panel-heading">
+	  			    <h1 className="panel-title">Video ID: { params.id }</h1>
+	  			  </div>
+	  			  <div className="panel-body">
+	  			    {result}
+	  			  </div>
 
-					{result}
-				</div>
-			</div>
+	  			  	<div className={ loader }>
+	  			   		<div className="ui large text loader"></div>
+	  			 		</div>
+	  			</div>
+
+	  			{ show_video_info }
+	      </div>
 		)
 	}
 }

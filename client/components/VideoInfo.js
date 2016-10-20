@@ -12,27 +12,35 @@ export default class VideoInfo extends Component {
 
     const { info, hash } = this.props;
 
+    console.log(this.props, 'props')
+
+    // show download button is 'hide flag' is false/undefined
+    let downloadButton = '';
+    if (!this.props.hideButton){
+        downloadButton = <div className="ui right floated button text-right">
+                            <button type="button" className="btn btn-default"><Link to={'/download/id/'+hash}> Download Video! </Link></button>
+                        </div>
+    }
+
     return (
-      <div className="ui items">
-        <div className="item">
-          <div className="ui small image">
-            <img src={info.thumbnail} />
-          </div>
-          <div className="middle aligned content">
-            <div className="header">
-              {info.title}
+        <div className="panel panel-default">
+            <div className="panel-heading">
+                <h4><strong>{info.title}</strong></h4>
             </div>
-            <div className="description">
-              <p><strong>Description:</strong> {info.description}</p>
+            <div className="panel-body">
+                <div className="col-xs-12 col-sm-6">
+                    <a href="#" className="thumbnail">
+                      <img src={info.thumbnail} alt="Video Thumbnail"/>
+                    </a>
+                </div>
+
+                { downloadButton }
+                
+                <div className="col-xs-12 col-sm-6">
+                    <strong>Description: </strong> {info.description.substr(0, 200) + '...'}
+                </div>
             </div>
-            <div className="extra">
-              <div className="ui right floated button">
-                <Link to={'/download/id/'+hash}> Download Video! </Link>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
     )
   } 
 }

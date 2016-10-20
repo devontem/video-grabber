@@ -17,13 +17,20 @@ export default class FormMessage extends Component {
 		const { message, error } = this.props
 
 		const data = this.createData(error, message);
-		let status = error ? 'error' : 'success';
-		const classes = "ui "+status+" message"
+		let status = error ? 'danger' : 'success';
+
+		// return (
+		// 	<div className={classes}>
+		// 	    <div className="header">{data.heading}</div>
+		// 		<p>{data.messaging}</p>
+		// 	</div>
+		// )
 
 		return (
-			<div className={classes}>
-			    <div className="header">{data.heading}</div>
-				<p>{data.messaging}</p>
+			<div className={'text-center alert alert-dismissible alert-'+ status}>
+			  <button type="button" className="close" data-dismiss="alert">&times;</button>
+			  <h4>{data.heading}</h4>
+			  <p>{data.messaging}</p>
 			</div>
 		)
 	}

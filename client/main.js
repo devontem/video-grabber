@@ -8,6 +8,7 @@ import DownloadPage from './components/DownloadPage'
 import ProfilePage from './components/ProfilePage'
 import LoginPage from './components/LoginPage'
 import SignupPage from './components/SignupPage'
+import UserPage from './components/UserPage'
 import requireAuthentication from './components/requireAuthentication'
 import { Route, IndexRoute, Router, hashHistory } from 'react-router'
 
@@ -21,6 +22,8 @@ ReactDOM.render(
 			<IndexRoute component={App} />
 
 			<Route path='download/id/:id' component={DownloadPage}/>
+
+			<Route path='users/:id' component={requireAuthentication(UserPage)}/>
 
 			<Route path='profile' component={requireAuthentication(ProfilePage)}/>
 

@@ -7,8 +7,8 @@ var userSchema = mongoose.Schema({
 	email: String,
 	password: String,
 	points: Number,
-	archives: [{ data: Object, link: String, hash: String, expired: Boolean}],
-	friends: [{ name: String, id: Number }]
+	archives: [mongoose.Schema.Types.Mixed],
+	friends: [mongoose.Schema.Types.Mixed]
 });
 
 // creating an encrypted password on saving a new user

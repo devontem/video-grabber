@@ -25,19 +25,44 @@ export default class Header extends Component {
   	let result;
 
   	if (this.props.loggedIn){
-  		result = <div><button className="ui blue button try-again"><Link to={'/profile'}>Profile</Link></button><button className="ui blue button try-again" onClick={this.logOut.bind(this)}><Link to={'/'}>Log Out</Link></button></div>
+  		result = <ul className="nav navbar-nav navbar-right">
+                <li><a href="#"><Link to={'/profile'}>Profile</Link></a></li>
+                <li><a href="#" onClick={this.logOut.bind(this)}><Link to={'/'}>Log Out</Link></a></li>
+              </ul>
   	} else {
-  		result = <button className="ui blue button try-again"><Link to={'/login'}>Log In</Link></button>
+  		result =  <ul className="nav navbar-nav navbar-right">
+                  <li><a href="#"><Link to={'/login'}>Log In</Link></a></li>
+                </ul>
   	}
 
     // add this back for title
     //<h1 className="header-text">Video Grabber</h1>
     
-    return (
-      <div className="ui  segment nav-bar">
+    // return (
+    //   <div className="ui  segment nav-bar">
 
-        { result }
-      </div>
+    //     { result }
+    //   </div>
+    // )
+
+    return (
+      <nav className="navbar navbar-default">
+        <div className="container-fluid">
+          <div className="navbar-header">
+            <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+              <span className="sr-only">Toggle navigation</span>
+              <span className="icon-bar"></span>
+              <span className="icon-bar"></span>
+              <span className="icon-bar"></span>
+            </button>
+            <a href="/#/" className="navbar-brand" >name</a>
+          </div>
+
+          <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              { result }
+          </div>
+        </div>
+      </nav>
     )
   } 
 }

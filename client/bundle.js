@@ -68,23 +68,27 @@
 
 	var _store2 = _interopRequireDefault(_store);
 
-	var _DownloadPage = __webpack_require__(293);
+	var _DownloadPage = __webpack_require__(294);
 
 	var _DownloadPage2 = _interopRequireDefault(_DownloadPage);
 
-	var _ProfilePage = __webpack_require__(294);
+	var _ProfilePage = __webpack_require__(295);
 
 	var _ProfilePage2 = _interopRequireDefault(_ProfilePage);
 
-	var _LoginPage = __webpack_require__(295);
+	var _LoginPage = __webpack_require__(298);
 
 	var _LoginPage2 = _interopRequireDefault(_LoginPage);
 
-	var _SignupPage = __webpack_require__(296);
+	var _SignupPage = __webpack_require__(299);
 
 	var _SignupPage2 = _interopRequireDefault(_SignupPage);
 
-	var _requireAuthentication = __webpack_require__(297);
+	var _UserPage = __webpack_require__(300);
+
+	var _UserPage2 = _interopRequireDefault(_UserPage);
+
+	var _requireAuthentication = __webpack_require__(301);
 
 	var _requireAuthentication2 = _interopRequireDefault(_requireAuthentication);
 
@@ -105,6 +109,7 @@
 				{ path: "/", component: _Layout2.default },
 				_react2.default.createElement(_reactRouter.IndexRoute, { component: _App2.default }),
 				_react2.default.createElement(_reactRouter.Route, { path: "download/id/:id", component: _DownloadPage2.default }),
+				_react2.default.createElement(_reactRouter.Route, { path: "users/:id", component: (0, _requireAuthentication2.default)(_UserPage2.default) }),
 				_react2.default.createElement(_reactRouter.Route, { path: "profile", component: (0, _requireAuthentication2.default)(_ProfilePage2.default) }),
 				_react2.default.createElement(_reactRouter.Route, { path: "login", component: _LoginPage2.default }),
 				_react2.default.createElement(_reactRouter.Route, { path: "signup", component: _SignupPage2.default })
@@ -22758,6 +22763,7 @@
 			key: 'convertLink',
 			value: function convertLink() {
 				var val = this.refs.link.value;
+				var id = localStorage.getItem('v-grab-uid') || null;
 
 				// if value has content
 				if (val.trim()) {
@@ -22765,7 +22771,8 @@
 						type: 'CONVERT_URL',
 						baseUrl: val,
 						payload: _axios2.default.post('http://localhost:3000/api/download/', {
-							baseUrl: val })
+							baseUrl: val,
+							id: id })
 					}).catch(function (e) {
 						console.log('Error: ' + e);
 					});
@@ -22777,48 +22784,87 @@
 		}, {
 			key: 'render',
 			value: function render() {
-				var result = void 0;
+				var status_message = void 0;
 				var store = this.props.store;
 
 				// form message
 
 				if (store.message) {
-					result = _react2.default.createElement(_FormMessage2.default, { error: store.error, message: store.message ? store.message : undefined });
+					status_message = _react2.default.createElement(_FormMessage2.default, { error: store.error, message: store.message ? store.message : undefined });
 				}
 
 				// loader
-				var loader = store.pending ? "ui active inverted dimmer" : "ui inverted dimmer";
+				var loader = store.pending ? "ui active inverted dimmer" : "";
 
 				// video info
 				var show_video_info = '';
 				if (store.success) show_video_info = _react2.default.createElement(_VideoInfo2.default, { hash: store.hash, info: store.videoInfo });
 
+				// return (
+				// 	<div className="main-wrapper">
+				// 		<div className="main-card ui card">
+				// 		  <div className="content">
+				// 		    <div className="ui big icon input search-bar">
+				// 			  <input type="text" ref='link' placeholder="Please enter the base URL" />
+				// 			  <i className="search icon"></i>
+				// 			</div>
+
+				// 		  </div>
+				// 		  <div className="extra content convert-btn">
+				// 		    <button className="ui button" onClick={this.convertLink.bind(this)} >Convert Link</button>
+				// 		  </div>
+				// 		</div>
+
+				//		<div className={ loader }>
+				//		   <div className="ui large text loader">Converting File</div>
+				//		</div>
+
+				// 		{ result }
+
+				// 		{ show_video_info }
+
+				// 	</div>
+				// )
+
+
 				return _react2.default.createElement(
 					'div',
-					{ className: 'main-wrapper' },
+					{ className: 'col-sm-12 col-md-8 col-md-offset-2' },
+					_react2.default.createElement(
+						'h1',
+						{ className: 'jumbo-font' },
+						'Lorus Ipsum'
+					),
+					_react2.default.createElement(
+						'p',
+						{ className: 'clean-font' },
+						'This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.'
+					),
 					_react2.default.createElement(
 						'div',
-						{ className: 'main-card ui card' },
+						{ className: 'form-group' },
 						_react2.default.createElement(
 							'div',
-							{ className: 'content' },
+							{ className: 'input-group' },
 							_react2.default.createElement(
-								'div',
-								{ className: 'ui big icon input search-bar' },
-								_react2.default.createElement('input', { type: 'text', ref: 'link', placeholder: 'Please enter the base URL' }),
-								_react2.default.createElement('i', { className: 'search icon' })
-							)
-						),
-						_react2.default.createElement(
-							'div',
-							{ className: 'extra content convert-btn' },
-							_react2.default.createElement(
-								'button',
-								{ className: 'ui button', onClick: this.convertLink.bind(this) },
-								'Convert Link'
-							)
+								'span',
+								{ className: 'input-group-addon' },
+								'Link'
+							),
+							_react2.default.createElement('input', { type: 'text', className: 'form-control input-lg', ref: 'link', placeholder: 'Please enter the base URL' })
 						)
 					),
+					_react2.default.createElement(
+						'p',
+						{ className: 'overflow-auto' },
+						_react2.default.createElement(
+							'a',
+							{ className: 'btn btn-primary btn-lg pull-right', onClick: this.convertLink.bind(this) },
+							'Convert'
+						)
+					),
+					status_message,
+					show_video_info,
 					_react2.default.createElement(
 						'div',
 						{ className: loader },
@@ -22827,9 +22873,7 @@
 							{ className: 'ui large text loader' },
 							'Converting File'
 						)
-					),
-					result,
-					show_video_info
+					)
 				);
 			}
 		}]);
@@ -24228,15 +24272,26 @@
 
 
 				var data = this.createData(error, message);
-				var status = error ? 'error' : 'success';
-				var classes = "ui " + status + " message";
+				var status = error ? 'danger' : 'success';
+
+				// return (
+				// 	<div className={classes}>
+				// 	    <div className="header">{data.heading}</div>
+				// 		<p>{data.messaging}</p>
+				// 	</div>
+				// )
 
 				return _react2.default.createElement(
 					'div',
-					{ className: classes },
+					{ className: 'text-center alert alert-dismissible alert-' + status },
 					_react2.default.createElement(
-						'div',
-						{ className: 'header' },
+						'button',
+						{ type: 'button', className: 'close', 'data-dismiss': 'alert' },
+						'×'
+					),
+					_react2.default.createElement(
+						'h4',
+						null,
 						data.heading
 					),
 					_react2.default.createElement(
@@ -24260,7 +24315,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	exports.default = undefined;
 
@@ -24281,81 +24336,93 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var VideoInfo = function (_Component) {
-	  _inherits(VideoInfo, _Component);
+	    _inherits(VideoInfo, _Component);
 
-	  function VideoInfo() {
-	    _classCallCheck(this, VideoInfo);
+	    function VideoInfo() {
+	        _classCallCheck(this, VideoInfo);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(VideoInfo).apply(this, arguments));
-	  }
-
-	  _createClass(VideoInfo, [{
-	    key: 'handleClick',
-	    value: function handleClick() {
-	      this.props.history.pushState(null, '/download/id/' + this.props.info.hash);
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(VideoInfo).apply(this, arguments));
 	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _props = this.props;
-	      var info = _props.info;
-	      var hash = _props.hash;
+
+	    _createClass(VideoInfo, [{
+	        key: 'handleClick',
+	        value: function handleClick() {
+	            this.props.history.pushState(null, '/download/id/' + this.props.info.hash);
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _props = this.props;
+	            var info = _props.info;
+	            var hash = _props.hash;
 
 
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'ui items' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'item' },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'ui small image' },
-	            _react2.default.createElement('img', { src: info.thumbnail })
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'middle aligned content' },
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'header' },
-	              info.title
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'description' },
-	              _react2.default.createElement(
-	                'p',
-	                null,
-	                _react2.default.createElement(
-	                  'strong',
-	                  null,
-	                  'Description:'
-	                ),
-	                ' ',
-	                info.description
-	              )
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'extra' },
-	              _react2.default.createElement(
+	            console.log(this.props, 'props');
+
+	            // show download button is 'hide flag' is false/undefined
+	            var downloadButton = '';
+	            if (!this.props.hideButton) {
+	                downloadButton = _react2.default.createElement(
+	                    'div',
+	                    { className: 'ui right floated button text-right' },
+	                    _react2.default.createElement(
+	                        'button',
+	                        { type: 'button', className: 'btn btn-default' },
+	                        _react2.default.createElement(
+	                            _reactRouter.Link,
+	                            { to: '/download/id/' + hash },
+	                            ' Download Video! '
+	                        )
+	                    )
+	                );
+	            }
+
+	            return _react2.default.createElement(
 	                'div',
-	                { className: 'ui right floated button' },
+	                { className: 'panel panel-default' },
 	                _react2.default.createElement(
-	                  _reactRouter.Link,
-	                  { to: '/download/id/' + hash },
-	                  ' Download Video! '
+	                    'div',
+	                    { className: 'panel-heading' },
+	                    _react2.default.createElement(
+	                        'h4',
+	                        null,
+	                        _react2.default.createElement(
+	                            'strong',
+	                            null,
+	                            info.title
+	                        )
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'panel-body' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'col-xs-12 col-sm-6' },
+	                        _react2.default.createElement(
+	                            'a',
+	                            { href: '#', className: 'thumbnail' },
+	                            _react2.default.createElement('img', { src: info.thumbnail, alt: 'Video Thumbnail' })
+	                        )
+	                    ),
+	                    downloadButton,
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'col-xs-12 col-sm-6' },
+	                        _react2.default.createElement(
+	                            'strong',
+	                            null,
+	                            'Description: '
+	                        ),
+	                        ' ',
+	                        info.description.substr(0, 200) + '...'
+	                    )
 	                )
-	              )
-	            )
-	          )
-	        )
-	      );
-	    }
-	  }]);
+	            );
+	        }
+	    }]);
 
-	  return VideoInfo;
+	    return VideoInfo;
 	}(_react.Component);
 
 	exports.default = VideoInfo;
@@ -29920,8 +29987,12 @@
 					_react2.default.createElement(_Header2.default, { loggedIn: isLoggedIn }),
 					_react2.default.createElement(
 						'div',
-						{ className: '' },
-						this.props.children
+						{ className: 'container' },
+						_react2.default.createElement(
+							'div',
+							{ className: '' },
+							this.props.children
+						)
 					)
 				);
 			}
@@ -29994,35 +30065,51 @@
 
 	      if (this.props.loggedIn) {
 	        result = _react2.default.createElement(
-	          'div',
-	          null,
+	          'ul',
+	          { className: 'nav navbar-nav navbar-right' },
 	          _react2.default.createElement(
-	            'button',
-	            { className: 'ui blue button try-again' },
+	            'li',
+	            null,
 	            _react2.default.createElement(
-	              _reactRouter.Link,
-	              { to: '/profile' },
-	              'Profile'
+	              'a',
+	              { href: '#' },
+	              _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: '/profile' },
+	                'Profile'
+	              )
 	            )
 	          ),
 	          _react2.default.createElement(
-	            'button',
-	            { className: 'ui blue button try-again', onClick: this.logOut.bind(this) },
+	            'li',
+	            null,
 	            _react2.default.createElement(
-	              _reactRouter.Link,
-	              { to: '/' },
-	              'Log Out'
+	              'a',
+	              { href: '#', onClick: this.logOut.bind(this) },
+	              _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: '/' },
+	                'Log Out'
+	              )
 	            )
 	          )
 	        );
 	      } else {
 	        result = _react2.default.createElement(
-	          'button',
-	          { className: 'ui blue button try-again' },
+	          'ul',
+	          { className: 'nav navbar-nav navbar-right' },
 	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: '/login' },
-	            'Log In'
+	            'li',
+	            null,
+	            _react2.default.createElement(
+	              'a',
+	              { href: '#' },
+	              _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: '/login' },
+	                'Log In'
+	              )
+	            )
 	          )
 	        );
 	      }
@@ -30030,10 +30117,46 @@
 	      // add this back for title
 	      //<h1 className="header-text">Video Grabber</h1>
 
+	      // return (
+	      //   <div className="ui  segment nav-bar">
+
+	      //     { result }
+	      //   </div>
+	      // )
+
 	      return _react2.default.createElement(
-	        'div',
-	        { className: 'ui  segment nav-bar' },
-	        result
+	        'nav',
+	        { className: 'navbar navbar-default' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'container-fluid' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'navbar-header' },
+	            _react2.default.createElement(
+	              'button',
+	              { type: 'button', className: 'navbar-toggle collapsed', 'data-toggle': 'collapse', 'data-target': '#bs-example-navbar-collapse-1' },
+	              _react2.default.createElement(
+	                'span',
+	                { className: 'sr-only' },
+	                'Toggle navigation'
+	              ),
+	              _react2.default.createElement('span', { className: 'icon-bar' }),
+	              _react2.default.createElement('span', { className: 'icon-bar' }),
+	              _react2.default.createElement('span', { className: 'icon-bar' })
+	            ),
+	            _react2.default.createElement(
+	              'a',
+	              { href: '/#/', className: 'navbar-brand' },
+	              'name'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'collapse navbar-collapse', id: 'bs-example-navbar-collapse-1' },
+	            result
+	          )
+	        )
 	      );
 	    }
 	  }]);
@@ -30586,17 +30709,20 @@
 
 	var _authReducer2 = _interopRequireDefault(_authReducer);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	var _profileReducer = __webpack_require__(293);
 
-	// combining the reducers
+	var _profileReducer2 = _interopRequireDefault(_profileReducer);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var reducers = (0, _redux.combineReducers)({
 		download: _downloadReducer2.default,
 		status: _downloadStatusReducer2.default,
 		login: _loginReducer2.default,
 		signup: _signupReducer2.default,
-		auth: _authReducer2.default
-	});
+		auth: _authReducer2.default,
+		profile: _profileReducer2.default
+	}); // combining the reducers
 
 	exports.default = reducers;
 
@@ -30625,7 +30751,7 @@
 			case "CONVERT_URL_PENDING":
 				return _extends({}, state, { pending: true });
 			case "CONVERT_URL_FULFILLED":
-				return _extends({}, state, { success: true, pending: false }, action.payload.data);
+				return _extends({}, state, { success: true, pending: false }, action.payload.data.download);
 			case "CONVERT_URL_REJECTED":
 				return _extends({}, state, { error: true, pending: false, message: "There was an unexpected error on your file conversion. Please try again later." });
 			case "CLEAR_DOWNLOAD_STATE":
@@ -30662,7 +30788,7 @@
 			case 'CHECK_STATUS_PENDING':
 				return _extends({}, state, { pending: true });
 			case 'CHECK_STATUS_FULFILLED':
-				return _extends({}, state, { status: action.payload.data.status, message: action.payload.data.message, pending: false });
+				return _extends({}, state, action.payload.data, { status: action.payload.data.status, message: action.payload.data.message, pending: false });
 			case 'CHECK_STATUS_REJECTED':
 				return _extends({}, state, { error: true, pending: false });
 			default:
@@ -30736,7 +30862,7 @@
 			case "SIGNUP_FULFILLED":
 				return _extends({}, state, { success: true, pending: false }, action.payload.data);
 			case "SIGNUP_REJECTED":
-				return _extends({}, state, { error: true, pending: false, message: "There was an unexpected error on your file conversion. Please try again later." });
+				return _extends({}, state, { error: true, pending: false, message: "There was an unexpected error with signup. Please try again or use a different username." });
 			case "LOGOUT":
 				return {};
 			default:
@@ -30773,7 +30899,17 @@
 			case 'GET_USER_FULFILLED':
 				return _extends({}, state, { pending: false, loggedIn: true, user: action.payload.data });
 			case 'GET_USER_REJECTED':
-				return _extends({}, state, { pending: false, loggedIn: false }, action.payload.data);
+				return _extends({}, state, { pending: false, loggedIn: false }, action.payload);
+
+			case 'GET_FEED':
+				return state;
+			case 'GET_FEED_PENDING':
+				return _extends({}, state, { pending: true });
+			case 'GET_FEED_FULFILLED':
+				return _extends({}, state, { pending: false, success: true, feed: action.payload.data.feed });
+			case 'GET_FEED_REJECTED':
+				return _extends({}, state, { pending: false, success: false, error: true });
+
 			// set's the user's ID after successful login
 			case "SIGNUP_FULFILLED":
 				return _extends({}, state, { loggedIn: true }, action.payload.data);
@@ -30781,6 +30917,12 @@
 				return _extends({}, state, { loggedIn: true }, action.payload.data);
 			case "LOGOUT":
 				return {};
+
+			// when a new friend is added, update auth store (to show updates)
+			case 'UPDATE_ACCOUNT_FULFILLED':
+				return _extends({}, state, { pending: false, success: true, user: action.payload.data });
+			case "CONVERT_URL_FULFILLED":
+				return _extends({}, state, { success: true, pending: false, user: action.payload.data.user });
 			default:
 				return state;
 		}
@@ -30790,6 +30932,51 @@
 
 /***/ },
 /* 293 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	// creating the profile reducer
+
+	var profileReducer = function profileReducer() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+		var action = arguments[1];
+
+
+		switch (action.type) {
+			case 'GET_PROFILE':
+				return state;
+			case 'GET_PROFILE_PENDING':
+				return _extends({}, state, { pending: true });
+			case 'GET_PROFILE_FULFILLED':
+				return _extends({}, state, { pending: false, user: action.payload.data });
+			case 'GET_PROFILE_REJECTED':
+				return _extends({}, state, { pending: false }, action.payload.data);
+
+			case 'ADD_FRIEND':
+				return state;
+
+			case 'UPDATE_ACCOUNT_PENDING':
+				return _extends({}, state, { pending: true });
+			case 'UPDATE_ACCOUNT_FULFILLED':
+				return _extends({}, state, { pending: false, success: true });
+			case 'UPDATE_ACCOUNT_REJECTED':
+				return _extends({}, state, { pending: false, success: false, error: true });
+			default:
+				return state;
+		}
+	};
+
+	exports.default = profileReducer;
+
+/***/ },
+/* 294 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30814,6 +31001,10 @@
 	var _axios2 = _interopRequireDefault(_axios);
 
 	var _reactRouter = __webpack_require__(219);
+
+	var _VideoInfo = __webpack_require__(218);
+
+	var _VideoInfo2 = _interopRequireDefault(_VideoInfo);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30877,67 +31068,98 @@
 				var store = _props.store;
 				var params = _props.params;
 
-				var result = '';
+				var result = '',
+				    show_video_info = '';
 
 				// messaging 
 				if (store.status === true) {
 					result = _react2.default.createElement(
 						'div',
-						null,
+						{ className: '' },
 						_react2.default.createElement(
-							'div',
-							{ className: 'ui large header' },
+							'h1',
+							{ className: 'text-center' },
 							store.message
 						),
 						_react2.default.createElement(
-							'button',
-							{ className: 'ui massive green button', onClick: this.openDl.bind(this, params.id), id: 'target' },
-							'Click to Download!'
+							'div',
+							{ className: 'btn-group btn-group-justified' },
+							_react2.default.createElement(
+								'a',
+								{ className: 'btn btn-success btn-lg btn-block', onClick: this.openDl.bind(this, params.id), id: 'target' },
+								'Click to download!'
+							),
+							_react2.default.createElement(
+								'a',
+								{ className: 'btn btn-danger btn-lg btn-block', target: '_blank', href: store.videoInfo.webpage_url, id: 'target' },
+								'Youtube Link'
+							)
 						)
 					);
+
+					// video info
+					show_video_info = _react2.default.createElement(_VideoInfo2.default, { hash: store.videoInfo.hash, hideButton: true, info: store.videoInfo });
 				} else {
-					result = _react2.default.createElement(
+					_react2.default.createElement(
 						'div',
-						null,
+						{ className: '' },
 						_react2.default.createElement(
-							'div',
-							{ className: 'ui large header' },
+							'h1',
+							{ className: 'text-center' },
 							store.message
 						),
 						_react2.default.createElement(
-							'button',
-							{ className: 'ui massive blue button try-again' },
+							'div',
+							{ className: 'btn-group btn-group-justified' },
 							_react2.default.createElement(
-								_reactRouter.Link,
-								{ to: '/' },
-								'Try Again?'
+								'a',
+								{ className: 'btn btn-default btn-lg btn-block' },
+								_react2.default.createElement(
+									_reactRouter.Link,
+									{ to: '/' },
+									'Try Again?'
+								)
+							),
+							_react2.default.createElement(
+								'a',
+								{ className: 'btn btn-success btn-lg btn-block', href: store.webpage_url, id: 'target' },
+								'Youtube Link'
 							)
 						)
 					);
 				}
 
 				// loader
-				var loader = store.pending ? "ui active inverted dimmer" : "ui inverted dimmer";
+				var loader = store.pending ? "ui active inverted dimmer" : "";
 
 				return _react2.default.createElement(
 					'div',
-					{ className: 'main-wrapper center' },
+					{ className: 'col-sm-12 col-md-8 col-md-offset-2' },
 					_react2.default.createElement(
 						'div',
-						{ className: 'ui segment content' },
+						{ className: 'panel panel-primary' },
 						_react2.default.createElement(
 							'div',
-							{ className: 'ui huge header' },
-							'Video ID: ',
-							params.id
+							{ className: 'panel-heading' },
+							_react2.default.createElement(
+								'h1',
+								{ className: 'panel-title' },
+								'Video ID: ',
+								params.id
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'panel-body' },
+							result
 						),
 						_react2.default.createElement(
 							'div',
 							{ className: loader },
 							_react2.default.createElement('div', { className: 'ui large text loader' })
-						),
-						result
-					)
+						)
+					),
+					show_video_info
 				);
 			}
 		}]);
@@ -30947,7 +31169,7 @@
 	exports.default = DownloadPage;
 
 /***/ },
-/* 294 */
+/* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30973,6 +31195,14 @@
 
 	var _reactRouter = __webpack_require__(219);
 
+	var _ArchivesPage = __webpack_require__(296);
+
+	var _ArchivesPage2 = _interopRequireDefault(_ArchivesPage);
+
+	var _FriendsPage = __webpack_require__(297);
+
+	var _FriendsPage2 = _interopRequireDefault(_FriendsPage);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -30983,7 +31213,6 @@
 
 	var ProfilePage = (_dec = (0, _reactRedux.connect)(function (store) {
 		return {
-			store: store.status,
 			auth: store.auth
 		};
 	}), _dec(_class = function (_Component) {
@@ -30999,24 +31228,30 @@
 			key: 'render',
 
 
-			// updates auth store with user credentials if logged in
+			// getFeed(){
+			// 	var token = localStorage.getItem('v-grb');
+			// 	var id = localStorage.getItem('v-grab-uid');
+
+			// 	// dispatching action
+			// 	this.props.dispatch({
+			// 		type: 'GET_FEED',
+			// 		payload: axios.get('http://localhost:3000/api/users/'+id+'/feed'),{
+			// 			headers: {
+			// 				'x-access-token': token
+			// 			}
+			// 	})
+			// 	.catch(e=>{
+			// 		console.log('Error: ', e);
+			// 	})
+			// }
+
 			// componentWillMount(){
-			// 	if (!this.props.auth.user){
 
-			// 		var userId = localStorage.getItem('v-grab-uid');
-			// 		var token = localStorage.getItem('v-grb');
-
-			// 		// if there is a userId, get user information
-			// 		if (userId){
-			// 			this.props.dispatch({
-			// 				type: 'GET_USER',
-			// 				payload: axios.get('http://localhost:3000/api/users/'+userId, {
-			// 					headers: {
-			// 						'x-access-token': token
-			// 					}
-			// 				})
-			// 			});
-			// 		}
+			// 	// get user info if not fetched
+			// 	if (!this.props.auth){
+			// 		this.props.dispatch({
+			// 			type: 'GET_'
+			// 		})
 			// 	}
 			// }
 
@@ -31027,13 +31262,13 @@
 				var params = _props.params;
 
 				var result = '';
-				var la = 'No User Is Logged In';
+				var message = 'No User Is Logged In';
 
 				// loader
-				var loader = store.pending ? "ui active inverted dimmer" : "ui inverted dimmer";
+				var loader = auth.pending ? "ui active inverted dimmer" : "";
 
 				if (auth.user) {
-					la = _react2.default.createElement(
+					message = _react2.default.createElement(
 						'div',
 						{ className: 'ui segment content' },
 						_react2.default.createElement(
@@ -31048,19 +31283,120 @@
 							'User Email: ',
 							auth.user.email
 						),
-						_react2.default.createElement(
-							'div',
-							{ className: loader },
-							_react2.default.createElement('div', { className: 'ui large text loader' })
-						),
 						result
 					);
 				}
 
 				return _react2.default.createElement(
 					'div',
-					{ className: 'main-wrapper center' },
-					la
+					{ className: 'col-sm-12 col-md-8 col-md-offset-2' },
+					_react2.default.createElement(
+						'div',
+						{ className: '' },
+						_react2.default.createElement(
+							'ul',
+							{ className: 'nav nav-tabs' },
+							_react2.default.createElement(
+								'li',
+								{ className: 'active' },
+								_react2.default.createElement(
+									'a',
+									{ href: '#home', 'data-toggle': 'tab', 'aria-expanded': 'false' },
+									'Home'
+								)
+							),
+							_react2.default.createElement(
+								'li',
+								{ className: '' },
+								_react2.default.createElement(
+									'a',
+									{ href: '#friends', 'data-toggle': 'tab', 'aria-expanded': 'true' },
+									'Friends'
+								)
+							),
+							_react2.default.createElement(
+								'li',
+								{ className: '' },
+								_react2.default.createElement(
+									'a',
+									{ href: '#archives', 'data-toggle': 'tab', 'aria-expanded': 'true' },
+									'Archives'
+								)
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ id: 'myTabContent', className: 'tab-content panel panel-default padding-10' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'tab-pane fade active in', id: 'home' },
+								_react2.default.createElement(
+									'h2',
+									{ className: 'text-center' },
+									'Dashboard'
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'btn-group btn-group-justified' },
+									_react2.default.createElement(
+										'a',
+										{ href: '/#/', className: 'btn btn-default' },
+										'Download Video'
+									),
+									_react2.default.createElement(
+										'a',
+										{ href: '/#/', className: 'btn btn-default' },
+										'Public Profile'
+									),
+									_react2.default.createElement(
+										'a',
+										{ href: '#', className: 'btn btn-default disabled' },
+										'Chrome Extension'
+									)
+								),
+								_react2.default.createElement(
+									'div',
+									null,
+									_react2.default.createElement(
+										'div',
+										{ className: 'center' },
+										_react2.default.createElement('img', { className: '', src: 'http://ketal.es/wp-content/uploads/2016/06/badge-simple-flat.png' }),
+										_react2.default.createElement(
+											'h1',
+											null,
+											_react2.default.createElement(
+												'b',
+												null,
+												'You have ',
+												auth.user.points,
+												' points!'
+											)
+										),
+										_react2.default.createElement(
+											'p',
+											null,
+											'* (Get 10 points for every video you convert)'
+										)
+									)
+								)
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'tab-pane fade', id: 'friends' },
+								_react2.default.createElement(_FriendsPage2.default, { friends: auth.user.friends })
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'tab-pane fade', id: 'archives' },
+								_react2.default.createElement(_ArchivesPage2.default, { archives: auth.user.archives })
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: loader },
+							_react2.default.createElement('div', { className: 'ui large text loader' })
+						)
+					)
 				);
 			}
 		}]);
@@ -31070,7 +31406,210 @@
 	exports.default = ProfilePage;
 
 /***/ },
-/* 295 */
+/* 296 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _dec, _class;
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(172);
+
+	var _reactRouter = __webpack_require__(219);
+
+	var _axios = __webpack_require__(195);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ArchivesPage = (_dec = (0, _reactRedux.connect)(function (store) {
+		return {
+			auth: store.auth
+		};
+	}), _dec(_class = function (_Component) {
+		_inherits(ArchivesPage, _Component);
+
+		function ArchivesPage() {
+			_classCallCheck(this, ArchivesPage);
+
+			return _possibleConstructorReturn(this, Object.getPrototypeOf(ArchivesPage).apply(this, arguments));
+		}
+
+		_createClass(ArchivesPage, [{
+			key: 'deleteVideo',
+			value: function deleteVideo(video) {
+				// collecting user id and token
+				var id = localStorage.getItem('v-grab-uid');
+				var token = localStorage.getItem('v-grb');
+
+				// making AJAX request
+				this.props.dispatch({
+					type: 'UPDATE_ACCOUNT',
+					payload: _axios2.default.put('http://localhost:3000/api/users/' + id, {
+						action: 'REMOVE',
+						video: video }, {
+						headers: { 'x-access-token': token }
+					})
+				});
+			}
+		}, {
+			key: 'msg',
+			value: function msg() {
+				alert('working!');
+			}
+
+			// <Link to={'/download/id/' + val.hash}></Link>
+			// {val.webpage_url}
+
+
+		}, {
+			key: 'render',
+			value: function render() {
+
+				// function that takes 'this' context, and displays archive data in an array
+				function data(context) {
+					return context.props.archives.map(function (val, i) {
+						return _react2.default.createElement(
+							'div',
+							{ className: 'col-xs-6 col-sm-3', key: i },
+							_react2.default.createElement(
+								'a',
+								{ className: 'thumbnail' },
+								_react2.default.createElement('img', { src: val.thumbnail, alt: val.title }),
+								_react2.default.createElement(
+									'p',
+									{ className: 'text-center' },
+									val.title
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'btn-group btn-group-justified' },
+									_react2.default.createElement(
+										'a',
+										{ href: '/#/download/id/' + val.hash, className: 'btn btn-primary btn-xs' },
+										'DETAILS'
+									),
+									_react2.default.createElement(
+										'a',
+										{ onClick: context.deleteVideo.bind(context, val), className: 'btn btn-danger btn-xs' },
+										_react2.default.createElement('span', { className: 'glyphicon glyphicon-remove color-red', 'aria-hidden': 'true' })
+									)
+								)
+							)
+						);
+					});
+				}
+
+				return _react2.default.createElement(
+					'div',
+					{ className: '' },
+					_react2.default.createElement(
+						'p',
+						null,
+						'Archives'
+					),
+					data(this)
+				);
+			}
+		}]);
+
+		return ArchivesPage;
+	}(_react.Component)) || _class);
+	exports.default = ArchivesPage;
+
+/***/ },
+/* 297 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var FriendsPage = function (_Component) {
+		_inherits(FriendsPage, _Component);
+
+		function FriendsPage() {
+			_classCallCheck(this, FriendsPage);
+
+			return _possibleConstructorReturn(this, Object.getPrototypeOf(FriendsPage).apply(this, arguments));
+		}
+
+		_createClass(FriendsPage, [{
+			key: 'render',
+			value: function render() {
+
+				var data = this.props.friends.map(function (val, i) {
+					return _react2.default.createElement(
+						'div',
+						{ className: 'col-xs-6 col-sm-3', key: i },
+						_react2.default.createElement(
+							'a',
+							{ href: '/#/users/' + val._id, className: 'thumbnail' },
+							_react2.default.createElement('img', { src: 'http://iconshow.me/media/images/Mixed/small-n-flat-icon/png/512/user.png', alt: val.name }),
+							_react2.default.createElement(
+								'p',
+								{ className: 'text-center' },
+								val.name
+							)
+						)
+					);
+				});
+
+				return _react2.default.createElement(
+					'div',
+					{ className: '' },
+					_react2.default.createElement(
+						'p',
+						null,
+						'Friends'
+					),
+					data
+				);
+			}
+		}]);
+
+		return FriendsPage;
+	}(_react.Component);
+
+	exports.default = FriendsPage;
+
+/***/ },
+/* 298 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31138,7 +31677,7 @@
 			value: function componentDidUpdate() {
 				if (this.props.store.success) {
 
-					// Setting the token
+					// Setting the token & user is
 					localStorage.setItem('v-grb', this.props.store.token);
 					localStorage.setItem('v-grab-uid', this.props.auth.user._id);
 					// redirecting to the user's home page
@@ -31204,41 +31743,113 @@
 				var error = '';
 
 				// loader
-				var loader = store.pending ? "ui active inverted dimmer" : "ui inverted dimmer";
+				var loader = store.pending ? "ui active inverted dimmer" : "";
 
 				// error messaging
 				if (store.error) {
 					error = _react2.default.createElement(_FormMessage2.default, { error: true, message: store.message ? store.message : undefined });
 				}
 
+				// return(
+				// 	<div className="main-wrapper center">
+				// 		{error}
+				// 		<div className="ui segment content">
+				// 			<div className="ui huge header">Login</div>
+
+				// 			<form>
+				// 				<input type="text" ref="email" placeholder="email" name="email" />
+				// 				<input type="password" ref="password" placeholder="password" name="password" />
+				// 				<button type="submit" onClick={this.submitForm.bind(this)} >Submit</button>
+				// 			</form>
+
+				// 			<div className={ loader }>
+				// 		   		<div className="ui large text loader"></div>
+				// 		 	</div>
+
+				// 		</div>
+				// 	</div>
+				// )
+
+				// return (
+				// 	<div className="ui middle aligned center aligned grid">
+				// 	  <div className="column">
+				// 	    <h2 className="ui teal image header">
+				// 	      <img src="assets/images/logo.png" className="image"/>
+				// 	      <div className="content">
+				// 	        Log-in to your account
+				// 	      </div>
+				// 	    </h2>
+				// 	    <form className="ui large form">
+				// 	      <div className="ui stacked segment">
+				// 	        <div className="field">
+				// 	          <div className="ui left icon input">
+				// 	            <i className="user icon"></i>
+				// 	            <input type="text" ref="email" placeholder="email" name="email" />
+				// 	          </div>
+				// 	        </div>
+				// 	        <div className="field">
+				// 	          <div className="ui left icon input">
+				// 	            <i className="lock icon"></i>
+				// 	            <input type="password" ref="password" placeholder="password" name="password" />
+				// 	          </div>
+				// 	        </div>
+				// 	        <button className="ui fluid large teal submit button" type="submit" onClick={this.submitForm.bind(this)}>Login</button>
+				// 	      </div>
+				// 	    </form>
+
+				// 	    {error}
+
+				// 	    <div className="ui message">
+				// 	      New to us? <Link to={'/signup'}>Sign Up</Link>
+				// 	    </div>
+				// 	  </div>
+
+				// 		<div className={ loader }>
+				// 	   		<div className="ui large text loader"></div>
+				// 	 	</div>
+				// 	</div>
+				// )
+
 				return _react2.default.createElement(
 					'div',
-					{ className: 'main-wrapper center' },
+					{ className: 'col-xs-12 col-sm-6 col-sm-offset-3' },
 					error,
 					_react2.default.createElement(
+						'h3',
+						{ className: ' text-center' },
+						'Login to your Account'
+					),
+					_react2.default.createElement(
 						'div',
-						{ className: 'ui segment content' },
+						{ className: 'form-group' },
+						_react2.default.createElement('label', { className: 'control-label' }),
+						_react2.default.createElement('input', { className: 'form-control input-lg', type: 'text', ref: 'email', placeholder: 'email', name: 'email' })
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'form-group' },
+						_react2.default.createElement('label', { className: 'control-label' }),
+						_react2.default.createElement('input', { className: 'form-control input-lg', type: 'password', ref: 'password', placeholder: 'password', name: 'password' })
+					),
+					_react2.default.createElement(
+						'a',
+						{ className: 'btn btn-default btn-lg btn-block', onClick: this.submitForm.bind(this) },
+						'Submit'
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'text-center spacing' },
+						'New to us? ',
 						_react2.default.createElement(
-							'div',
-							{ className: 'ui huge header' },
-							'Login'
-						),
-						_react2.default.createElement(
-							'form',
-							null,
-							_react2.default.createElement('input', { type: 'text', ref: 'email', placeholder: 'email', name: 'email' }),
-							_react2.default.createElement('input', { type: 'password', ref: 'password', placeholder: 'password', name: 'password' }),
-							_react2.default.createElement(
-								'button',
-								{ type: 'submit', onClick: this.submitForm.bind(this) },
-								'Submit'
-							)
-						),
-						_react2.default.createElement(
-							'div',
-							{ className: loader },
-							_react2.default.createElement('div', { className: 'ui large text loader' })
+							_reactRouter.Link,
+							{ to: '/signup' },
+							'Sign Up'
 						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: loader },
+						_react2.default.createElement('div', { className: 'ui large text loader' })
 					)
 				);
 			}
@@ -31249,7 +31860,7 @@
 	exports.default = LoginPage;
 
 /***/ },
-/* 296 */
+/* 299 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31379,42 +31990,132 @@
 				var store = _props.store;
 				var params = _props.params;
 
-				var result = '';
+				var result = '',
+				    error = '';
 
 				// loader
-				var loader = store.pending ? "ui active inverted dimmer" : "ui inverted dimmer";
+				var loader = store.pending ? "ui active inverted dimmer" : "";
+
+				// error messaging
+				if (store.error) {
+					error = _react2.default.createElement(FormMessage, { error: true, message: store.message ? store.message : undefined });
+				}
 
 				// redirect upon successfull signup
 				// if (store.success) this.redirectTo('/users/2');
+				// return(
+				// 	<div className="main-wrapper center">
+				// 		<div className="ui segment content">
+				// 			<div className="ui huge header">Sign Up</div>
+
+				// 			<form>
+				// 				<input type="text" ref="name" placeholder="name" name="name" />
+				// 				<input type="text" ref="email" placeholder="email" name="email" />
+				// 				<input type="password" ref="password" placeholder="password" name="password" />
+				// 				<button type="submit" onClick={this.submitForm.bind(this)} >Submit</button>
+				// 			</form>
+
+				// 			<div className={ loader }>
+				// 		   		<div className="ui large text loader"></div>
+				// 		 	</div>
+
+				// 			{result}
+				// 		</div>
+				// 	</div>
+				// )
+
+				// return (
+				// 	<div className="ui middle aligned center aligned grid">
+				// 	  <div className="column">
+				// 	    <h2 className="ui teal image header">
+				// 	      <img src="assets/images/logo.png" className="image"/>
+				// 	      <div className="content">
+				// 	        Sign Up for an Account
+				// 	      </div>
+				// 	    </h2>
+				// 	    <form className="ui large form">
+				// 	      <div className="ui stacked segment">
+				// 	      	<div className="field">
+				// 	          <div className="ui left icon input">
+				// 	            <i className="user icon"></i>
+				// 	            <input type="text" ref="name" placeholder="name" name="name" />
+				// 	          </div>
+				// 	        </div>
+				// 	        <div className="field">
+				// 	          <div className="ui left icon input">
+				// 	            <i className="user icon"></i>
+				// 	            <input type="text" ref="email" placeholder="email" name="email" />
+				// 	          </div>
+				// 	        </div>
+				// 	        <div className="field">
+				// 	          <div className="ui left icon input">
+				// 	            <i className="lock icon"></i>
+				// 	            <input type="password" ref="password" placeholder="password" name="password" />
+				// 	          </div>
+				// 	        </div>
+				// 	        <button className="ui fluid large teal submit button" type="submit" onClick={this.submitForm.bind(this)}>Sign Up</button>
+				// 	      </div>
+				// 	    </form>
+
+				// 	    {error}
+
+				// 	    <div className="ui message">
+				// 	      Already have an account?  <Link to={'/login'}>Log In</Link>
+				// 	    </div>
+				// 	  </div>
+
+				// 		<div className={ loader }>
+				// 	   		<div className="ui large text loader"></div>
+				// 	 	</div>
+				// 	</div>
+				// )
+
 				return _react2.default.createElement(
 					'div',
-					{ className: 'main-wrapper center' },
+					{ className: 'col-xs-12 col-sm-6 col-sm-offset-3' },
+					error,
+					_react2.default.createElement(
+						'h3',
+						{ className: ' text-center' },
+						'Sign Up for an Account'
+					),
 					_react2.default.createElement(
 						'div',
-						{ className: 'ui segment content' },
+						{ className: 'form-group' },
+						_react2.default.createElement('label', { className: 'control-label' }),
+						_react2.default.createElement('input', { className: 'form-control input-lg', type: 'text', ref: 'name', placeholder: 'name', name: 'name' })
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'form-group' },
+						_react2.default.createElement('label', { className: 'control-label' }),
+						_react2.default.createElement('input', { className: 'form-control input-lg', type: 'text', ref: 'email', placeholder: 'email', name: 'email' })
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'form-group' },
+						_react2.default.createElement('label', { className: 'control-label' }),
+						_react2.default.createElement('input', { className: 'form-control input-lg', type: 'password', ref: 'password', placeholder: 'password', name: 'password' })
+					),
+					_react2.default.createElement(
+						'a',
+						{ className: 'btn btn-default btn-lg btn-block', onClick: this.submitForm.bind(this) },
+						'Submit'
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'text-center spacing' },
+						'Already have an account? ',
 						_react2.default.createElement(
-							'div',
-							{ className: 'ui huge header' },
-							'Sign Up'
-						),
-						_react2.default.createElement(
-							'form',
-							null,
-							_react2.default.createElement('input', { type: 'text', ref: 'name', placeholder: 'name', name: 'name' }),
-							_react2.default.createElement('input', { type: 'text', ref: 'email', placeholder: 'email', name: 'email' }),
-							_react2.default.createElement('input', { type: 'password', ref: 'password', placeholder: 'password', name: 'password' }),
-							_react2.default.createElement(
-								'button',
-								{ type: 'submit', onClick: this.submitForm.bind(this) },
-								'Submit'
-							)
-						),
-						_react2.default.createElement(
-							'div',
-							{ className: loader },
-							_react2.default.createElement('div', { className: 'ui large text loader' })
-						),
-						result
+							_reactRouter.Link,
+							{ to: '/login' },
+							'Log In'
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: loader },
+						_react2.default.createElement('div', { className: 'ui large text loader' })
 					)
 				);
 			}
@@ -31425,7 +32126,318 @@
 	exports.default = SignupPage;
 
 /***/ },
-/* 297 */
+/* 300 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _dec, _class;
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(172);
+
+	var _axios = __webpack_require__(195);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	var _reactRouter = __webpack_require__(219);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var UserPage = (_dec = (0, _reactRedux.connect)(function (store) {
+		return {
+			auth: store.auth,
+			profile: store.profile
+		};
+	}), _dec(_class = function (_Component) {
+		_inherits(UserPage, _Component);
+
+		function UserPage() {
+			_classCallCheck(this, UserPage);
+
+			return _possibleConstructorReturn(this, Object.getPrototypeOf(UserPage).apply(this, arguments));
+		}
+
+		_createClass(UserPage, [{
+			key: 'componentWillMount',
+			value: function componentWillMount() {
+				var id = this.props.params.id;
+				var token = localStorage.getItem('v-grb');
+
+				// getting user information
+				this.props.dispatch({
+					type: 'GET_PROFILE',
+					payload: _axios2.default.get('http://localhost:3000/api/users/' + id, {
+						headers: {
+							'x-access-token': token
+						}
+					})
+				});
+			}
+		}, {
+			key: 'addFriend',
+			value: function addFriend() {
+				// collecting user id and token
+				var id = localStorage.getItem('v-grab-uid');
+				var token = localStorage.getItem('v-grb');
+
+				// collecting friend info
+				var _props$profile$user = this.props.profile.user;
+				var _id = _props$profile$user._id;
+				var name = _props$profile$user.name;
+				var email = _props$profile$user.email; //deconstruct important properties
+
+				var friend = { _id: _id, name: name, email: email }; // create an object with important properties
+
+				// making AJAX request
+				this.props.dispatch({
+					type: 'UPDATE_ACCOUNT',
+					payload: _axios2.default.put('http://localhost:3000/api/users/' + id, {
+						action: 'ADD',
+						friend: friend }, {
+						headers: { 'x-access-token': token }
+					})
+				});
+
+				// trigger animation to show friend added, disable button if in friend
+			}
+		}, {
+			key: 'removeFriend',
+			value: function removeFriend() {
+				// collecting user id and token
+				var id = localStorage.getItem('v-grab-uid');
+				var token = localStorage.getItem('v-grb');
+
+				// collecting friend info
+				var _props$profile$user2 = this.props.profile.user;
+				var _id = _props$profile$user2._id;
+				var name = _props$profile$user2.name;
+				var email = _props$profile$user2.email; //deconstruct important properties
+
+				var friend = { _id: _id, name: name, email: email }; // create an object with important properties
+
+				// making AJAX request
+				this.props.dispatch({
+					type: 'UPDATE_ACCOUNT',
+					payload: _axios2.default.put('http://localhost:3000/api/users/' + id, {
+						action: 'REMOVE',
+						friend: friend }, {
+						headers: { 'x-access-token': token }
+					})
+				});
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				var _props = this.props;
+				var auth = _props.auth;
+				var profile = _props.profile;
+				var params = _props.params;
+
+				var result = void 0,
+				    friendButton = void 0,
+				    archives = void 0,
+				    profile_name = void 0,
+				    warning = void 0,
+				    profile_points = void 0;
+				var la = 'Error showing profile page';
+
+				// checking if a friend of user
+				var isFriend = auth.user.friends.find(function (item) {
+					return item._id === (profile.user ? profile.user._id : null); // due to async loading issue
+				}) !== undefined;
+
+				console.log('is Friend?', isFriend, auth.user.friends);
+
+				// friend button
+				if (isFriend) {
+					friendButton = _react2.default.createElement(
+						'div',
+						null,
+						_react2.default.createElement(
+							'button',
+							{ className: 'btn btn-danger', onClick: this.removeFriend.bind(this) },
+							'Remove Friend?'
+						)
+					);
+				} else {
+					friendButton = _react2.default.createElement(
+						'button',
+						{ className: 'btn btn-primary', onClick: this.addFriend.bind(this) },
+						'Add Friend'
+					);
+				}
+
+				// loader
+				var loader = auth.pending ? "ui active inverted dimmer" : "";
+
+				if (profile.user) {
+					la = _react2.default.createElement(
+						'div',
+						{ className: 'ui segment content' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'ui huge header' },
+							'User: ',
+							profile.user._id
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'ui huge header' },
+							'User Email: ',
+							profile.user.email
+						),
+						friendButton
+					);
+				}
+
+				// async checking
+				if (profile.user) {
+
+					// modifies and displays archive dataclassName
+					archives = profile.user.archives.map(function (val, i) {
+						return _react2.default.createElement(
+							'div',
+							{ className: 'media', key: i },
+							_react2.default.createElement(
+								'a',
+								{ href: val.webpage_url },
+								_react2.default.createElement(
+									'div',
+									{ className: 'media-left' },
+									_react2.default.createElement('img', { className: 'media-object', src: val.thumbnail, alt: '...' })
+								),
+								_react2.default.createElement(
+									'div',
+									{ className: 'media-body' },
+									_react2.default.createElement(
+										'h4',
+										{ className: 'media-heading' },
+										val.title
+									),
+									val.description.substr(0, 100) + '...'
+								)
+							)
+						);
+					});
+
+					// setting name
+					profile_name = profile.user.name;
+
+					// setting points
+					profile_points = profile.user.points;
+
+					//checking if viewing own profile
+					if (auth.user._id === profile.user._id) {
+						warning = _react2.default.createElement(
+							'div',
+							{ className: 'alert alert-dismissible alert-warning text-center' },
+							_react2.default.createElement(
+								'button',
+								{ type: 'button', className: 'close', 'data-dismiss': 'alert' },
+								'×'
+							),
+							_react2.default.createElement(
+								'h4',
+								null,
+								'Warning!'
+							),
+							_react2.default.createElement(
+								'p',
+								null,
+								'You are viewing your own account. Some functionality disabled.'
+							)
+						);
+
+						friendButton = _react2.default.createElement(
+							'button',
+							{ className: 'btn btn-primary disabled' },
+							'Add Friend'
+						);
+					}
+				}
+
+				return _react2.default.createElement(
+					'div',
+					{ className: 'col-sm-12 col-md-8 col-md-offset-2' },
+					warning,
+					_react2.default.createElement(
+						'div',
+						{ className: 'panel panel-default' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'panel-body' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'col-xs-12 col-sm-4' },
+								_react2.default.createElement('img', { className: 'img-responsive', src: 'http://iconshow.me/media/images/Mixed/small-n-flat-icon/png/512/user.png' }),
+								_react2.default.createElement(
+									'h3',
+									null,
+									'User: ',
+									_react2.default.createElement(
+										'b',
+										null,
+										profile_name
+									)
+								),
+								_react2.default.createElement(
+									'h3',
+									null,
+									'Points: ',
+									_react2.default.createElement(
+										'b',
+										null,
+										profile_points
+									)
+								),
+								_react2.default.createElement('hr', null),
+								friendButton
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'col-xs-12 col-md-8' },
+								_react2.default.createElement(
+									'h2',
+									null,
+									'Latest Downloads'
+								),
+								_react2.default.createElement('hr', null),
+								archives
+							)
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: loader },
+						_react2.default.createElement('div', { className: 'ui large text loader' })
+					)
+				);
+			}
+		}]);
+
+		return UserPage;
+	}(_react.Component)) || _class);
+	exports.default = UserPage;
+
+/***/ },
+/* 301 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31476,6 +32488,7 @@
 				key: 'componentWillMount',
 				value: function componentWillMount() {
 					this.checkAuth();
+					console.log(this.props);
 				}
 			}, {
 				key: 'checkAuth',

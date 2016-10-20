@@ -18,7 +18,7 @@ module.exports.login = function(req, res){
 
 		// FAILED: check if user has wrong password
 		else if (!user.comparePasswords(password)){
-			res.send({
+			res.status(403).send({
 				success: false,
 				message: 'Passwords do not match.'
 			});
@@ -26,7 +26,8 @@ module.exports.login = function(req, res){
 
 		// SUCCESS: creating a token and "logging in" the user
 		else {
-			var token = jwt.sign(user, 'v-grab');
+			var token = jwt.sign(user._id, 'v-grab');
+
 			res.send({
 				message: 'User logged in.',
 				token: token,

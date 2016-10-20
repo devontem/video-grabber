@@ -16,8 +16,10 @@ export default class Layout extends Component {
 		return (
 			<div>
 				<Header loggedIn={isLoggedIn} />
-				<div className="">
+				<div className="container">
+					<div className="">
 					{this.props.children}
+					</div>
 				</div>
 
 			</div>

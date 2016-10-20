@@ -10,7 +10,7 @@ const signupReducer = function(state = {}, action){
 		case "SIGNUP_FULFILLED":
 			return {...state, success: true, pending: false, ...action.payload.data}
 		case "SIGNUP_REJECTED":
-			return {...state, error: true, pending: false, message: "There was an unexpected error on your file conversion. Please try again later."}
+			return {...state, error: true, pending: false, message: "There was an unexpected error with signup. Please try again or use a different username."}
 		case "LOGOUT":
 			return {}
 		default:

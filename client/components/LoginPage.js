@@ -24,7 +24,7 @@ export default class LoginPage extends Component {
 	componentDidUpdate(){
 		if (this.props.store.success){
 
-			// Setting the token
+			// Setting the token & user is
 			localStorage.setItem('v-grb', this.props.store.token);
 			localStorage.setItem('v-grab-uid', this.props.auth.user._id);
 			// redirecting to the user's home page
@@ -82,30 +82,94 @@ export default class LoginPage extends Component {
 		let error = ''
 
 		// loader
-		let loader = store.pending ? "ui active inverted dimmer" : "ui inverted dimmer";
+		let loader = store.pending ? "ui active inverted dimmer" : "";
 
 		// error messaging
 		if (store.error){
 			error = <FormMessage error={true} message={store.message ? store.message : undefined} />
 		}
 
-		return(
-			<div className="main-wrapper center">
-				{error}
-				<div className="ui segment content">
-					<div className="ui huge header">Login</div>
+		// return(
+		// 	<div className="main-wrapper center">
+		// 		{error}
+		// 		<div className="ui segment content">
+		// 			<div className="ui huge header">Login</div>
 
-					<form>
-						<input type="text" ref="email" placeholder="email" name="email" />
-						<input type="password" ref="password" placeholder="password" name="password" />
-						<button type="submit" onClick={this.submitForm.bind(this)} >Submit</button>
-					</form>
+		// 			<form>
+		// 				<input type="text" ref="email" placeholder="email" name="email" />
+		// 				<input type="password" ref="password" placeholder="password" name="password" />
+		// 				<button type="submit" onClick={this.submitForm.bind(this)} >Submit</button>
+		// 			</form>
 					
-					<div className={ loader }>
-				   		<div className="ui large text loader"></div>
-				 	</div>
+		// 			<div className={ loader }>
+		// 		   		<div className="ui large text loader"></div>
+		// 		 	</div>
 
+		// 		</div>
+		// 	</div>
+		// )
+
+		// return (
+		// 	<div className="ui middle aligned center aligned grid">
+		// 	  <div className="column">
+		// 	    <h2 className="ui teal image header">
+		// 	      <img src="assets/images/logo.png" className="image"/>
+		// 	      <div className="content">
+		// 	        Log-in to your account
+		// 	      </div>
+		// 	    </h2>
+		// 	    <form className="ui large form">
+		// 	      <div className="ui stacked segment">
+		// 	        <div className="field">
+		// 	          <div className="ui left icon input">
+		// 	            <i className="user icon"></i>
+		// 	            <input type="text" ref="email" placeholder="email" name="email" />
+		// 	          </div>
+		// 	        </div>
+		// 	        <div className="field">
+		// 	          <div className="ui left icon input">
+		// 	            <i className="lock icon"></i>
+		// 	            <input type="password" ref="password" placeholder="password" name="password" />
+		// 	          </div>
+		// 	        </div>
+		// 	        <button className="ui fluid large teal submit button" type="submit" onClick={this.submitForm.bind(this)}>Login</button>
+		// 	      </div>
+		// 	    </form>
+
+		// 	    {error}
+
+		// 	    <div className="ui message">
+		// 	      New to us? <Link to={'/signup'}>Sign Up</Link>
+		// 	    </div>
+		// 	  </div>
+
+		// 		<div className={ loader }>
+		// 	   		<div className="ui large text loader"></div>
+		// 	 	</div>
+		// 	</div>
+		// )
+
+		return (
+			<div className="col-xs-12 col-sm-6 col-sm-offset-3">
+				{error}
+				<h3 className=" text-center">Login to your Account</h3>
+				<div className="form-group">
+				  <label className="control-label" ></label>
+				  <input className="form-control input-lg" type="text" ref="email" placeholder="email" name="email" />
 				</div>
+				<div className="form-group">
+				  <label className="control-label" ></label>
+				  <input className="form-control input-lg"  type="password" ref="password" placeholder="password" name="password" />
+				</div>
+				<a className="btn btn-default btn-lg btn-block" onClick={this.submitForm.bind(this)}>Submit</a>
+
+				<div className="text-center spacing">
+			      New to us? <Link to={'/signup'}>Sign Up</Link>
+			    </div>
+
+				<div className={ loader }>
+			   		<div className="ui large text loader"></div>
+			 	</div>
 			</div>
 		)
 	}

@@ -21,6 +21,7 @@ class App extends Component {
 
 	convertLink(){
 		var val = this.refs.link.value;
+		var id = localStorage.getItem('v-grab-uid') || null;
 
 		// if value has content
 		if (val.trim()){
@@ -28,7 +29,8 @@ class App extends Component {
 				type: 'CONVERT_URL', 
 				baseUrl: val,
 				payload: axios.post('http://localhost:3000/api/download/', {
-					baseUrl: val })
+					baseUrl: val,
+					id: id 		})
 			}).catch(function(e){
 				console.log('Error: '+ e)
 			})
@@ -39,44 +41,67 @@ class App extends Component {
 	}
 
 	render(){
-		let result;
+		let status_message;
 		const { store } = this.props
 
 		// form message
 		if (store.message){
-			result = <FormMessage error={store.error} message={store.message ? store.message : undefined} />
+			status_message = <FormMessage error={store.error} message={store.message ? store.message : undefined} />
 		}
 
 		// loader
-		let loader = store.pending ? "ui active inverted dimmer" : "ui inverted dimmer";
+		let loader = store.pending ? "ui active inverted dimmer" : "";
 
 		// video info
 		let show_video_info = ''
 		if (store.success) show_video_info = <VideoInfo hash={ store.hash } info={store.videoInfo} />
 
+		// return (
+		// 	<div className="main-wrapper">
+		// 		<div className="main-card ui card">
+		// 		  <div className="content">
+		// 		    <div className="ui big icon input search-bar">
+		// 			  <input type="text" ref='link' placeholder="Please enter the base URL" />
+		// 			  <i className="search icon"></i>
+		// 			</div>
+
+		// 		  </div>
+		// 		  <div className="extra content convert-btn">
+		// 		    <button className="ui button" onClick={this.convertLink.bind(this)} >Convert Link</button>
+		// 		  </div>
+		// 		</div>
+
+		//		<div className={ loader }>
+		//		   <div className="ui large text loader">Converting File</div>
+		//		</div>
+
+		// 		{ result }
+
+		// 		{ show_video_info }
+
+		// 	</div>
+		// )
+
+
 		return (
-			<div className="main-wrapper">
-				<div className="main-card ui card">
-				  <div className="content">
-				    <div className="ui big icon input search-bar">
-					  <input type="text" ref='link' placeholder="Please enter the base URL" />
-					  <i className="search icon"></i>
-					</div>
-
-				  </div>
-				  <div className="extra content convert-btn">
-				    <button className="ui button" onClick={this.convertLink.bind(this)} >Convert Link</button>
-				  </div>
+			<div className="col-sm-12 col-md-8 col-md-offset-2">
+			    <h1 className="jumbo-font">Lorus Ipsum</h1>
+			    <p className="clean-font">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+			    <div className="form-group">
+					<div className="input-group">
+				 		<span className="input-group-addon" >Link</span>
+				    	<input type="text" className="form-control input-lg" ref='link' placeholder="Please enter the base URL"  />
+				  	</div>
 				</div>
+				<p className="overflow-auto"><a className="btn btn-primary btn-lg pull-right" onClick={this.convertLink.bind(this)}>Convert</a></p>
 
-				<div className={ loader }>
-				   <div className="ui large text loader">Converting File</div>
-				 </div>
-
-				{ result }
+				{ status_message }
 
 				{ show_video_info }
 
+				<div className={ loader }>
+				   <div className="ui large text loader">Converting File</div>
+				</div>
 			</div>
 		)
 	}
