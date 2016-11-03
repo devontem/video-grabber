@@ -50,38 +50,11 @@ class App extends Component {
 		}
 
 		// loader
-		let loader = store.pending ? "ui active inverted dimmer" : "";
+		let loader = store.pending ? "ui active inverted dimmer full-dim" : "";
 
 		// video info
 		let show_video_info = ''
 		if (store.success) show_video_info = <VideoInfo hash={ store.hash } info={store.videoInfo} />
-
-		// return (
-		// 	<div className="main-wrapper">
-		// 		<div className="main-card ui card">
-		// 		  <div className="content">
-		// 		    <div className="ui big icon input search-bar">
-		// 			  <input type="text" ref='link' placeholder="Please enter the base URL" />
-		// 			  <i className="search icon"></i>
-		// 			</div>
-
-		// 		  </div>
-		// 		  <div className="extra content convert-btn">
-		// 		    <button className="ui button" onClick={this.convertLink.bind(this)} >Convert Link</button>
-		// 		  </div>
-		// 		</div>
-
-		//		<div className={ loader }>
-		//		   <div className="ui large text loader">Converting File</div>
-		//		</div>
-
-		// 		{ result }
-
-		// 		{ show_video_info }
-
-		// 	</div>
-		// )
-
 
 		return (
 			<div className="col-sm-12 col-md-8 col-md-offset-2">

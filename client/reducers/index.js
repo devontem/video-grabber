@@ -7,6 +7,7 @@ import loginReducer from './loginReducer'
 import signupReducer from './signupReducer'
 import authReducer from './authReducer'
 import profileReducer from './profileReducer'
+import searchFriendsReducer from './searchFriendsReducer'
 
 const reducers = combineReducers({
 	download: downloadReducer,
@@ -14,7 +15,8 @@ const reducers = combineReducers({
 	login: loginReducer,
 	signup: signupReducer,
 	auth: authReducer,
-	profile: profileReducer
+	profile: profileReducer,
+	searchFriends: searchFriendsReducer
 });
 
 export default reducers

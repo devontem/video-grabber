@@ -49,9 +49,9 @@ module.exports.queryDownload = function(req, res){
 	})
 
 	video.on('error', function error(err) {
-    console.log('error 2:', err);
-    res.status(400).send({error: true, message: 'There was a problem converting this particular video. Please try another video or try again later.'})
-  });
+	  console.log('error 2:', err);
+	  res.status(400).send({error: true, message: 'There was a problem converting this particular video. Please try another video or try again later.'})
+	});
 
 	// saves downloaded video to server under hash name
 	video.pipe(fs.createWriteStream('server/temp/'+ hash +'.mp4'))
@@ -122,10 +122,15 @@ module.exports.checkDownload = function(req, res){
 	var path = 'server/temp/'+ id +'.mp4';
 	console.log('Checking if the following file exists: '+ path);
 
-	Archive.findOne({hash: id}, function(err, archive){
+	// deletes expired videos in the server
+	deleteExpired();
 
-		// checking if the path exists
-		if (fs.existsSync(path)) {
+	Archive.findOne({hash: id}, function(err, archive){
+		if (err) throw err;
+
+		// checking if the path exists in storage, and archive data is available
+		if (fs.existsSync(path) && archive) {
+			var videoInfo, status;
 
 			res.send({	status: true, 
 						videoInfo: archive.videoInfo,
@@ -133,7 +138,8 @@ module.exports.checkDownload = function(req, res){
 
 		} else {
 
-			// error handling incase invalid URL
+			// 1. If already downloaded, show videoInfo
+			// 2. Error handling incase invalid URL, show no videoInfo
 			var videoInfo = archive ? archive.videoInfo : null;
 
 			res.send({	status: false, 

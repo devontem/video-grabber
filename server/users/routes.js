@@ -8,6 +8,8 @@ module.exports = function(app){
 	app.put('/:id', checkAuth, usersController.updateUser);
 	app.get('/:id/feed', checkAuth, usersController.getFeed);
 	app.get('/test', checkAuth, usersController.createTest);
+	app.post('/search', usersController.searchFriend);
+
 
 	// add middleware to every route in userRoutescheckAuth
 	// app.use(authenticate)

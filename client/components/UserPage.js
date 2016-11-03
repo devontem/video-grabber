@@ -108,7 +108,7 @@ export default class UserPage extends Component {
 		// async checking
 		if (profile.user){
 
-			// modifies and displays archive dataclassName
+			// modifies and displays archive data
 			archives = profile.user.archives.map(function(val, i){
 				return <div className="media" key={i}>
 							<a href={val.webpage_url}>
@@ -117,11 +117,13 @@ export default class UserPage extends Component {
 							  </div>
 							  <div className="media-body">
 							    <h4 className="media-heading">{val.title}</h4>
-							    { val.description.substr(0, 100) + '...' }
+							    { (val.description) ? val.description.substr(0, 200) + '...' : '' }
 							  </div>
 						  	</a>
 						</div>
 			});
+
+			if (!archives.length) archives = <p className="center-only">{profile.user.name} has no download history yet!</p>
 			
 			// setting name
 			profile_name = profile.user.name;
@@ -137,6 +139,7 @@ export default class UserPage extends Component {
 				  <p>You are viewing your own account. Some functionality disabled.</p>
 				</div>)
 
+				// disabling add friend button
 				friendButton = <button className="btn btn-primary disabled">Add Friend</button>
 			}
 
@@ -155,7 +158,7 @@ export default class UserPage extends Component {
 				    	<hr />
 				    	{ friendButton }
 				    </div>
-				    <div className="col-xs-12 col-md-8">
+				    <div className="col-xs-12 col-sm-8">
 				    	<h2>Latest Downloads</h2>
 				    	<hr />
 

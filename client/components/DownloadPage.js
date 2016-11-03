@@ -47,6 +47,10 @@ export default class DownloadPage extends Component {
 	render(){
 		const { store, params } = this.props;
 		let result = '', show_video_info = '';
+		let error_message = 'This video has already been downloaded or has expired! Please try to convert again.';
+
+		// video info
+		if (store.videoInfo) show_video_info = <VideoInfo hash={ store.videoInfo.hash } hideButton={true} info={store.videoInfo} />
 
 		// messaging 
 		if (store.status === true){
@@ -55,22 +59,18 @@ export default class DownloadPage extends Component {
 					<h1 className="text-center">{store.message}</h1>
 					<div className="btn-group btn-group-justified">
 	          			<a className="btn btn-success btn-lg btn-block" onClick={this.openDl.bind(this, params.id)} id="target">Click to download!</a>
-	          			<a className="btn btn-danger btn-lg btn-block" target="_blank" href={store.videoInfo.webpage_url} id="target">Youtube Link</a>
+	          			<a className="btn btn-danger btn-lg btn-block" target="_blank" href={store.videoInfo.webpage_url } id="target">Youtube Link</a>
 	          		</div>
 				</div>
 
-			// video info
-			show_video_info = <VideoInfo hash={ store.videoInfo.hash } hideButton={true} info={store.videoInfo} />
-
 		} else {
+			result =
 			<div className="">
-				<h1 className="text-center">{store.message}</h1>
+				<h1 className="text-center">{store.message || error_message }</h1>
 					<div className="btn-group btn-group-justified">
-        			<a className="btn btn-default btn-lg btn-block"><Link to={'/'}>Try Again?</Link></a>
-        			<a className="btn btn-success btn-lg btn-block" href={store.webpage_url} id="target">Youtube Link</a>
+        			<a className="btn btn-default btn-lg btn-block" href="/#/">Try Again?</a>
         			</div>
 				</div>
-			
 		}
 
 		// loader

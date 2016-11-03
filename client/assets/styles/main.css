@@ -32,6 +32,16 @@
     padding:10px;
 }
 
+.full-dim, .dimmer {
+    width: 100%;
+    background: rgba(230, 230, 230, 0.78);
+    z-index: 999;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
 img.media-object {
     width: 64px;
 }
@@ -41,94 +51,34 @@ img.media-object {
     text-align: center;
 }
 
+.center-only {
+    text-align: center;
+}
+
+.extend-body {
+    height: 260px;
+    overflow: scroll;
+}
+
 body {
     background: #f7f6f6;
 }
 
-/*body {
-	background: rgba(34,36,38,.1);
+#archives .thumbnail img {
+    height: 95px;
 }
 
-.search-bar {
-	width: 100% !important;
+#archives .thumbnail p {
+    height: 40px;
+    overflow: hidden;
 }
 
-.main-card {
-	margin: 10px 0px;
-    width: 100%!important;
+
+@media only screen and (max-width: 768px) {
+    #archives .thumbnail img {
+        height: 160px;
+    }
 }
-
-.main-wrapper {
-	padding: 10px;
-	max-width: 600px;
-    margin: 30px auto;
-}
-
-.column {
-    max-width: 450px;
-    width: 100%!important;
-}
-
-.item {
-    background: rgba(181, 204, 24, 0.47) !important;
-    position: relative !important;
-    border-radius: 5px !important;
-    padding: 10px !important;
-}
-
-.item .extra {
-    bottom: 0px;
-    padding: 10px !important;
-
-}
-
-.header-text {
-    font-family: 'Carter One', cursive;
-    font-size: 30px;
-    color: #0470c1;
-}
-
-.center {
-    text-align: center;
-}
-
-.ui.segment.nav-bar {
-	background: #b5cc18;
-}
-
-.ui.segment.content {
-    padding: 40px 20px;
-}
-.ui.segment.content .header {
-    margin-bottom: 50px;
-} 
-.convert-btn {
-	margin-top: 15px;
-	text-align: right;
-}
-.try-again a,
-.try-again a:hover,
-.try-again a:visited {
-    color:white;
-}
-
-.bg::after {
-    content: "";
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-image: url("http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/swirl_pattern.png");
-    background-size: contain;
-    background-image: url('http://cdn1.bestpsdfreebies.com/wp-content/uploads/2014/05/shards_pattern.jpg');
-    background-repeat: repeat;
-    width: 100%;
-    height: 100%;
-    opacity: 0.2;
-    z-index: -1;
-}*/
-
-
 
 
 

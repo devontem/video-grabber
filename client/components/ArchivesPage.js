@@ -28,13 +28,6 @@ export default class ArchivesPage extends Component {
 		})
 	}
 
-	msg(){
-		alert('working!');
-	}
-
-	// <Link to={'/download/id/' + val.hash}></Link>
-	// {val.webpage_url}
-
 
 	render(){
 
@@ -55,10 +48,14 @@ export default class ArchivesPage extends Component {
 					});
 		}
 
+		var message = (!this.props.archives.length) ? <p className="center">You currently have no archives.</p>: '';
+
 		return (
 			<div className="">
-				<p>Archives</p>
-			  { data(this) }
+				
+				{ message }
+
+			  	{ data(this) }
 			</div>
 		)
 	}

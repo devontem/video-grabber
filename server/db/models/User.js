@@ -3,8 +3,16 @@ var bcrypt = require('bcrypt');
 var saltRounds = 10;
 
 var userSchema = mongoose.Schema({
-	name: String,
-	email: String,
+	name: {
+		type: String,
+		required: true
+	},
+	email:  {
+		type: String,
+		index: true,
+		unique: true,
+		required: true
+	},
 	password: String,
 	points: Number,
 	archives: [mongoose.Schema.Types.Mixed],

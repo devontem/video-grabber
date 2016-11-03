@@ -68,27 +68,27 @@
 
 	var _store2 = _interopRequireDefault(_store);
 
-	var _DownloadPage = __webpack_require__(294);
+	var _DownloadPage = __webpack_require__(295);
 
 	var _DownloadPage2 = _interopRequireDefault(_DownloadPage);
 
-	var _ProfilePage = __webpack_require__(295);
+	var _ProfilePage = __webpack_require__(296);
 
 	var _ProfilePage2 = _interopRequireDefault(_ProfilePage);
 
-	var _LoginPage = __webpack_require__(298);
+	var _LoginPage = __webpack_require__(299);
 
 	var _LoginPage2 = _interopRequireDefault(_LoginPage);
 
-	var _SignupPage = __webpack_require__(299);
+	var _SignupPage = __webpack_require__(300);
 
 	var _SignupPage2 = _interopRequireDefault(_SignupPage);
 
-	var _UserPage = __webpack_require__(300);
+	var _UserPage = __webpack_require__(301);
 
 	var _UserPage2 = _interopRequireDefault(_UserPage);
 
-	var _requireAuthentication = __webpack_require__(301);
+	var _requireAuthentication = __webpack_require__(302);
 
 	var _requireAuthentication2 = _interopRequireDefault(_requireAuthentication);
 
@@ -22794,38 +22794,11 @@
 				}
 
 				// loader
-				var loader = store.pending ? "ui active inverted dimmer" : "";
+				var loader = store.pending ? "ui active inverted dimmer full-dim" : "";
 
 				// video info
 				var show_video_info = '';
 				if (store.success) show_video_info = _react2.default.createElement(_VideoInfo2.default, { hash: store.hash, info: store.videoInfo });
-
-				// return (
-				// 	<div className="main-wrapper">
-				// 		<div className="main-card ui card">
-				// 		  <div className="content">
-				// 		    <div className="ui big icon input search-bar">
-				// 			  <input type="text" ref='link' placeholder="Please enter the base URL" />
-				// 			  <i className="search icon"></i>
-				// 			</div>
-
-				// 		  </div>
-				// 		  <div className="extra content convert-btn">
-				// 		    <button className="ui button" onClick={this.convertLink.bind(this)} >Convert Link</button>
-				// 		  </div>
-				// 		</div>
-
-				//		<div className={ loader }>
-				//		   <div className="ui large text loader">Converting File</div>
-				//		</div>
-
-				// 		{ result }
-
-				// 		{ show_video_info }
-
-				// 	</div>
-				// )
-
 
 				return _react2.default.createElement(
 					'div',
@@ -24356,10 +24329,8 @@
 	            var info = _props.info;
 	            var hash = _props.hash;
 
-
-	            console.log(this.props, 'props');
-
 	            // show download button is 'hide flag' is false/undefined
+
 	            var downloadButton = '';
 	            if (!this.props.hideButton) {
 	                downloadButton = _react2.default.createElement(
@@ -24401,7 +24372,7 @@
 	                        { className: 'col-xs-12 col-sm-6' },
 	                        _react2.default.createElement(
 	                            'a',
-	                            { href: '#', className: 'thumbnail' },
+	                            { href: info.webpage_url, target: '_blank', className: 'thumbnail' },
 	                            _react2.default.createElement('img', { src: info.thumbnail, alt: 'Video Thumbnail' })
 	                        )
 	                    ),
@@ -30713,7 +30684,13 @@
 
 	var _profileReducer2 = _interopRequireDefault(_profileReducer);
 
+	var _searchFriendsReducer = __webpack_require__(294);
+
+	var _searchFriendsReducer2 = _interopRequireDefault(_searchFriendsReducer);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	// combining the reducers
 
 	var reducers = (0, _redux.combineReducers)({
 		download: _downloadReducer2.default,
@@ -30721,8 +30698,9 @@
 		login: _loginReducer2.default,
 		signup: _signupReducer2.default,
 		auth: _authReducer2.default,
-		profile: _profileReducer2.default
-	}); // combining the reducers
+		profile: _profileReducer2.default,
+		searchFriends: _searchFriendsReducer2.default
+	});
 
 	exports.default = reducers;
 
@@ -30825,7 +30803,7 @@
 			case "LOGIN_FULFILLED":
 				return _extends({}, state, { success: true, pending: false }, action.payload.data);
 			case "LOGIN_REJECTED":
-				return _extends({}, state, { error: true, pending: false, message: "There was an error creating your account. Please make sure you entered the information correctly." }, action.payload.data);
+				return _extends({}, state, { error: true, pending: false, message: "Credentials aren't matching! Please try again." }, action.payload.data);
 			case "LOGOUT":
 				return {};
 			default:
@@ -30862,7 +30840,7 @@
 			case "SIGNUP_FULFILLED":
 				return _extends({}, state, { success: true, pending: false }, action.payload.data);
 			case "SIGNUP_REJECTED":
-				return _extends({}, state, { error: true, pending: false, message: "There was an unexpected error with signup. Please try again or use a different username." });
+				return _extends({}, state, { error: true, pending: false, message: "There was an unexpected error with signup. Please try again or use a different username." }, action.payload.data);
 			case "LOGOUT":
 				return {};
 			default:
@@ -30977,6 +30955,45 @@
 
 /***/ },
 /* 294 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	// creating the profile reducer
+
+	var searchFriendsReducer = function searchFriendsReducer() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+		var action = arguments[1];
+
+
+		switch (action.type) {
+			case 'SEARCH_FRIENDS':
+				return state;
+			case 'SEARCH_FRIENDS_PENDING':
+				return _extends({}, state, { pending: true });
+			case 'SEARCH_FRIENDS_FULFILLED':
+				return _extends({}, state, { pending: false }, action.payload.data);
+			case 'SEARCH_FRIENDS_REJECTED':
+				return _extends({}, state, { pending: false, success: false }, action.payload.data);
+
+			case 'LOGOUT':
+				return {};
+
+			default:
+				return state;
+		}
+	};
+
+	exports.default = searchFriendsReducer;
+
+/***/ },
+/* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31070,6 +31087,10 @@
 
 				var result = '',
 				    show_video_info = '';
+				var error_message = 'This video has already been downloaded or has expired! Please try to convert again.';
+
+				// video info
+				if (store.videoInfo) show_video_info = _react2.default.createElement(_VideoInfo2.default, { hash: store.videoInfo.hash, hideButton: true, info: store.videoInfo });
 
 				// messaging 
 				if (store.status === true) {
@@ -31096,34 +31117,22 @@
 							)
 						)
 					);
-
-					// video info
-					show_video_info = _react2.default.createElement(_VideoInfo2.default, { hash: store.videoInfo.hash, hideButton: true, info: store.videoInfo });
 				} else {
-					_react2.default.createElement(
+					result = _react2.default.createElement(
 						'div',
 						{ className: '' },
 						_react2.default.createElement(
 							'h1',
 							{ className: 'text-center' },
-							store.message
+							store.message || error_message
 						),
 						_react2.default.createElement(
 							'div',
 							{ className: 'btn-group btn-group-justified' },
 							_react2.default.createElement(
 								'a',
-								{ className: 'btn btn-default btn-lg btn-block' },
-								_react2.default.createElement(
-									_reactRouter.Link,
-									{ to: '/' },
-									'Try Again?'
-								)
-							),
-							_react2.default.createElement(
-								'a',
-								{ className: 'btn btn-success btn-lg btn-block', href: store.webpage_url, id: 'target' },
-								'Youtube Link'
+								{ className: 'btn btn-default btn-lg btn-block', href: '/#/' },
+								'Try Again?'
 							)
 						)
 					);
@@ -31169,7 +31178,7 @@
 	exports.default = DownloadPage;
 
 /***/ },
-/* 295 */
+/* 296 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31195,11 +31204,11 @@
 
 	var _reactRouter = __webpack_require__(219);
 
-	var _ArchivesPage = __webpack_require__(296);
+	var _ArchivesPage = __webpack_require__(297);
 
 	var _ArchivesPage2 = _interopRequireDefault(_ArchivesPage);
 
-	var _FriendsPage = __webpack_require__(297);
+	var _FriendsPage = __webpack_require__(298);
 
 	var _FriendsPage2 = _interopRequireDefault(_FriendsPage);
 
@@ -31226,35 +31235,6 @@
 
 		_createClass(ProfilePage, [{
 			key: 'render',
-
-
-			// getFeed(){
-			// 	var token = localStorage.getItem('v-grb');
-			// 	var id = localStorage.getItem('v-grab-uid');
-
-			// 	// dispatching action
-			// 	this.props.dispatch({
-			// 		type: 'GET_FEED',
-			// 		payload: axios.get('http://localhost:3000/api/users/'+id+'/feed'),{
-			// 			headers: {
-			// 				'x-access-token': token
-			// 			}
-			// 	})
-			// 	.catch(e=>{
-			// 		console.log('Error: ', e);
-			// 	})
-			// }
-
-			// componentWillMount(){
-
-			// 	// get user info if not fetched
-			// 	if (!this.props.auth){
-			// 		this.props.dispatch({
-			// 			type: 'GET_'
-			// 		})
-			// 	}
-			// }
-
 			value: function render() {
 				var _props = this.props;
 				var store = _props.store;
@@ -31345,7 +31325,7 @@
 									),
 									_react2.default.createElement(
 										'a',
-										{ href: '/#/', className: 'btn btn-default' },
+										{ href: '/#/users/' + auth.user._id, className: 'btn btn-default' },
 										'Public Profile'
 									),
 									_react2.default.createElement(
@@ -31406,7 +31386,7 @@
 	exports.default = ProfilePage;
 
 /***/ },
-/* 296 */
+/* 297 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31471,16 +31451,6 @@
 				});
 			}
 		}, {
-			key: 'msg',
-			value: function msg() {
-				alert('working!');
-			}
-
-			// <Link to={'/download/id/' + val.hash}></Link>
-			// {val.webpage_url}
-
-
-		}, {
 			key: 'render',
 			value: function render() {
 
@@ -31518,14 +31488,16 @@
 					});
 				}
 
+				var message = !this.props.archives.length ? _react2.default.createElement(
+					'p',
+					{ className: 'center' },
+					'You currently have no archives.'
+				) : '';
+
 				return _react2.default.createElement(
 					'div',
 					{ className: '' },
-					_react2.default.createElement(
-						'p',
-						null,
-						'Archives'
-					),
+					message,
 					data(this)
 				);
 			}
@@ -31536,7 +31508,7 @@
 	exports.default = ArchivesPage;
 
 /***/ },
-/* 297 */
+/* 298 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31548,9 +31520,17 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+	var _dec, _class;
+
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(172);
+
+	var _axios = __webpack_require__(195);
+
+	var _axios2 = _interopRequireDefault(_axios);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -31560,7 +31540,12 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var FriendsPage = function (_Component) {
+	// connecting redux store with react component
+	var FriendsPage = (_dec = (0, _reactRedux.connect)(function (store) {
+		return {
+			searchFriends: store.searchFriends
+		};
+	}), _dec(_class = function (_Component) {
 		_inherits(FriendsPage, _Component);
 
 		function FriendsPage() {
@@ -31570,13 +31555,32 @@
 		}
 
 		_createClass(FriendsPage, [{
+			key: 'search',
+			value: function search() {
+				var username = this.refs.username.value;
+
+				// dispatching search friend action
+				if (username.length) {
+					this.props.dispatch({
+						type: 'SEARCH_FRIENDS',
+						payload: _axios2.default.post('http://localhost:3000/api/users/search', {
+							username: username
+						})
+					});
+				}
+
+				// resetting value
+				this.refs.username.value = '';
+			}
+		}, {
 			key: 'render',
 			value: function render() {
+				var searchFriends;
 
 				var data = this.props.friends.map(function (val, i) {
 					return _react2.default.createElement(
 						'div',
-						{ className: 'col-xs-6 col-sm-3', key: i },
+						{ className: 'col-xs-6 col-sm-4', key: i },
 						_react2.default.createElement(
 							'a',
 							{ href: '/#/users/' + val._id, className: 'thumbnail' },
@@ -31590,26 +31594,96 @@
 					);
 				});
 
+				// Search Friends messaging (if there are results vs no results)
+				if (this.props.searchFriends.friends && this.props.searchFriends.friends.length > 0) {
+					searchFriends = this.props.searchFriends.friends.map(function (val, i) {
+						return _react2.default.createElement(
+							'a',
+							{ href: '/#/users/' + val._id, className: 'list-group-item' },
+							val.name
+						);
+					});
+				} else if (this.props.searchFriends.friends && this.props.searchFriends.friends.length < 1) {
+					searchFriends = _react2.default.createElement(
+						'a',
+						{ className: 'list-group-item center-only disabled' },
+						'No user with that email was found!'
+					);
+				}
+
+				// If no search has been done
+				if (this.props.searchFriends.friends === undefined) {
+					searchFriends = _react2.default.createElement(
+						'a',
+						{ className: 'list-group-item center-only disabled' },
+						'Find friends by inputting their email address!'
+					);
+				}
+
+				var message = !data.length ? _react2.default.createElement(
+					'p',
+					{ className: 'center' },
+					'You have no friends right now. Search for some!'
+				) : '';
+
 				return _react2.default.createElement(
 					'div',
 					{ className: '' },
 					_react2.default.createElement(
-						'p',
-						null,
-						'Friends'
+						'div',
+						{ className: 'col-xs-12 col-sm-5' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'panel panel-default' },
+							_react2.default.createElement(
+								'div',
+								{ className: 'panel-heading' },
+								_react2.default.createElement(
+									'div',
+									{ className: 'form-group' },
+									_react2.default.createElement(
+										'div',
+										{ className: 'input-group' },
+										_react2.default.createElement('input', { type: 'text', ref: 'username', placeholder: 'friend\'s email', className: 'form-control' }),
+										_react2.default.createElement(
+											'span',
+											{ className: 'input-group-btn' },
+											_react2.default.createElement(
+												'button',
+												{ className: 'btn btn-default', onClick: this.search.bind(this), type: 'button' },
+												'Search'
+											)
+										)
+									)
+								)
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'panel-body extend-body' },
+								_react2.default.createElement(
+									'div',
+									{ className: 'list-group' },
+									searchFriends
+								)
+							)
+						)
 					),
-					data
+					_react2.default.createElement(
+						'div',
+						{ className: 'col-xs-12 col-sm-7' },
+						message,
+						data
+					)
 				);
 			}
 		}]);
 
 		return FriendsPage;
-	}(_react.Component);
-
+	}(_react.Component)) || _class);
 	exports.default = FriendsPage;
 
 /***/ },
-/* 298 */
+/* 299 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31860,7 +31934,7 @@
 	exports.default = LoginPage;
 
 /***/ },
-/* 299 */
+/* 300 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31885,6 +31959,10 @@
 	var _axios2 = _interopRequireDefault(_axios);
 
 	var _reactRouter = __webpack_require__(219);
+
+	var _FormMessage = __webpack_require__(217);
+
+	var _FormMessage2 = _interopRequireDefault(_FormMessage);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -31998,77 +32076,8 @@
 
 				// error messaging
 				if (store.error) {
-					error = _react2.default.createElement(FormMessage, { error: true, message: store.message ? store.message : undefined });
+					error = _react2.default.createElement(_FormMessage2.default, { error: true, message: store.message ? store.message : undefined });
 				}
-
-				// redirect upon successfull signup
-				// if (store.success) this.redirectTo('/users/2');
-				// return(
-				// 	<div className="main-wrapper center">
-				// 		<div className="ui segment content">
-				// 			<div className="ui huge header">Sign Up</div>
-
-				// 			<form>
-				// 				<input type="text" ref="name" placeholder="name" name="name" />
-				// 				<input type="text" ref="email" placeholder="email" name="email" />
-				// 				<input type="password" ref="password" placeholder="password" name="password" />
-				// 				<button type="submit" onClick={this.submitForm.bind(this)} >Submit</button>
-				// 			</form>
-
-				// 			<div className={ loader }>
-				// 		   		<div className="ui large text loader"></div>
-				// 		 	</div>
-
-				// 			{result}
-				// 		</div>
-				// 	</div>
-				// )
-
-				// return (
-				// 	<div className="ui middle aligned center aligned grid">
-				// 	  <div className="column">
-				// 	    <h2 className="ui teal image header">
-				// 	      <img src="assets/images/logo.png" className="image"/>
-				// 	      <div className="content">
-				// 	        Sign Up for an Account
-				// 	      </div>
-				// 	    </h2>
-				// 	    <form className="ui large form">
-				// 	      <div className="ui stacked segment">
-				// 	      	<div className="field">
-				// 	          <div className="ui left icon input">
-				// 	            <i className="user icon"></i>
-				// 	            <input type="text" ref="name" placeholder="name" name="name" />
-				// 	          </div>
-				// 	        </div>
-				// 	        <div className="field">
-				// 	          <div className="ui left icon input">
-				// 	            <i className="user icon"></i>
-				// 	            <input type="text" ref="email" placeholder="email" name="email" />
-				// 	          </div>
-				// 	        </div>
-				// 	        <div className="field">
-				// 	          <div className="ui left icon input">
-				// 	            <i className="lock icon"></i>
-				// 	            <input type="password" ref="password" placeholder="password" name="password" />
-				// 	          </div>
-				// 	        </div>
-				// 	        <button className="ui fluid large teal submit button" type="submit" onClick={this.submitForm.bind(this)}>Sign Up</button>
-				// 	      </div>
-				// 	    </form>
-
-				// 	    {error}
-
-				// 	    <div className="ui message">
-				// 	      Already have an account?  <Link to={'/login'}>Log In</Link>
-				// 	    </div>
-				// 	  </div>
-
-				// 		<div className={ loader }>
-				// 	   		<div className="ui large text loader"></div>
-				// 	 	</div>
-				// 	</div>
-				// )
 
 				return _react2.default.createElement(
 					'div',
@@ -32126,7 +32135,7 @@
 	exports.default = SignupPage;
 
 /***/ },
-/* 300 */
+/* 301 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32310,7 +32319,7 @@
 				// async checking
 				if (profile.user) {
 
-					// modifies and displays archive dataclassName
+					// modifies and displays archive data
 					archives = profile.user.archives.map(function (val, i) {
 						return _react2.default.createElement(
 							'div',
@@ -32331,11 +32340,18 @@
 										{ className: 'media-heading' },
 										val.title
 									),
-									val.description.substr(0, 100) + '...'
+									val.description ? val.description.substr(0, 200) + '...' : ''
 								)
 							)
 						);
 					});
+
+					if (!archives.length) archives = _react2.default.createElement(
+						'p',
+						{ className: 'center-only' },
+						profile.user.name,
+						' has no download history yet!'
+					);
 
 					// setting name
 					profile_name = profile.user.name;
@@ -32365,6 +32381,7 @@
 							)
 						);
 
+						// disabling add friend button
 						friendButton = _react2.default.createElement(
 							'button',
 							{ className: 'btn btn-primary disabled' },
@@ -32412,7 +32429,7 @@
 							),
 							_react2.default.createElement(
 								'div',
-								{ className: 'col-xs-12 col-md-8' },
+								{ className: 'col-xs-12 col-sm-8' },
 								_react2.default.createElement(
 									'h2',
 									null,
@@ -32437,7 +32454,7 @@
 	exports.default = UserPage;
 
 /***/ },
-/* 301 */
+/* 302 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

@@ -12,8 +12,6 @@ export default class VideoInfo extends Component {
 
     const { info, hash } = this.props;
 
-    console.log(this.props, 'props')
-
     // show download button is 'hide flag' is false/undefined
     let downloadButton = '';
     if (!this.props.hideButton){
@@ -29,7 +27,7 @@ export default class VideoInfo extends Component {
             </div>
             <div className="panel-body">
                 <div className="col-xs-12 col-sm-6">
-                    <a href="#" className="thumbnail">
+                    <a href={info.webpage_url} target="_blank" className="thumbnail">
                       <img src={info.thumbnail} alt="Video Thumbnail"/>
                     </a>
                 </div>

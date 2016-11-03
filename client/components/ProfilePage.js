@@ -13,33 +13,6 @@ import FriendsPage from './FriendsPage'
 
 export default class ProfilePage extends Component {
 
-	// getFeed(){
-	// 	var token = localStorage.getItem('v-grb');
-	// 	var id = localStorage.getItem('v-grab-uid');
-
-	// 	// dispatching action
-	// 	this.props.dispatch({
-	// 		type: 'GET_FEED',
-	// 		payload: axios.get('http://localhost:3000/api/users/'+id+'/feed'),{
-	// 			headers: {
-	// 				'x-access-token': token
-	// 			}
-	// 	})
-	// 	.catch(e=>{
-	// 		console.log('Error: ', e);
-	// 	})
-	// }
-
-	// componentWillMount(){
-
-	// 	// get user info if not fetched
-	// 	if (!this.props.auth){
-	// 		this.props.dispatch({
-	// 			type: 'GET_'
-	// 		})
-	// 	}
-	// }
-
 	render(){
 		const { store, auth, params } = this.props;
 		let result = ''
@@ -71,7 +44,7 @@ export default class ProfilePage extends Component {
 				    <h2 className="text-center">Dashboard</h2>
 				    <div className="btn-group btn-group-justified">
 					  <a href="/#/" className="btn btn-default">Download Video</a>
-					  <a href={'/#/'} className="btn btn-default">Public Profile</a>
+					  <a href={'/#/users/'+auth.user._id} className="btn btn-default">Public Profile</a>
 					  <a href="#" className="btn btn-default disabled">Chrome Extension</a>
 					</div>
 					<div>
