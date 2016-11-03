@@ -28,6 +28,11 @@ export default class SignupPage extends Component {
 			// Setting the token
 			localStorage.setItem('v-grb', this.props.store.token);
 			localStorage.setItem('v-grab-uid', this.props.auth.user._id);
+
+			//showing the confirmation message
+			swal("Welcome!", "You account has been registered.", "success")
+
+
 			// redirecting to the user's home page
 			this.props.history.push('/profile');
 		}

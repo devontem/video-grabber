@@ -22804,9 +22804,14 @@
 					'div',
 					{ className: 'col-sm-12 col-md-8 col-md-offset-2' },
 					_react2.default.createElement(
-						'h1',
-						{ className: 'jumbo-font' },
-						'Lorus Ipsum'
+						'div',
+						{ className: 'center-only main-img' },
+						_react2.default.createElement('img', { className: '', src: './../assets/img/player.png' }),
+						_react2.default.createElement(
+							'h1',
+							{ className: 'jumbo-font' },
+							'Lorus Ipsum'
+						)
 					),
 					_react2.default.createElement(
 						'p',
@@ -31282,7 +31287,7 @@
 								_react2.default.createElement(
 									'a',
 									{ href: '#home', 'data-toggle': 'tab', 'aria-expanded': 'false' },
-									'Home'
+									'Dashboard'
 								)
 							),
 							_react2.default.createElement(
@@ -31311,11 +31316,6 @@
 								'div',
 								{ className: 'tab-pane fade active in', id: 'home' },
 								_react2.default.createElement(
-									'h2',
-									{ className: 'text-center' },
-									'Dashboard'
-								),
-								_react2.default.createElement(
 									'div',
 									{ className: 'btn-group btn-group-justified' },
 									_react2.default.createElement(
@@ -31340,7 +31340,7 @@
 									_react2.default.createElement(
 										'div',
 										{ className: 'center' },
-										_react2.default.createElement('img', { className: '', src: 'http://ketal.es/wp-content/uploads/2016/06/badge-simple-flat.png' }),
+										_react2.default.createElement('img', { className: 'badge-img', src: './../assets/img/badge-simple-flat.png' }),
 										_react2.default.createElement(
 											'h1',
 											null,
@@ -31451,6 +31451,27 @@
 				});
 			}
 		}, {
+			key: 'deleteConfirm',
+			value: function deleteConfirm(video) {
+				var context = this;
+
+				swal({
+					title: "Are you sure?",
+					text: "This archive will be removed from your history, and you will need to re-download it.",
+					type: "warning",
+					showCancelButton: true,
+					confirmButtonColor: "#DD6B55",
+					confirmButtonText: "Yes, delete it!",
+					closeOnConfirm: false
+				}, function () {
+
+					// deleting video
+					context.deleteVideo(video);
+
+					swal("Deleted!", "Your video archive has been deleted.", "success");
+				});
+			}
+		}, {
 			key: 'render',
 			value: function render() {
 
@@ -31479,7 +31500,7 @@
 									),
 									_react2.default.createElement(
 										'a',
-										{ onClick: context.deleteVideo.bind(context, val), className: 'btn btn-danger btn-xs' },
+										{ onClick: context.deleteConfirm.bind(context, val), className: 'btn btn-danger btn-xs' },
 										_react2.default.createElement('span', { className: 'glyphicon glyphicon-remove color-red', 'aria-hidden': 'true' })
 									)
 								)
@@ -31584,7 +31605,7 @@
 						_react2.default.createElement(
 							'a',
 							{ href: '/#/users/' + val._id, className: 'thumbnail' },
-							_react2.default.createElement('img', { src: 'http://iconshow.me/media/images/Mixed/small-n-flat-icon/png/512/user.png', alt: val.name }),
+							_react2.default.createElement('img', { src: './../assets/img/user.png', alt: val.name }),
 							_react2.default.createElement(
 								'p',
 								{ className: 'text-center' },
@@ -31754,6 +31775,10 @@
 					// Setting the token & user is
 					localStorage.setItem('v-grb', this.props.store.token);
 					localStorage.setItem('v-grab-uid', this.props.auth.user._id);
+
+					//showing the confirmation message
+					swal("Welcome Back", "You are now logged in", "success");
+
 					// redirecting to the user's home page
 					this.props.history.push('/profile');
 				}
@@ -32006,6 +32031,10 @@
 					// Setting the token
 					localStorage.setItem('v-grb', this.props.store.token);
 					localStorage.setItem('v-grab-uid', this.props.auth.user._id);
+
+					//showing the confirmation message
+					swal("Welcome!", "You account has been registered.", "success");
+
 					// redirecting to the user's home page
 					this.props.history.push('/profile');
 				}
@@ -32403,7 +32432,7 @@
 							_react2.default.createElement(
 								'div',
 								{ className: 'col-xs-12 col-sm-4' },
-								_react2.default.createElement('img', { className: 'img-responsive', src: 'http://iconshow.me/media/images/Mixed/small-n-flat-icon/png/512/user.png' }),
+								_react2.default.createElement('img', { className: 'img-responsive', src: './../assets/img/user.png' }),
 								_react2.default.createElement(
 									'h3',
 									null,

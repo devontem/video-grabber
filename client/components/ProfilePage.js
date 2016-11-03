@@ -35,13 +35,12 @@ export default class ProfilePage extends Component {
 			<div className="col-sm-12 col-md-8 col-md-offset-2">
 			<div className="">
 				<ul className="nav nav-tabs">
-				  <li className="active"><a href="#home" data-toggle="tab" aria-expanded="false">Home</a></li>
+				  <li className="active"><a href="#home" data-toggle="tab" aria-expanded="false">Dashboard</a></li>
 				  <li className=""><a href="#friends" data-toggle="tab" aria-expanded="true">Friends</a></li>
 				  <li className=""><a href="#archives" data-toggle="tab" aria-expanded="true">Archives</a></li>
 				</ul>
 				<div id="myTabContent" className="tab-content panel panel-default padding-10">
 				  <div className="tab-pane fade active in" id="home">
-				    <h2 className="text-center">Dashboard</h2>
 				    <div className="btn-group btn-group-justified">
 					  <a href="/#/" className="btn btn-default">Download Video</a>
 					  <a href={'/#/users/'+auth.user._id} className="btn btn-default">Public Profile</a>
@@ -49,7 +48,7 @@ export default class ProfilePage extends Component {
 					</div>
 					<div>
 						<div className="center">
-							<img className="" src="http://ketal.es/wp-content/uploads/2016/06/badge-simple-flat.png" />
+							<img className="badge-img" src="./../assets/img/badge-simple-flat.png" />
 							<h1><b>You have {auth.user.points} points!</b></h1>
 							<p>* (Get 10 points for every video you convert)</p>
 						</div>

@@ -58,7 +58,10 @@ class App extends Component {
 
 		return (
 			<div className="col-sm-12 col-md-8 col-md-offset-2">
-			    <h1 className="jumbo-font">Lorus Ipsum</h1>
+				<div className="center-only main-img">
+					<img className="" src="./../assets/img/player.png" />
+					<h1 className="jumbo-font">Lorus Ipsum</h1>
+				</div>
 			    <p className="clean-font">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
 			    <div className="form-group">
 					<div className="input-group">

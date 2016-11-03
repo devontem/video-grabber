@@ -27,6 +27,10 @@ export default class LoginPage extends Component {
 			// Setting the token & user is
 			localStorage.setItem('v-grb', this.props.store.token);
 			localStorage.setItem('v-grab-uid', this.props.auth.user._id);
+
+			//showing the confirmation message
+			swal("Welcome Back", "You are now logged in", "success")
+
 			// redirecting to the user's home page
 			this.props.history.push('/profile');
 		}

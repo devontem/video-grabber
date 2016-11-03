@@ -34,7 +34,7 @@ export default class FriendsPage extends Component {
 					return (
 						<div className="col-xs-6 col-sm-4" key={i}>
 						<a href={'/#/users/'+ val._id} className="thumbnail">
-						  <img src="http://iconshow.me/media/images/Mixed/small-n-flat-icon/png/512/user.png" alt={val.name} />
+						  <img src="./../assets/img/user.png" alt={val.name} />
 						  <p className="text-center">{val.name}</p>
 						</a>
 						</div> );

@@ -28,6 +28,27 @@ export default class ArchivesPage extends Component {
 		})
 	}
 
+	deleteConfirm(video){
+		var context = this;
+
+		swal({
+		  title: "Are you sure?",
+		  text: "This archive will be removed from your history, and you will need to re-download it.",
+		  type: "warning",
+		  showCancelButton: true,
+		  confirmButtonColor: "#DD6B55",
+		  confirmButtonText: "Yes, delete it!",
+		  closeOnConfirm: false
+		},
+		function(){
+
+			// deleting video
+			context.deleteVideo(video);
+
+		  swal("Deleted!", "Your video archive has been deleted.", "success");
+		});
+	}
+
 
 	render(){
 
@@ -41,7 +62,7 @@ export default class ArchivesPage extends Component {
 						  <p className="text-center">{val.title}</p>
 						  <div className="btn-group btn-group-justified">
 							  <a href={'/#/download/id/' + val.hash} className="btn btn-primary btn-xs">DETAILS</a>
-							  <a onClick={context.deleteVideo.bind(context, val)} className="btn btn-danger btn-xs"><span className="glyphicon glyphicon-remove color-red" aria-hidden="true"></span></a>
+							  <a onClick={context.deleteConfirm.bind(context, val)} className="btn btn-danger btn-xs"><span className="glyphicon glyphicon-remove color-red" aria-hidden="true"></span></a>
 							</div>
 						</a>
 						</div> );

@@ -152,7 +152,7 @@ export default class UserPage extends Component {
 				<div className="panel panel-default">
 				  <div className="panel-body">
 				    <div className="col-xs-12 col-sm-4">
-				    	<img className="img-responsive" src="http://iconshow.me/media/images/Mixed/small-n-flat-icon/png/512/user.png" />
+				    	<img className="img-responsive" src="./../assets/img/user.png" />
 				    	<h3>User: <b>{ profile_name }</b></h3>
 				    	<h3>Points: <b>{ profile_points }</b></h3>
 				    	<hr />

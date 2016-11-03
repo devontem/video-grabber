@@ -32,6 +32,9 @@ module.exports.queryDownload = function(req, res){
 	var id = req.body.id || null;
 	var videoInfo;
 	var hash = generateHash();
+
+	// deletes expired videos in the server
+	deleteExpired();
 	
 	var video = youtubedl(videoLink,
 	  // Optional arguments passed to youtube-dl.
@@ -97,7 +100,7 @@ module.exports.queryDownload = function(req, res){
 					res.send({
 						user: user,
 						download: { error: false, 
-									message: 'Your download is complete.. please wait to be redirected or navigate to /download/id/'+hash, 
+									message: 'Your conversion is complete!', 
 									hash: hash, 
 									videoInfo: videoInfo } });
 				});
@@ -107,7 +110,7 @@ module.exports.queryDownload = function(req, res){
 				res.send({
 						user: null,
 						download: { error:false, 
-									message: 'Your download is complete.. please wait to be redirected or navigate to /download/id/'+hash, 
+									message: 'Your conversion is complete!', 
 									hash: hash, 
 									videoInfo: videoInfo } });
 
