@@ -16,7 +16,6 @@ function formatFriend(friend){
 
 // Removes archive from archive DB (cleanup purposes)
 function removeArchiveFromDB(video, cb){
-	console.log('inside the function remove, id: ', video.hash);
 
 	Archive.findOne({
 		hash: video.hash
@@ -39,8 +38,6 @@ module.exports.createUser = function(req, res){
 	User.find({ email: req.body.email }, function(err, user){
 		if (err) throw err;
 
-		console.log('user: ', !!user, user)
-
 		// if user exists already send error message, otherwise create the user (note: user is returned in an array)
 		if (user.length) 
 			res.status(400).send({message: 'This username is already taken. Please try something else.'});
@@ -57,7 +54,7 @@ module.exports.createUser = function(req, res){
 			points: 0
 		}, function(err, user){
 			if (err) throw err;
-			console.log('here it is', err);
+
 			if (err) res.status(404).send({message: 'Error: '+ err });
 
 			// creating a token and logging in the user
@@ -84,7 +81,7 @@ module.exports.updateUser = function(req, res){
 
 		// adding items
 		if (action === 'ADD'){
-			// checking if friend or video update, and if it is already present
+			// checking to add FRIEND or VIDEO, if same video/friend is already present, delete it and add new instance of it
 			if (friend && user.friends.every(function(item){return friend._id !== item._id})) user.friends.push(formatFriend(friend));
 			if (video && user.archives.every(function(item){return video.id !== item.id})) user.archives.push(video);
 		}

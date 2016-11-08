@@ -16,7 +16,6 @@ var checkAuth = function(req, res, next){
 					message: 'Failed to authenticate token.', success: false
 				}); 
 			} else {
-				console.log('user inside checkauth: ', decoded)
 				// First, fetch user information (decoded is user's ID)
 				// User.findById(decoded, function(err, user){
 				// 	if (err) throw err;
