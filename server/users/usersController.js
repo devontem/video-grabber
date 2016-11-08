@@ -34,23 +34,6 @@ function removeArchiveFromDB(video, cb){
 	})
 }
 
-// function removeVideoFromStorage(id, callback){
-// 	var path = 'server/temp/'+ id +'.mp4';
-// 	console.log('REMOVING VIDEO: ', path);
-
-// 	// if video exists (not expired or already downloaded)
-// 	if (fs.existsSync(path)) {
-
-// 		// removes the file from the server, then calls callback
-// 		fs.unlink(path, function(){
-// 			callback();
-// 		});
-// 	} else {
-// 		// calls the callback if video not found
-// 		callback();
-// 	}
-// }
-
 module.exports.createUser = function(req, res){
 
 	User.find({ email: req.body.email }, function(err, user){

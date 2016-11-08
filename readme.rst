@@ -15,6 +15,19 @@ Technologies Used
 - MongoDB
 
 *******************
+Features Implemented
+*******************
+- User account creations / login capability
+- Store downloads in archives (if logged in)
+- Redundancy checking (only store the latest conversion of video in archives if already converted)
+- Customize archive history 
+- Public profile page
+- Add friends / remove friends
+- Search for friends on the site by email address
+- Converted videos expire after 20 minutes
+- Share archive / conversion history with friends
+
+*******************
 Features in progress
 *******************
 - User account creations

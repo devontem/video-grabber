@@ -15,6 +15,10 @@ const downloadReducer = function(state = {}, action){
 			return {}
 		case 'FORM_VALIDATION':
 			return {...state, message: action.message, error: true}
+
+		// when re-converting previously downloaded video
+		case "CONVERT_AGAIN":
+			return { baseUrl: action.baseUrl }
 		default:
 			return state
 	}

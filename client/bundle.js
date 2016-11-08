@@ -22758,7 +22758,16 @@
 
 		_createClass(App, [{
 			key: 'componentWillMount',
-			value: function componentWillMount() {}
+			value: function componentWillMount() {
+
+				// if coming back from a redirect on downloadPage, populate the link (logical AND for async)
+				// if (this.store && this.store.baseUrl){
+				// 	this.refs.link.value = "this.store.baseUrl;"
+				// 	alert(this.refs.link.value)
+				// 	console.log('hey', this.store.baseUrl)
+				// 	$('.convert-url').val(this.store.baseUrl)
+				// }
+			}
 		}, {
 			key: 'convertLink',
 			value: function convertLink() {
@@ -22800,6 +22809,8 @@
 				var show_video_info = '';
 				if (store.success) show_video_info = _react2.default.createElement(_VideoInfo2.default, { hash: store.hash, info: store.videoInfo });
 
+				console.log(this.store);
+
 				return _react2.default.createElement(
 					'div',
 					{ className: 'col-sm-12 col-md-8 col-md-offset-2' },
@@ -22829,7 +22840,7 @@
 								{ className: 'input-group-addon' },
 								'Link'
 							),
-							_react2.default.createElement('input', { type: 'text', className: 'form-control input-lg', ref: 'link', placeholder: 'Please enter the base URL' })
+							_react2.default.createElement('input', { type: 'text', className: 'form-control input-lg convert-url', ref: 'link', placeholder: 'Please enter the base URL' })
 						)
 					),
 					_react2.default.createElement(
@@ -24355,7 +24366,7 @@
 
 	            return _react2.default.createElement(
 	                'div',
-	                { className: 'panel panel-default' },
+	                { className: 'panel panel-primary' },
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'panel-heading' },
@@ -30741,6 +30752,10 @@
 				return {};
 			case 'FORM_VALIDATION':
 				return _extends({}, state, { message: action.message, error: true });
+
+			// when re-converting previously downloaded video
+			case "CONVERT_AGAIN":
+				return { baseUrl: action.baseUrl };
 			default:
 				return state;
 		}
@@ -31083,6 +31098,26 @@
 				this.checkStatus();
 				this.clearDownloadState();
 			}
+
+			// sets up video URL to be re-converted, then redirected to conversion page
+
+		}, {
+			key: 'redownload',
+			value: function redownload(link) {
+				if (link) {
+					// send action to re-convert video
+					this.props.dispatch({
+						type: 'CONVERT_AGAIN',
+						baseUrl: link
+					}).then(function () {
+						// redirect to download page
+						this.props.history.push('/');
+					});
+
+					// redirect to download page
+					// this.props.history.push('/');
+				}
+			}
 		}, {
 			key: 'render',
 			value: function render() {
@@ -31123,6 +31158,10 @@
 						)
 					);
 				} else {
+					// async issues
+					// var link = store.videoInfo ? store.videoInfo.webpage_url : undefined;
+					// onClick={this.redownload.bind(this, link)
+
 					result = _react2.default.createElement(
 						'div',
 						{ className: '' },

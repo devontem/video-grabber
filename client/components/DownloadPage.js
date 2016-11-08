@@ -44,6 +44,25 @@ export default class DownloadPage extends Component {
 	    this.clearDownloadState();
 	}
 
+	// sets up video URL to be re-converted, then redirected to conversion page
+	redownload(link){
+		if (link){
+			// send action to re-convert video
+			this.props.dispatch({
+				type: 'CONVERT_AGAIN',
+				baseUrl: link
+			})
+			.then(function(){
+				// redirect to download page
+				this.props.history.push('/');
+			});
+
+			// redirect to download page
+			// this.props.history.push('/');
+
+		}
+	}
+
 	render(){
 		const { store, params } = this.props;
 		let result = '', show_video_info = '';
@@ -64,6 +83,10 @@ export default class DownloadPage extends Component {
 				</div>
 
 		} else {
+			// async issues
+			// var link = store.videoInfo ? store.videoInfo.webpage_url : undefined;
+			// onClick={this.redownload.bind(this, link)
+
 			result =
 			<div className="">
 				<h1 className="text-center">{store.message || error_message }</h1>

@@ -17,6 +17,14 @@ import VideoInfo from './VideoInfo'
 class App extends Component {
 
 	componentWillMount(){
+
+		// if coming back from a redirect on downloadPage, populate the link (logical AND for async)
+		// if (this.store && this.store.baseUrl){
+		// 	this.refs.link.value = "this.store.baseUrl;"
+		// 	alert(this.refs.link.value)
+		// 	console.log('hey', this.store.baseUrl)
+		// 	$('.convert-url').val(this.store.baseUrl)
+		// }
 	}
 
 	convertLink(){
@@ -56,6 +64,8 @@ class App extends Component {
 		let show_video_info = ''
 		if (store.success) show_video_info = <VideoInfo hash={ store.hash } info={store.videoInfo} />
 
+		console.log(this.store)
+
 		return (
 			<div className="col-sm-12 col-md-8 col-md-offset-2">
 				<div className="center-only main-img">
@@ -66,7 +76,7 @@ class App extends Component {
 			    <div className="form-group">
 					<div className="input-group">
 				 		<span className="input-group-addon" >Link</span>
-				    	<input type="text" className="form-control input-lg" ref='link' placeholder="Please enter the base URL"  />
+				    	<input type="text" className="form-control input-lg convert-url" ref='link' placeholder="Please enter the base URL"  />
 				  	</div>
 				</div>
 				<p className="overflow-auto"><a className="btn btn-primary btn-lg pull-right" onClick={this.convertLink.bind(this)}>Convert</a></p>

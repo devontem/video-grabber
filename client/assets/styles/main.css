@@ -33,6 +33,10 @@
     margin-bottom: 80px;
 }
 
+.panel-primary h4 {
+    color: white;
+}
+
 .full-dim, .dimmer {
     width: 100%;
     background: rgba(230, 230, 230, 0.78);

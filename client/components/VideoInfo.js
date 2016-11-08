@@ -21,7 +21,7 @@ export default class VideoInfo extends Component {
     }
 
     return (
-        <div className="panel panel-default">
+        <div className="panel panel-primary">
             <div className="panel-heading">
                 <h4><strong>{info.title}</strong></h4>
             </div>
