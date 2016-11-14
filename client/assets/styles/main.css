@@ -16,15 +16,12 @@
     margin: 20px 0px;
 }
 
-.marg-top-15 {
-    margin-top: 15px;
-}
-
 .navbar-default {
    /* background-color: transparent;
     border-color: transparent;*/
     background-color: #CDDC39;
     border-color: transparent;
+    margin-bottom: 22px!important;
 }
 .navbar-default .navbar-brand {
     color: #207292 !Important;
@@ -84,7 +81,7 @@ img.media-object {
 
 .main-img {
     z-index: 1;
-    margin-top: -20px;
+    margin-top: -50px;
 }
 .main-img h1{
     margin-top: -10px;
