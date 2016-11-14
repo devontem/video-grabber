@@ -114,15 +114,6 @@ body {
     border-right: 1px solid #eee;
 }
 
-.img-logo {
-    background-image: url('./../assets/img/player.png');
-    width: 50px! Important;
-    background-size: cover;
-    background-position: 0px;
-    display: block;
-    position: absolute;
-}
-
 .badge-img {
     width: 170px;
 }

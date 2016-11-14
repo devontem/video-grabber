@@ -64,8 +64,6 @@ class App extends Component {
 		let show_video_info = ''
 		if (store.success) show_video_info = <VideoInfo hash={ store.hash } info={store.videoInfo} />
 
-		console.log(this.store)
-
 		return (
 			<div className="col-sm-12 col-md-8 col-md-offset-2">
 				<div className="center-only main-img">

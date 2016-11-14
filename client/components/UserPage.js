@@ -81,7 +81,7 @@ export default class UserPage extends Component {
 			return item._id === ( profile.user ? profile.user._id : null ) // due to async loading issue
 		}) !== undefined;
 
-		console.log('is Friend?', isFriend, auth.user.friends)
+		// console.log('is Friend?', isFriend, auth.user.friends)
 
 		// friend button
 		if (isFriend){
