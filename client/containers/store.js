@@ -6,8 +6,14 @@ import promise from 'redux-promise-middleware';
 import logger from 'redux-logger'
 import thunk from 'redux-thunk'
 import reducers from './../reducers/index'
+let middleware;
 
-const middleware = applyMiddleware(promise(), thunk, logger())
+// remove logger on production
+if (process.env.NPM_CONFIG_PRODUCTION){
+	middleware = applyMiddleware(promise(), thunk, logger())
+} else {
+	middleware = applyMiddleware(promise(), thunk)
+}
 
 const store = createStore(reducers, middleware)
 
