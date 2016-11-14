@@ -22779,7 +22779,7 @@
 					this.props.dispatch({
 						type: 'CONVERT_URL',
 						baseUrl: val,
-						payload: _axios2.default.post('http://localhost:3000/api/download/', {
+						payload: _axios2.default.post('/api/download/', {
 							baseUrl: val,
 							id: id })
 					}).catch(function (e) {
@@ -31504,7 +31504,7 @@
 				// making AJAX request
 				this.props.dispatch({
 					type: 'UPDATE_ACCOUNT',
-					payload: _axios2.default.put('http://localhost:3000/api/users/' + id, {
+					payload: _axios2.default.put('/api/users/' + id, {
 						action: 'REMOVE',
 						video: video }, {
 						headers: { 'x-access-token': token }
@@ -31645,7 +31645,7 @@
 				if (username.length) {
 					this.props.dispatch({
 						type: 'SEARCH_FRIENDS',
-						payload: _axios2.default.post('http://localhost:3000/api/users/search', {
+						payload: _axios2.default.post('/api/users/search', {
 							username: username
 						})
 					});
@@ -31875,7 +31875,7 @@
 				if (this.validateFields(email, password)) {
 					this.props.dispatch({
 						type: 'LOGIN',
-						payload: _axios2.default.post('http://localhost:3000/api/authenticate/login', {
+						payload: _axios2.default.post('/api/authenticate/login', {
 							email: email,
 							password: password
 						})
@@ -32133,7 +32133,7 @@
 				if (this.validateFields(email, password)) {
 					this.props.dispatch({
 						type: 'SIGNUP',
-						payload: _axios2.default.post('http://localhost:3000/api/users/', {
+						payload: _axios2.default.post('/api/users/', {
 							email: email,
 							password: password,
 							name: name
@@ -32282,7 +32282,7 @@
 				// getting user information
 				this.props.dispatch({
 					type: 'GET_PROFILE',
-					payload: _axios2.default.get('http://localhost:3000/api/users/' + id, {
+					payload: _axios2.default.get('/api/users/' + id, {
 						headers: {
 							'x-access-token': token
 						}
@@ -32307,7 +32307,7 @@
 				// making AJAX request
 				this.props.dispatch({
 					type: 'UPDATE_ACCOUNT',
-					payload: _axios2.default.put('http://localhost:3000/api/users/' + id, {
+					payload: _axios2.default.put('/api/users/' + id, {
 						action: 'ADD',
 						friend: friend }, {
 						headers: { 'x-access-token': token }
@@ -32334,7 +32334,7 @@
 				// making AJAX request
 				this.props.dispatch({
 					type: 'UPDATE_ACCOUNT',
-					payload: _axios2.default.put('http://localhost:3000/api/users/' + id, {
+					payload: _axios2.default.put('/api/users/' + id, {
 						action: 'REMOVE',
 						friend: friend }, {
 						headers: { 'x-access-token': token }
@@ -32610,7 +32610,7 @@
 					if (userId && token) {
 						this.props.dispatch({
 							type: 'GET_USER',
-							payload: _axios2.default.get('http://localhost:3000/api/users/' + userId, {
+							payload: _axios2.default.get('/api/users/' + userId, {
 								headers: {
 									'x-access-token': token
 								}
