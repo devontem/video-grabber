@@ -1,6 +1,5 @@
 node_modules
 server/temp/*
-client/bundle.js
 
 # exception to the rule
 !server/temp/.gitkeep 

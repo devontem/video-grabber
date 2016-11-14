@@ -30,6 +30,7 @@
 
 .navbar-default .navbar-toggle {
     border-color: #8e9a16;
+    cursor: pointer;
 }
 .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
     background-color: #f5ff8e;

@@ -22809,8 +22809,6 @@
 				var show_video_info = '';
 				if (store.success) show_video_info = _react2.default.createElement(_VideoInfo2.default, { hash: store.hash, info: store.videoInfo });
 
-				console.log(this.store);
-
 				return _react2.default.createElement(
 					'div',
 					{ className: 'col-sm-12 col-md-8 col-md-offset-2' },
@@ -30150,10 +30148,10 @@
 /* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
 
 	var _react = __webpack_require__(1);
@@ -30182,7 +30180,14 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var middleware = (0, _redux.applyMiddleware)((0, _reduxPromiseMiddleware2.default)(), _reduxThunk2.default, (0, _reduxLogger2.default)());
+	var middleware = void 0;
+
+	// remove logger on production
+	if (process.env.NPM_CONFIG_PRODUCTION) {
+		middleware = (0, _redux.applyMiddleware)((0, _reduxPromiseMiddleware2.default)(), _reduxThunk2.default, (0, _reduxLogger2.default)());
+	} else {
+		middleware = (0, _redux.applyMiddleware)((0, _reduxPromiseMiddleware2.default)(), _reduxThunk2.default);
+	}
 
 	var store = (0, _redux.createStore)(_index2.default, middleware);
 
@@ -30198,6 +30203,7 @@
 	// });
 
 	exports.default = store;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
 /* 283 */
@@ -32362,7 +32368,7 @@
 					return item._id === (profile.user ? profile.user._id : null); // due to async loading issue
 				}) !== undefined;
 
-				console.log('is Friend?', isFriend, auth.user.friends);
+				// console.log('is Friend?', isFriend, auth.user.friends)
 
 				// friend button
 				if (isFriend) {
