@@ -38,6 +38,7 @@
   "scripts": {
     "start": "npm build && node server/server.js",
     "start-dev": "nodemon server/server.js",
+    "heroku-postbuild": "npm run build",
     "build": "webpack ./client",
     "db": "mongod",
     "dev": "webpack-dev-server --content-base ./client --inline --hot",

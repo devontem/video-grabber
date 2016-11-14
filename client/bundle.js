@@ -22838,7 +22838,7 @@
 								{ className: 'input-group-addon' },
 								'Link'
 							),
-							_react2.default.createElement('input', { type: 'text', className: 'form-control input-lg convert-url', ref: 'link', placeholder: 'Please enter the base URL' })
+							_react2.default.createElement('input', { type: 'text', className: 'form-control input-lg convert-url', ref: 'link', placeholder: 'Please enter the youtube link' })
 						)
 					),
 					_react2.default.createElement(
@@ -31687,7 +31687,7 @@
 					searchFriends = this.props.searchFriends.friends.map(function (val, i) {
 						return _react2.default.createElement(
 							'a',
-							{ href: '/#/users/' + val._id, className: 'list-group-item' },
+							{ href: '/#/users/' + val._id, key: i, className: 'list-group-item' },
 							val.name
 						);
 					});
