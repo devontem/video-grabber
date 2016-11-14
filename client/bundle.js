@@ -22821,13 +22821,13 @@
 						_react2.default.createElement(
 							'h1',
 							{ className: 'jumbo-font' },
-							'Lorus Ipsum'
+							'Video Grabber'
 						)
 					),
 					_react2.default.createElement(
 						'p',
 						{ className: 'clean-font' },
-						'This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.'
+						'A simple tool designed (completely in React.js) to help you download youtube videos on the fly!'
 					),
 					_react2.default.createElement(
 						'div',
@@ -24262,13 +24262,6 @@
 
 				var data = this.createData(error, message);
 				var status = error ? 'danger' : 'success';
-
-				// return (
-				// 	<div className={classes}>
-				// 	    <div className="header">{data.heading}</div>
-				// 		<p>{data.messaging}</p>
-				// 	</div>
-				// )
 
 				return _react2.default.createElement(
 					'div',
@@ -30063,7 +30056,7 @@
 	              _react2.default.createElement(
 	                _reactRouter.Link,
 	                { to: '/profile' },
-	                'Profile'
+	                'Dashboard'
 	              )
 	            )
 	          ),
@@ -30135,7 +30128,8 @@
 	            _react2.default.createElement(
 	              'a',
 	              { href: '/#/', className: 'navbar-brand' },
-	              'name'
+	              _react2.default.createElement('span', { className: 'img-logo' }),
+	              'Video Grabber'
 	            )
 	          ),
 	          _react2.default.createElement(
@@ -31285,6 +31279,9 @@
 				var auth = _props.auth;
 				var params = _props.params;
 
+				var profile_name = void 0,
+				    profile_points = void 0,
+				    profile_email = void 0;
 				var result = '';
 				var message = 'No User Is Logged In';
 
@@ -31309,11 +31306,20 @@
 						),
 						result
 					);
+
+					profile_name = auth.user.name;
+					profile_email = auth.user.email;
+					profile_points = auth.user.points;
 				}
+				/*<div className="btn-group btn-group-justified">
+	   			  <a href="/#/" className="btn btn-default">Download Video</a>
+	   			  <a href={'/#/users/'+auth.user._id} className="btn btn-default">Public Profile</a>
+	   			  <a href="#" className="btn btn-default disabled">Chrome Extension</a>
+	   			</div>*/
 
 				return _react2.default.createElement(
 					'div',
-					{ className: 'col-sm-12 col-md-8 col-md-offset-2' },
+					{ className: 'col-sm-12 col-md-8 col-md-offset-2 marg-top-15' },
 					_react2.default.createElement(
 						'div',
 						{ className: '' },
@@ -31346,6 +31352,15 @@
 									{ href: '#archives', 'data-toggle': 'tab', 'aria-expanded': 'true' },
 									'Archives'
 								)
+							),
+							_react2.default.createElement(
+								'li',
+								{ className: '' },
+								_react2.default.createElement(
+									'a',
+									{ target: '_blank', href: '/#/users/' + auth.user._id },
+									'View Profile'
+								)
 							)
 						),
 						_react2.default.createElement(
@@ -31356,26 +31371,33 @@
 								{ className: 'tab-pane fade active in', id: 'home' },
 								_react2.default.createElement(
 									'div',
-									{ className: 'btn-group btn-group-justified' },
+									{ className: 'col-xs-12 col-sm-4 side-border' },
+									_react2.default.createElement('img', { className: 'img-responsive', src: './../assets/img/user.png' }),
+									_react2.default.createElement('hr', null),
 									_react2.default.createElement(
-										'a',
-										{ href: '/#/', className: 'btn btn-default' },
-										'Download Video'
+										'h3',
+										null,
+										'User: ',
+										_react2.default.createElement(
+											'b',
+											null,
+											profile_name
+										)
 									),
 									_react2.default.createElement(
-										'a',
-										{ href: '/#/users/' + auth.user._id, className: 'btn btn-default' },
-										'Public Profile'
-									),
-									_react2.default.createElement(
-										'a',
-										{ href: '#', className: 'btn btn-default disabled' },
-										'Chrome Extension'
+										'h3',
+										null,
+										'Email: ',
+										_react2.default.createElement(
+											'b',
+											null,
+											profile_email
+										)
 									)
 								),
 								_react2.default.createElement(
 									'div',
-									null,
+									{ className: 'col-xs-12 col-sm-8' },
 									_react2.default.createElement(
 										'div',
 										{ className: 'center' },
@@ -32460,11 +32482,11 @@
 
 				return _react2.default.createElement(
 					'div',
-					{ className: 'col-sm-12 col-md-8 col-md-offset-2' },
+					{ className: 'col-sm-12 col-md-8 col-md-offset-2 marg-top-15' },
 					warning,
 					_react2.default.createElement(
 						'div',
-						{ className: 'panel panel-default' },
+						{ className: 'panel panel-default user-page' },
 						_react2.default.createElement(
 							'div',
 							{ className: 'panel-body' },

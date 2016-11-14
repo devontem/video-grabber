@@ -147,9 +147,9 @@ export default class UserPage extends Component {
 		}
 
 		return(
-			<div className="col-sm-12 col-md-8 col-md-offset-2">
+			<div className="col-sm-12 col-md-8 col-md-offset-2 marg-top-15">
 				{warning}
-				<div className="panel panel-default">
+				<div className="panel panel-default user-page">
 				  <div className="panel-body">
 				    <div className="col-xs-12 col-sm-4">
 				    	<img className="img-responsive" src="./../assets/img/user.png" />

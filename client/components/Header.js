@@ -26,7 +26,7 @@ export default class Header extends Component {
 
   	if (this.props.loggedIn){
   		result = <ul className="nav navbar-nav navbar-right">
-                <li><a href="#"><Link to={'/profile'}>Profile</Link></a></li>
+                <li><a href="#"><Link to={'/profile'}>Dashboard</Link></a></li>
                 <li><a href="#" onClick={this.logOut.bind(this)}><Link to={'/'}>Log Out</Link></a></li>
               </ul>
   	} else {
@@ -55,7 +55,10 @@ export default class Header extends Component {
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>
             </button>
-            <a href="/#/" className="navbar-brand" >name</a>
+            <a href="/#/" className="navbar-brand" >
+             <span className="img-logo"></span> 
+            Video Grabber
+            </a>
           </div>
 
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

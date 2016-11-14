@@ -16,21 +16,38 @@
     margin: 20px 0px;
 }
 
-.navbar-default {
-    background-color: transparent;
-    border-color: transparent;
+.marg-top-15 {
+    margin-top: 15px;
 }
 
-.navbar-default .navbar-collapse, 
-.containter-fluid {
-    background-color: transparent;
+.navbar-default {
+   /* background-color: transparent;
+    border-color: transparent;*/
+    background-color: #CDDC39;
+    border-color: transparent;
+}
+.navbar-default .navbar-brand {
+    color: #207292 !Important;
+    font-size: 1.5em;
+}
+
+.navbar-default .navbar-toggle {
+    border-color: #8e9a16;
+}
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+    background-color: #f5ff8e;
 }
 
 #myTabContent{
     overflow: auto;
     min-height: 400px;
-    padding:10px;
-    margin-bottom: 80px;
+    padding: 35px 10px;
+    margin-bottom: 160px;
+}
+
+.user-page {
+    margin-bottom: 120px;
+    padding: 10px 5px 35px 5px;
 }
 
 .panel-primary h4 {
@@ -52,7 +69,7 @@ img.media-object {
 }
 
 .center {
-    margin: 25px auto;
+    margin: 0px auto;
     text-align: center;
 }
 
@@ -88,7 +105,25 @@ nav a {
 
 body {
     background: #f7f6f6;
+/*    background: rgba(117, 202, 235, 0.5);*/
 /*    background: rgb(233, 247, 99);*/
+}`
+
+.nav-tabs>li>a {
+    background: #eee;
+}
+
+.side-border {
+    border-right: 1px solid #eee;
+}
+
+.img-logo {
+    background-image: url('./../assets/img/player.png');
+    width: 50px! Important;
+    background-size: cover;
+    background-position: 0px;
+    display: block;
+    position: absolute;
 }
 
 .badge-img {

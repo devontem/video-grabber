@@ -70,9 +70,9 @@ class App extends Component {
 			<div className="col-sm-12 col-md-8 col-md-offset-2">
 				<div className="center-only main-img">
 					<img className="" src="./../assets/img/player.png" />
-					<h1 className="jumbo-font">Lorus Ipsum</h1>
+					<h1 className="jumbo-font">Video Grabber</h1>
 				</div>
-			    <p className="clean-font">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+			    <p className="clean-font">A simple tool designed (completely in React.js) to help you download youtube videos on the fly!</p>
 			    <div className="form-group">
 					<div className="input-group">
 				 		<span className="input-group-addon" >Link</span>

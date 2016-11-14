@@ -19,7 +19,6 @@ describe('Users: No Auth Required', function(){
 
 	// Empties DB before each test
 	beforeEach(function(done){
-		var la = 2;
 
 		// Empties DB before each test
 		User.remove({}, function(err){
