@@ -74,7 +74,7 @@ class App extends Component {
 			    <div className="form-group">
 					<div className="input-group">
 				 		<span className="input-group-addon" >Link</span>
-				    	<input type="text" className="form-control input-lg convert-url" ref='link' placeholder="Please enter the base URL"  />
+				    	<input type="text" className="form-control input-lg convert-url" ref='link' placeholder="Please enter the youtube link"  />
 				  	</div>
 				</div>
 				<p className="overflow-auto"><a className="btn btn-primary btn-lg pull-right" onClick={this.convertLink.bind(this)}>Convert</a></p>

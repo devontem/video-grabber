@@ -45,7 +45,7 @@ export default class FriendsPage extends Component {
 		if (this.props.searchFriends.friends && this.props.searchFriends.friends.length > 0){
 			searchFriends = this.props.searchFriends.friends.map(function(val, i){
 				return (
-					<a href={'/#/users/'+ val._id} className="list-group-item">{val.name}</a>
+					<a href={'/#/users/'+ val._id} key={i} className="list-group-item">{val.name}</a>
 					)
 			});
 		} else if (this.props.searchFriends.friends && this.props.searchFriends.friends.length < 1) {
