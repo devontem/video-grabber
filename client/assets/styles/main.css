@@ -16,6 +16,10 @@
     margin: 20px 0px;
 }
 
+.word-break {
+    word-break: break-word;
+}
+
 .navbar-default {
    /* background-color: transparent;
     border-color: transparent;*/

@@ -53,7 +53,7 @@ export default class ProfilePage extends Component {
 				</ul>
 				<div id="myTabContent" className="tab-content panel panel-default padding-10">
 				  <div className="tab-pane fade active in" id="home">
-				  	<div className="col-xs-12 col-sm-4 side-border">
+				  	<div className="col-xs-12 col-sm-4 side-border word-break">
 					  	<img className="img-responsive" src="./../assets/img/user.png" />
 					  	<hr />
 				    	<h3>User: <b>{ profile_name }</b></h3>
