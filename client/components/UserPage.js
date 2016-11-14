@@ -19,7 +19,7 @@ export default class UserPage extends Component {
 		// getting user information
 		this.props.dispatch({
 			type: 'GET_PROFILE',
-			payload: axios.get('http://localhost:3000/api/users/'+id, {
+			payload: axios.get('/api/users/'+id, {
 				headers: {
 					'x-access-token': token
 				}
@@ -39,7 +39,7 @@ export default class UserPage extends Component {
 		// making AJAX request
 		this.props.dispatch({
 			type: 'UPDATE_ACCOUNT',
-			payload: axios.put('http://localhost:3000/api/users/'+id, {
+			payload: axios.put('/api/users/'+id, {
 				action: 'ADD',
 				friend: friend },
 				{ 
@@ -62,7 +62,7 @@ export default class UserPage extends Component {
 		// making AJAX request
 		this.props.dispatch({
 			type: 'UPDATE_ACCOUNT',
-			payload: axios.put('http://localhost:3000/api/users/'+id, {
+			payload: axios.put('/api/users/'+id, {
 				action: 'REMOVE',
 				friend: friend },
 				{ 

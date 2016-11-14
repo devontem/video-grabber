@@ -65,7 +65,7 @@ export default class SignupPage extends Component {
 		if ( this.validateFields(email, password) ){
 			this.props.dispatch({
 				type: 'SIGNUP',
-				payload: axios.post('http://localhost:3000/api/users/', {
+				payload: axios.post('/api/users/', {
 					email: email,
 					password: password,
 					name: name

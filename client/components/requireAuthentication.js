@@ -28,7 +28,7 @@ export default function requireAuthentication(Component) {
 			if (userId && token){
 				this.props.dispatch({
 					type: 'GET_USER',
-					payload: axios.get('http://localhost:3000/api/users/'+userId, {
+					payload: axios.get('/api/users/'+userId, {
 						headers: {
 							'x-access-token': token
 						}

@@ -61,7 +61,7 @@ export default class LoginPage extends Component {
 		if ( this.validateFields(email, password) ){
 			this.props.dispatch({
 				type: 'LOGIN',
-				payload: axios.post('http://localhost:3000/api/authenticate/login', {
+				payload: axios.post('/api/authenticate/login', {
 					email: email,
 					password: password
 				})

@@ -19,7 +19,7 @@ export default class ArchivesPage extends Component {
 		// making AJAX request
 		this.props.dispatch({
 			type: 'UPDATE_ACCOUNT',
-			payload: axios.put('http://localhost:3000/api/users/'+id, {
+			payload: axios.put('/api/users/'+id, {
 				action: 'REMOVE',
 				video: video },
 				{ 

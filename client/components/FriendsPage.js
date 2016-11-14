@@ -17,7 +17,7 @@ export default class FriendsPage extends Component {
 		if (username.length){
 			this.props.dispatch({
 				type: 'SEARCH_FRIENDS',
-				payload: axios.post('http://localhost:3000/api/users/search', {
+				payload: axios.post('/api/users/search', {
 					username: username
 				})
 			});

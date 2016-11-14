@@ -36,7 +36,7 @@ class App extends Component {
 			this.props.dispatch({
 				type: 'CONVERT_URL', 
 				baseUrl: val,
-				payload: axios.post('http://localhost:3000/api/download/', {
+				payload: axios.post('/api/download/', {
 					baseUrl: val,
 					id: id 		})
 			}).catch(function(e){
