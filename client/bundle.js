@@ -30084,12 +30084,8 @@
 	            null,
 	            _react2.default.createElement(
 	              'a',
-	              { href: '#' },
-	              _react2.default.createElement(
-	                _reactRouter.Link,
-	                { to: '/profile' },
-	                'Dashboard'
-	              )
+	              { href: '/#/profile' },
+	              'Dashboard'
 	            )
 	          ),
 	          _react2.default.createElement(
@@ -30097,12 +30093,8 @@
 	            null,
 	            _react2.default.createElement(
 	              'a',
-	              { href: '#', onClick: this.logOut.bind(this) },
-	              _react2.default.createElement(
-	                _reactRouter.Link,
-	                { to: '/' },
-	                'Log Out'
-	              )
+	              { href: '/#/', onClick: this.logOut.bind(this) },
+	              'Log Out'
 	            )
 	          )
 	        );
@@ -30115,12 +30107,8 @@
 	            null,
 	            _react2.default.createElement(
 	              'a',
-	              { href: '#' },
-	              _react2.default.createElement(
-	                _reactRouter.Link,
-	                { to: '/login' },
-	                'Log In'
-	              )
+	              { href: '/#/login' },
+	              'Log In'
 	            )
 	          )
 	        );
@@ -31571,7 +31559,7 @@
 							'div',
 							{ className: 'col-xs-6 col-sm-3', key: i },
 							_react2.default.createElement(
-								'a',
+								'div',
 								{ className: 'thumbnail' },
 								_react2.default.createElement('img', { src: val.thumbnail, alt: val.title }),
 								_react2.default.createElement(
@@ -32563,7 +32551,6 @@
 				key: 'componentWillMount',
 				value: function componentWillMount() {
 					this.checkAuth();
-					console.log(this.props);
 				}
 			}, {
 				key: 'checkAuth',

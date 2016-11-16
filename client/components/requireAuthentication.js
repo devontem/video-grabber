@@ -14,7 +14,6 @@ export default function requireAuthentication(Component) {
 
 		componentWillMount(){
 	        this.checkAuth();
-	        console.log(this.props)
 	    }
 
 	    checkAuth() {

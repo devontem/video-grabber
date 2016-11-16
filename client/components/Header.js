@@ -26,12 +26,12 @@ export default class Header extends Component {
 
   	if (this.props.loggedIn){
   		result = <ul className="nav navbar-nav navbar-right">
-                <li><a href="#"><Link to={'/profile'}>Dashboard</Link></a></li>
-                <li><a href="#" onClick={this.logOut.bind(this)}><Link to={'/'}>Log Out</Link></a></li>
+                <li><a href="/#/profile">Dashboard</a></li>
+                <li><a href="/#/" onClick={this.logOut.bind(this)}>Log Out</a></li>
               </ul>
   	} else {
   		result =  <ul className="nav navbar-nav navbar-right">
-                  <li><a href="#"><Link to={'/login'}>Log In</Link></a></li>
+                  <li><a href="/#/login">Log In</a></li>
                 </ul>
   	}
 

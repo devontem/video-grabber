@@ -56,14 +56,14 @@ export default class ArchivesPage extends Component {
 			return context.props.archives.map(function(val, i){
 					return (
 						<div className="col-xs-6 col-sm-3" key={i}>
-						<a className="thumbnail">
+						<div className="thumbnail">
 						  <img src={val.thumbnail} alt={val.title} />
 						  <p className="text-center">{val.title}</p>
 						  <div className="btn-group btn-group-justified">
 							  <a href={'/#/download/id/' + val.hash} className="btn btn-primary btn-xs">DETAILS</a>
 							  <a onClick={context.deleteConfirm.bind(context, val)} className="btn btn-danger btn-xs"><span className="glyphicon glyphicon-remove color-red" aria-hidden="true"></span></a>
 							</div>
-						</a>
+						</div>
 						</div> );
 					});
 		}
