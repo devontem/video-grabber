@@ -17,11 +17,17 @@ module.exports.getDownload = function(req, res){
 	// if video exists (not expired or already downloaded)
 	if (fs.existsSync(path)) {
 
-		// trigger a download
-		res.download(path, id+'.mp4', function(err){
-			if (!err){
-				fs.unlink(path); // remove the file from our server
-			}
+		// find video information
+		Archive.findOne({hash: id}, function(err, archive){
+			if (err) throw err;
+			var filename = archive.videoInfo.title + '.mp4';
+
+			// trigger a download
+			res.download(path, filename, function(err){
+				if (!err){
+					fs.unlink(path); // remove the file from our server
+				}
+			});
 		});
 	}
 }
