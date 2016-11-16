@@ -16,7 +16,7 @@ export default class VideoInfo extends Component {
     let downloadButton = '';
     if (!this.props.hideButton){
         downloadButton = <div className="ui right floated button text-right">
-                            <button type="button" className="btn btn-default"><Link to={'/download/id/'+hash}> Download Video! </Link></button>
+                            <a type="button" href={'/#/download/id/'+hash} className="btn btn-default">Download Video!</a>
                         </div>
     }
 

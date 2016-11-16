@@ -24344,13 +24344,9 @@
 	                    'div',
 	                    { className: 'ui right floated button text-right' },
 	                    _react2.default.createElement(
-	                        'button',
-	                        { type: 'button', className: 'btn btn-default' },
-	                        _react2.default.createElement(
-	                            _reactRouter.Link,
-	                            { to: '/download/id/' + hash },
-	                            ' Download Video! '
-	                        )
+	                        'a',
+	                        { type: 'button', href: '/#/download/id/' + hash, className: 'btn btn-default' },
+	                        'Download Video!'
 	                    )
 	                );
 	            }
@@ -31115,14 +31111,12 @@
 				this.props.dispatch({ type: 'CLEAR_DOWNLOAD_STATE' });
 			}
 
+			// deprecated: download opens in a new self-closing window
 			// openDl(id){
-
 			// 	var wnd = window.open("/api/download/id/"+id, "mywindow","menubar=1,resizable=1,width=350,height=250");
 			//     setTimeout(function() {
 			//       wnd.close();
 			//     }, 2000);
-
-
 			//     this.checkStatus();
 			//     this.clearDownloadState();
 			// }
