@@ -1,5 +1,6 @@
 node_modules
 server/temp/*
+npm-debug.log
 
 # exception to the rule
 !server/temp/.gitkeep 

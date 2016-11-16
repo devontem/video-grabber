@@ -132,11 +132,47 @@ body {
     overflow: hidden;
 }
 
+footer {
+    background: #ddef53; /* Old browsers */
+    background: -moz-linear-gradient(45deg,  #ddef53 0%, #c3d825 44%, #c3d825 56%, #c3d825 100%, #dbf043 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(45deg,  #ddef53 0%,#c3d825 44%,#c3d825 56%,#c3d825 100%,#dbf043 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(45deg,  #ddef53 0%,#c3d825 44%,#c3d825 56%,#c3d825 100%,#dbf043 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ddef53', endColorstr='#dbf043',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    margin-top: 100px;
+    overflow: auto;
+    padding: 20px 5px;
+    color: #0080e6;
+    font-weight: bold;
+}
+
+footer .made-by {
+    text-align: right;
+}
+
+footer .made-by a,
+footer .made-by a:hover,
+footer .made-by a:visited {
+    color: #9C27B0;
+}
+
+footer .header {
+    font-size: 1.5em;
+    margin-bottom: 0px;
+}
+
+footer .slogan {
+    margin-bottom: 15px;
+}
+
 
 @media only screen and (max-width: 768px) {
     #archives .thumbnail img {
         height: 160px;
     }
+}
+
+@media only screen and (max-width: 425px) {
+
 }
 
 

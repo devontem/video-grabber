@@ -29971,6 +29971,44 @@
 							{ className: '' },
 							this.props.children
 						)
+					),
+					_react2.default.createElement(
+						'footer',
+						null,
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-xs-6' },
+							_react2.default.createElement(
+								'p',
+								{ className: 'header' },
+								'Video Grabber'
+							),
+							_react2.default.createElement(
+								'p',
+								{ className: 'slogan' },
+								'Download all the videos!'
+							),
+							_react2.default.createElement(
+								'p',
+								null,
+								'© 2016 Copyright'
+							)
+						),
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-xs-6' },
+							_react2.default.createElement(
+								'p',
+								{ className: 'made-by' },
+								'Made by Devonte ',
+								_react2.default.createElement('br', null),
+								_react2.default.createElement(
+									'a',
+									{ href: 'http://github.com/devontem' },
+									'@devontem'
+								)
+							)
+						)
 					)
 				);
 			}
@@ -31377,7 +31415,7 @@
 								{ className: 'tab-pane fade active in', id: 'home' },
 								_react2.default.createElement(
 									'div',
-									{ className: 'col-xs-12 col-sm-4 side-border' },
+									{ className: 'col-xs-12 col-sm-4 side-border word-break' },
 									_react2.default.createElement('img', { className: 'img-responsive', src: './../assets/img/user.png' }),
 									_react2.default.createElement('hr', null),
 									_react2.default.createElement(
