@@ -32,15 +32,22 @@ export default class DownloadPage extends Component {
 		this.props.dispatch({type: 'CLEAR_DOWNLOAD_STATE'})
 	}
 
+	// deprecated: download opens in a new self-closing window
+	// openDl(id){
+	// 	var wnd = window.open("/api/download/id/"+id, "mywindow","menubar=1,resizable=1,width=350,height=250");
+	//     setTimeout(function() {
+	//       wnd.close();
+	//     }, 2000);
+	//     this.checkStatus();
+	//     this.clearDownloadState();
+	// }
+
 	openDl(id){
+		var form = $('form.dl');
+		form.append(<input class="hide" type="submit" />);
+		form.submit();
 
-		var wnd = window.open("/api/download/id/"+id, "mywindow","menubar=1,resizable=1,width=350,height=250");
-	    setTimeout(function() {
-	      wnd.close();
-	    }, 2000);
-
-
-	    this.checkStatus();
+		this.checkStatus();
 	    this.clearDownloadState();
 	}
 
@@ -102,6 +109,8 @@ export default class DownloadPage extends Component {
 	  			  <div className="panel-body">
 	  			    {result}
 	  			  </div>
+	  			  <form className="dl" method="POST" action={'/api/download/id/'+ params.id}>
+	  			  </form>
 
 	  			  	<div className={ loader }>
 	  			   		<div className="ui large text loader"></div>

@@ -30130,16 +30130,6 @@
 	        );
 	      }
 
-	      // add this back for title
-	      //<h1 className="header-text">Video Grabber</h1>
-
-	      // return (
-	      //   <div className="ui  segment nav-bar">
-
-	      //     { result }
-	      //   </div>
-	      // )
-
 	      return _react2.default.createElement(
 	        'nav',
 	        { className: 'navbar navbar-default' },
@@ -31124,14 +31114,25 @@
 			value: function clearDownloadState() {
 				this.props.dispatch({ type: 'CLEAR_DOWNLOAD_STATE' });
 			}
+
+			// openDl(id){
+
+			// 	var wnd = window.open("/api/download/id/"+id, "mywindow","menubar=1,resizable=1,width=350,height=250");
+			//     setTimeout(function() {
+			//       wnd.close();
+			//     }, 2000);
+
+
+			//     this.checkStatus();
+			//     this.clearDownloadState();
+			// }
+
 		}, {
 			key: 'openDl',
 			value: function openDl(id) {
-
-				var wnd = window.open("/api/download/id/" + id, "mywindow", "menubar=1,resizable=1,width=350,height=250");
-				setTimeout(function () {
-					wnd.close();
-				}, 2000);
+				var form = $('form.dl');
+				form.append(_react2.default.createElement('input', { 'class': 'hide', type: 'submit' }));
+				form.submit();
 
 				this.checkStatus();
 				this.clearDownloadState();
@@ -31151,9 +31152,6 @@
 						// redirect to download page
 						this.props.history.push('/');
 					});
-
-					// redirect to download page
-					// this.props.history.push('/');
 				}
 			}
 		}, {
@@ -31196,9 +31194,6 @@
 						)
 					);
 				} else {
-					// async issues
-					// var link = store.videoInfo ? store.videoInfo.webpage_url : undefined;
-					// onClick={this.redownload.bind(this, link)
 
 					result = _react2.default.createElement(
 						'div',
@@ -31244,6 +31239,7 @@
 							{ className: 'panel-body' },
 							result
 						),
+						_react2.default.createElement('form', { className: 'dl', method: 'POST', action: '/api/download/id/' + params.id }),
 						_react2.default.createElement(
 							'div',
 							{ className: loader },
@@ -31355,11 +31351,6 @@
 					profile_email = auth.user.email;
 					profile_points = auth.user.points;
 				}
-				/*<div className="btn-group btn-group-justified">
-	   			  <a href="/#/" className="btn btn-default">Download Video</a>
-	   			  <a href={'/#/users/'+auth.user._id} className="btn btn-default">Public Profile</a>
-	   			  <a href="#" className="btn btn-default disabled">Chrome Extension</a>
-	   			</div>*/
 
 				return _react2.default.createElement(
 					'div',
@@ -31579,7 +31570,6 @@
 		}, {
 			key: 'render',
 			value: function render() {
-
 				// function that takes 'this' context, and displays archive data in an array
 				function data(context) {
 					return context.props.archives.map(function (val, i) {
@@ -31953,66 +31943,6 @@
 				if (store.error) {
 					error = _react2.default.createElement(_FormMessage2.default, { error: true, message: store.message ? store.message : undefined });
 				}
-
-				// return(
-				// 	<div className="main-wrapper center">
-				// 		{error}
-				// 		<div className="ui segment content">
-				// 			<div className="ui huge header">Login</div>
-
-				// 			<form>
-				// 				<input type="text" ref="email" placeholder="email" name="email" />
-				// 				<input type="password" ref="password" placeholder="password" name="password" />
-				// 				<button type="submit" onClick={this.submitForm.bind(this)} >Submit</button>
-				// 			</form>
-
-				// 			<div className={ loader }>
-				// 		   		<div className="ui large text loader"></div>
-				// 		 	</div>
-
-				// 		</div>
-				// 	</div>
-				// )
-
-				// return (
-				// 	<div className="ui middle aligned center aligned grid">
-				// 	  <div className="column">
-				// 	    <h2 className="ui teal image header">
-				// 	      <img src="assets/images/logo.png" className="image"/>
-				// 	      <div className="content">
-				// 	        Log-in to your account
-				// 	      </div>
-				// 	    </h2>
-				// 	    <form className="ui large form">
-				// 	      <div className="ui stacked segment">
-				// 	        <div className="field">
-				// 	          <div className="ui left icon input">
-				// 	            <i className="user icon"></i>
-				// 	            <input type="text" ref="email" placeholder="email" name="email" />
-				// 	          </div>
-				// 	        </div>
-				// 	        <div className="field">
-				// 	          <div className="ui left icon input">
-				// 	            <i className="lock icon"></i>
-				// 	            <input type="password" ref="password" placeholder="password" name="password" />
-				// 	          </div>
-				// 	        </div>
-				// 	        <button className="ui fluid large teal submit button" type="submit" onClick={this.submitForm.bind(this)}>Login</button>
-				// 	      </div>
-				// 	    </form>
-
-				// 	    {error}
-
-				// 	    <div className="ui message">
-				// 	      New to us? <Link to={'/signup'}>Sign Up</Link>
-				// 	    </div>
-				// 	  </div>
-
-				// 		<div className={ loader }>
-				// 	   		<div className="ui large text loader"></div>
-				// 	 	</div>
-				// 	</div>
-				// )
 
 				return _react2.default.createElement(
 					'div',
