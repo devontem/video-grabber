@@ -21,8 +21,6 @@
 }
 
 .navbar-default {
-   /* background-color: transparent;
-    border-color: transparent;*/
     background-color: #CDDC39;
     border-color: transparent;
     margin-bottom: 22px!important;
@@ -44,7 +42,6 @@
     overflow: auto;
     min-height: 400px;
     padding: 35px 10px;
-    /*margin-bottom: 160px;*/
 }
 
 .user-page {

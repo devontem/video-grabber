@@ -36,11 +36,6 @@ export default class ProfilePage extends Component {
 			profile_points = auth.user.points;
 
 		}
-		/*<div className="btn-group btn-group-justified">
-					  <a href="/#/" className="btn btn-default">Download Video</a>
-					  <a href={'/#/users/'+auth.user._id} className="btn btn-default">Public Profile</a>
-					  <a href="#" className="btn btn-default disabled">Chrome Extension</a>
-					</div>*/
 
 		return(
 			<div className="col-sm-12 col-md-8 col-md-offset-2 marg-top-15">

@@ -57,9 +57,6 @@ export default class DownloadPage extends Component {
 				this.props.history.push('/');
 			});
 
-			// redirect to download page
-			// this.props.history.push('/');
-
 		}
 	}
 
@@ -83,9 +80,6 @@ export default class DownloadPage extends Component {
 				</div>
 
 		} else {
-			// async issues
-			// var link = store.videoInfo ? store.videoInfo.webpage_url : undefined;
-			// onClick={this.redownload.bind(this, link)
 
 			result =
 			<div className="">

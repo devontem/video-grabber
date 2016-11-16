@@ -51,7 +51,6 @@ export default class ArchivesPage extends Component {
 
 
 	render(){
-
 		// function that takes 'this' context, and displays archive data in an array
 		function data(context){
 			return context.props.archives.map(function(val, i){

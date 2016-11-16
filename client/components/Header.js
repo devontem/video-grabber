@@ -35,16 +35,6 @@ export default class Header extends Component {
                 </ul>
   	}
 
-    // add this back for title
-    //<h1 className="header-text">Video Grabber</h1>
-    
-    // return (
-    //   <div className="ui  segment nav-bar">
-
-    //     { result }
-    //   </div>
-    // )
-
     return (
       <nav className="navbar navbar-default">
         <div className="container-fluid">
