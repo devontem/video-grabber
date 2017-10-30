@@ -1,6 +1,7 @@
 node_modules
 server/temp/*
 npm-debug.log
+.DS_Store
 
 # exception to the rule
 !server/temp/.gitkeep 
