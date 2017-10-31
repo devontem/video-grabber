@@ -9,7 +9,7 @@ middlewareInit(app, express);
 
 // server listener
 app.listen(port, function(){
-	console.log('Listening on port: '+ port);
+	console.log('Listening on port: ' + port);
 });
 
 module.exports = app;
